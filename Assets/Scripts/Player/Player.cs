@@ -1,25 +1,28 @@
-using Battleground;
-using Unity.Burst.CompilerServices;
+using Units;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+namespace Battleground
 {
-    private Vector2 _currentPosition;
-
-    private void Update()
+    public class Player : MonoBehaviour
     {
-        if (Input.GetMouseButton(0))
+        [SerializeField] private LayerMask _interactableObjectsMask;
+        [SerializeField] private BattleSceneUI _unitCardRenderer;
+
+        private void Update()
         {
+            bool isOverUI = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, 100, _interactableObjectsMask) && !isOverUI)
             {
+                var rightMouseButtonDown = Input.GetMouseButtonDown(1);
+                var unit = hit.collider.GetComponent<Piece>().Unit;
+                if (unit != null && rightMouseButtonDown)
+                {
+                    _unitCardRenderer.ShowUnitInfo(unit);
+                }
             }
         }
     }
-
-    private void OnMouseDrag()
-    {
-        //var dragableItem = hit.transform.GetComponent<IDragable>();
-    }
 }
+
