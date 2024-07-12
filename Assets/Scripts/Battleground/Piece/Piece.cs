@@ -9,7 +9,7 @@ namespace Battleground
         [SerializeField] private UnitRace _race;
         [SerializeField] private UnitClass _class;
         [SerializeField] private GameObject _statRenderer;
-        public Spell spell;
+        public Spell[] spells;
 
         public Unit Unit { get; private set; }
 

@@ -17,24 +17,17 @@ namespace UI
 
         public void Init(Unit unit)
         {
-            Unit = unit; 
-            _name.text = unit.Name;
-            _starsRenderer.Render(unit.StarCount);
-            _health.Render(unit.SkillLevels.Health);
-            _energy.Render(unit.SkillLevels.Energy);
-            _dexterity.Render(unit.SkillLevels.Dexterity);
-            _strength.Render(unit.SkillLevels.Strength);
+            Unit = unit;
         }
 
-        private string FormedValueToString(int currentValue, int maxValue)
+        public void Render()
         {
-            var len = maxValue.ToString().Length;
-            var zeroCount = len - currentValue.ToString().Length;
-            var newStr = "";
-            for (var i = 0; i < zeroCount; i++)
-                newStr += "0";
-            newStr += currentValue.ToString() + "/" + maxValue.ToString();
-            return newStr;
+            _name.text = Unit.Name;
+            _starsRenderer.Render(Unit.StarCount);
+            _health.Render(Unit.SkillLevels.Health);
+            _energy.Render(Unit.SkillLevels.Energy);
+            _dexterity.Render(Unit.SkillLevels.Dexterity);
+            _strength.Render(Unit.SkillLevels.Strength);
         }
     }
 }

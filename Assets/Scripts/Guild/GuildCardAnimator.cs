@@ -6,7 +6,7 @@ namespace Guild
     {
         private Animator _animator;
         private const string _isSelect = "IsSelect";
-        private const string _isFlip = "IsFlip";
+        private const string _isFlip = "Flip";
 
         private void Awake()
         {
@@ -23,7 +23,7 @@ namespace Guild
             _animator.SetBool(_isSelect, false);
         }
 
-        public void FlipAnimation()
+        public void RerollAnimation()
         {
             _animator.SetTrigger(_isFlip);
         }

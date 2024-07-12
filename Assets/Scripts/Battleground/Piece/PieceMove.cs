@@ -41,7 +41,7 @@ namespace Battleground
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
-                _rayHitPosition = hit.point;
+                _rayHitPosition = hit.point;             
                 _rayHitPosition.y = 0;
 
                 var isMoreMaxDistance = (_startPosition - _rayHitPosition).magnitude > _maxMoveDistance;

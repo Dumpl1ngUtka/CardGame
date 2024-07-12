@@ -21,12 +21,12 @@ namespace Guild
             GenerateCards();
         }
 
-        public void GenerateCards(bool isReroll = false)
+        public void GenerateCards(bool isReroll = false)  
         {
-            if (_rerollCount == 0)
+            if (_rerollCount == 0 && isReroll)
                 return;
 
-            bool isAllCardsRerollLocked = true;
+            bool isAllCardsRerollLocked = isReroll;
             foreach (var card in _guildUnitCards)
                 if (!card.IsRerollLock) 
                 {
@@ -38,10 +38,14 @@ namespace Guild
 
             for (int i = 0; i < _guildUnitCards.Length; i++)
             {
-                if (_guildUnitCards[i].IsRerollLock)
+                if (_guildUnitCards[i].IsRerollLock && isReroll)
                     continue;
                 var unit = GenerateUnit();
-                _guildUnitCards[i].Init(unit);
+                _guildUnitCards[i].Init(unit, !isReroll);
+                if (isReroll)
+                {
+                    _guildUnitCards[i].Reroll();
+                }
             }
 
             if (isReroll)

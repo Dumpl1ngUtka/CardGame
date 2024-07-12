@@ -13,6 +13,8 @@ namespace Units.Weapons
         [Range(1, 5)] public int Damage = 1;
         [Range(1, 5)] public int Usability = 1;
         [Range(1, 5)] public int Weight = 1;
+        public GameObject Model;
+        public Sprite Icon;
 
         public List<PassiveEffect> passiveEffects;
     }
