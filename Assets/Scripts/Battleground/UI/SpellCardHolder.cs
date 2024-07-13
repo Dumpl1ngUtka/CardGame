@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Battleground.UI
@@ -9,22 +6,13 @@ namespace Battleground.UI
     {
         [SerializeField] private SpellCard _spellCardPrefab;
         [SerializeField] private Transform _container;
-        [SerializeField] private Spell[] _spells;
         [SerializeField] private Transform[] _spawnPositions;
-
-        private void Awake()
-        {
-            RenderCards(_spells);
-        }
 
         public void RenderCards(Spell[] spells)
         {
-            foreach (Transform child in transform)
-            {
-                Destroy(child.gameObject);
-            }
+            ClearContainer();
 
-            var index = (_spawnPositions.Length - _spells.Length)/2;
+            var index = (_spawnPositions.Length - spells.Length)/2;
 
             foreach (Spell spell in spells)
             {
@@ -32,6 +20,12 @@ namespace Battleground.UI
                 spellCard.Init(spell);
                 index++;
             }
+        }
+
+        private void ClearContainer()
+        {
+            foreach (Transform child in _container.transform)
+                Destroy(child.gameObject);
         }
     }
 }

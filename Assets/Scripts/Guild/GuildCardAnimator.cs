@@ -13,6 +13,11 @@ namespace Guild
             _animator = GetComponent<Animator>();
         }
 
+        private void OnEnable()
+        {
+            _animator.SetBool(_isSelect, false);
+        }
+
         private void OnMouseEnter()
         {
             _animator.SetBool(_isSelect, true);

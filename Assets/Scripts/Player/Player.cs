@@ -8,7 +8,8 @@ namespace Battleground
     public class Player : MonoBehaviour
     {
         [SerializeField] private LayerMask _interactableObjectsMask;
-        [SerializeField] private BattleSceneUI _unitCardRenderer;
+
+        public BattleSceneUI UI;
         public Unit CurrentUnit { get; private set; }
 
         private void Update()
@@ -17,28 +18,15 @@ namespace Battleground
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 100, _interactableObjectsMask) && !isOverUI)
             {
-                var unit = hit.collider.GetComponent<Piece>()?.Unit;
-                if (unit == null)
+                if (!hit.collider.TryGetComponent<IInteractableForPlayer>(out var interactableObject))
                     return;
 
                 if (Input.GetMouseButtonDown(0))
-                    LeftMouseButtonDown(unit);
+                    interactableObject.LeftMouseButtonDown(this);
 
                 if (Input.GetMouseButtonDown(1))
-                    RightMouseButtonDown(unit);
+                    interactableObject.RightMouseButtonDown(this);
             }
-        }
-
-        private void RightMouseButtonDown(Unit unit)
-        {
-            Debug.Log(unit);
-            _unitCardRenderer.ShowUnitInfo(unit);
-        }
-
-        private void LeftMouseButtonDown(Unit unit)
-        {
-            Debug.Log(unit);
-            CurrentUnit = unit;
         }
     }
 }

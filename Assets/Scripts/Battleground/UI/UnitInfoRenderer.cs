@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using UI;
 using Units;
@@ -7,13 +8,9 @@ using UnityEngine;
 
 namespace Battleground.UI
 {
-    public class UnitParameters : MonoBehaviour
+    public class UnitInfoRenderer : MonoBehaviour
     {
         [SerializeField] private TMP_Text _name;
-        [SerializeField] private ProgressBar _health;
-        [SerializeField] private ProgressBar _energy;
-        [SerializeField] private ProgressBar _dexterity;
-        [SerializeField] private ProgressBar _strength;
         [SerializeField] private CellsProgressBar _starsRenderer;
         [SerializeField] private SpellCardHolder _spellCardHolder;
 
@@ -42,10 +39,7 @@ namespace Battleground.UI
         {
             _name.text = Unit.Name;
             _starsRenderer?.Render(Unit.StarCount);
-            _health?.Render(Unit.SkillLevels.Health);
-            _energy?.Render(Unit.SkillLevels.Energy);
-            _dexterity?.Render(Unit.SkillLevels.Dexterity);
-            _strength?.Render(Unit.SkillLevels.Strength);
+            _spellCardHolder.RenderCards(Unit.Spells);
         }
     }
 }

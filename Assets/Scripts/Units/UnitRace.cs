@@ -13,5 +13,6 @@ namespace Units
         public List<UnitClass> AvailableClasses;
         public UnitResists Resists;
         public SkillLevels MinLevels;
+        public Spell[] Spells;
     }
 }

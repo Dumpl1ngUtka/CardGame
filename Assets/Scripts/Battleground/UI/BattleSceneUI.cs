@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using UI;
 using Units;
 using UnityEngine;
 
@@ -8,7 +6,7 @@ namespace Battleground.UI
 {
     public class BattleSceneUI : MonoBehaviour  
     {
-        [SerializeField] private UnitParameters _parameters;
+        [SerializeField] private UnitInfoRenderer _parameters;
         private List<GameObject> _activeTabsList = new();
         private PlayerInput _playerInput;
 
@@ -50,8 +48,8 @@ namespace Battleground.UI
         public void ShowUnitInfo(Unit unit)
         {
             _activeTabsList.Add(_parameters.gameObject);
-            _parameters.gameObject.SetActive(true);
             _parameters.Init(unit);
+            _parameters.gameObject.SetActive(true);
         }
     }
 }

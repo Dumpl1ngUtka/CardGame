@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3729409620388823337}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7356394831349299820}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 1184252897019850090}
   - component: {fileID: 7607175899041307636}
   - component: {fileID: 2059292675254339371}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2602774019734599183}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 3583774033921706841}
   - component: {fileID: 3583774033921706843}
   - component: {fileID: 3583774033921706840}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,14 +242,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 3583774034285043447}
   - component: {fileID: 3583774034285043444}
   - component: {fileID: 3583774034285043445}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,11 +369,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3583774034391216681}
-  - component: {fileID: 3583774034952623589}
-  - component: {fileID: 978473880795769027}
-  - component: {fileID: 3583774034952623591}
-  - component: {fileID: 2265713868982353821}
-  m_Layer: 0
+  - component: {fileID: 442982194886805057}
+  - component: {fileID: 9091528896720598286}
+  - component: {fileID: 5540613218615683079}
+  - component: {fileID: 459912639442016103}
+  m_Layer: 7
   m_Name: SpellCard3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: -90, z: 90}
---- !u!65 &3583774034952623589
+--- !u!65 &442982194886805057
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -407,9 +407,21 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.891855, y: 0.21617185, z: 9.4164095}
-  m_Center: {x: -0.02863288, y: 0.12635098, z: 0.032213695}
---- !u!114 &978473880795769027
+  m_Size: {x: 6.01, y: 0.3, z: 9.41}
+  m_Center: {x: 0, y: 0.1, z: 0}
+--- !u!114 &9091528896720598286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3583774034391216726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b771cea887c8e5743a712ac4bbf4aa8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5540613218615683079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -421,7 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c89f8352ecd4b4a82879caaf78f230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &3583774034952623591
+--- !u!95 &459912639442016103
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -442,18 +454,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2265713868982353821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583774034391216726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b771cea887c8e5743a712ac4bbf4aa8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4459912400792013982
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 7492693422440248784}
   - component: {fileID: 6933864020130680787}
   - component: {fileID: 3569168776925147966}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 321516433235764638}
   - component: {fileID: 4579969258301566977}
   - component: {fileID: 7281747368623584396}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,7 +597,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

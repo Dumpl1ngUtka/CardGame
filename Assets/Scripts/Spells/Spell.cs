@@ -4,12 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Spells/TestSpell")]
 public class Spell : ScriptableObject
 {
-    public void StartUse()
-    {
-        Debug.Log("Start");
-    }
-
-    public IEnumerator SetDirection()
+    public IEnumerator Activate()
     {
         var timer = 0f;
         while (timer < 10)
@@ -18,7 +13,10 @@ public class Spell : ScriptableObject
             timer += Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSeconds(1f);
-        Debug.Log(timer++);
+    }
+
+    public IEnumerator SetDirection()
+    {
+        yield return null;
     }
 }

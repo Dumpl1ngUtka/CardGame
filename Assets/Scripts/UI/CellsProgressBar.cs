@@ -16,7 +16,6 @@ namespace UI
             if (cellCount > _cell.Length || cellCount < 0)
                 throw new Exception("Enter the correct star count");
             #endregion
-            Debug.Log(cellCount);
 
             for (int i = 0; i < _cell.Length; i++)
             {

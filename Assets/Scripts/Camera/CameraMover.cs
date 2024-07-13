@@ -8,7 +8,7 @@ namespace Battleground
         [SerializeField] private float _lerpScrollSpeed = 2f;
         [SerializeField] private float _cameraSensitivity = 2f;
         [SerializeField] private float _mapSize = 5f;
-        private CameraPosition _lowPosition = new(25, new(60, 0, 0));
+        private CameraPosition _lowPosition = new(15, new(25, 0, 0)); //new(25, new(60, 0, 0))
         private CameraPosition _highPosition = new(60, new(80, 0, 0));
         private float _lerpScroll;
         private float _zoom;
