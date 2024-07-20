@@ -6,50 +6,35 @@ namespace Battleground.UI
 {
     public class BattleSceneUI : MonoBehaviour  
     {
-        [SerializeField] private UnitInfoRenderer _parameters;
+        [SerializeField] private UnitInfoRenderer _infoRenderer;
+        [SerializeField] private GameObject _pauseMenu;
         private List<GameObject> _activeTabsList = new();
-        private PlayerInput _playerInput;
 
-        private void Awake()
+        public bool IsTabsListEmpty => _activeTabsList.Count == 0;
+
+        public void CloseOpenTab()
         {
-            _playerInput = new PlayerInput();
-        }
-
-        private void OnEnable()
-        {
-            _playerInput.Enable();
-            _playerInput.UI.Back.performed += CloseOpenTabs;
-        }
-
-        private void CloseOpenTabs(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-        {
-            if (_activeTabsList.Count == 0)
-            {
-                OpenMainMenu();
-                return;
-            }
-
             var lastTab = _activeTabsList[^1];
             lastTab.gameObject.SetActive(false);
             _activeTabsList.RemoveAt(_activeTabsList.Count - 1);
         }
 
-        private void OpenMainMenu()
+        public void OpenMainMenu()
         {
-            ;
-        }
-
-        private void OnDisable()
-        {
-            _playerInput.Disable();
-            _playerInput.UI.Back.performed -= CloseOpenTabs;
+            _activeTabsList.Add(_pauseMenu);
+            _pauseMenu.SetActive(true);
         }
 
         public void ShowUnitInfo(Unit unit)
         {
-            _activeTabsList.Add(_parameters.gameObject);
-            _parameters.Init(unit);
-            _parameters.gameObject.SetActive(true);
+            _activeTabsList.Add(_infoRenderer.gameObject);
+            _infoRenderer.Init(unit);
+            _infoRenderer.gameObject.SetActive(true);
+        }
+
+        public void UpdateUnitInfo(Unit unit)
+        {
+            ShowUnitInfo(unit);
         }
     }
 }

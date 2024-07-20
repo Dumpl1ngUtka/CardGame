@@ -1,9 +1,11 @@
+using System.Collections;
+using UnityEngine;
+
 namespace Battleground
 {
     public interface IInteractableForPlayer
     {
-        public void LeftMouseButtonDown(Player player);
-
-        public void RightMouseButtonDown(Player player);
+        public IEnumerator LeftMouseButtonDown(Player player);
+        public IEnumerator RightMouseButtonDown(Player player);
     }
 }

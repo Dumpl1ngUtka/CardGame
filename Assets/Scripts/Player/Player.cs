@@ -16,16 +16,19 @@ namespace Battleground
         {
             bool isOverUI = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
             if (Physics.Raycast(ray, out RaycastHit hit, 100, _interactableObjectsMask) && !isOverUI)
             {
                 if (!hit.collider.TryGetComponent<IInteractableForPlayer>(out var interactableObject))
                     return;
 
                 if (Input.GetMouseButtonDown(0))
-                    interactableObject.LeftMouseButtonDown(this);
+                {
+                    StartCoroutine(interactableObject.LeftMouseButtonDown(this));
+                }
 
                 if (Input.GetMouseButtonDown(1))
-                    interactableObject.RightMouseButtonDown(this);
+                    StartCoroutine(interactableObject.RightMouseButtonDown(this));
             }
         }
     }

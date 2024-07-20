@@ -20,4 +20,4 @@ MonoBehaviour:
     _dexterity: 0
     _strength: 4
   Spells:
-  - {fileID: 11400000, guid: 052152f1a1b4c8e45aa4b1d3dc9d5c79, type: 2}
+  - {fileID: 11400000, guid: 510a19c2eca828745a79f21c842c7e45, type: 2}

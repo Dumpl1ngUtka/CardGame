@@ -1,24 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using Units;
 using UnityEngine;
 
 namespace Battleground.UI
 {
     public class SpellCard : MonoBehaviour, IInteractableForPlayer
     {
-        private Spell _spell;
+        public Spell Spell { get; private set; }
+
+        public LayerMask AvailableLayers => Spell.Mask;
 
         public void Init(Spell spell)
         {
-            _spell = spell;
+            Spell = spell;
         }
 
-        public void LeftMouseButtonDown(Player player)
+        public IEnumerator LeftMouseButtonDown(Player player)
         {
-            StartCoroutine(_spell.Activate());
+            throw new System.NotImplementedException();
         }
 
-        public void RightMouseButtonDown(Player player)
+        public IEnumerator RightMouseButtonDown(Player player)
         {
             throw new System.NotImplementedException();
         }

@@ -1,22 +1,28 @@
+using Battleground;
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Spells/TestSpell")]
-public class Spell : ScriptableObject
+namespace Units
 {
-    public IEnumerator Activate()
+    public abstract class Spell : ScriptableObject
     {
-        var timer = 0f;
-        while (timer < 10)
-        {
-            Debug.Log(timer);
-            timer += Time.deltaTime;
-            yield return null;
-        }
-    }
+        public LayerMask Mask;
+        protected Piece Piece;
+        public bool IsSpellFinished { get; protected set; }
 
-    public IEnumerator SetDirection()
-    {
-        yield return null;
+        public virtual void Init(Piece piece) 
+        {
+            IsSpellFinished = false;
+            Piece = piece;
+        }
+
+        public abstract void Start();
+
+        public abstract void Update();
+
+        public abstract void LeftMouseClick(RaycastHit hit);
+
+        public abstract void RightMouseClick(RaycastHit hit);
     }
 }
+

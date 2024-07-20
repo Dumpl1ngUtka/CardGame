@@ -1,3 +1,4 @@
+using Units;
 using UnityEngine;
 
 namespace Battleground.UI
@@ -7,6 +8,12 @@ namespace Battleground.UI
         [SerializeField] private SpellCard _spellCardPrefab;
         [SerializeField] private Transform _container;
         [SerializeField] private Transform[] _spawnPositions;
+        private SpellCardHolderAnimator _animator;
+
+        private void Awake()
+        {
+            _animator = GetComponent<SpellCardHolderAnimator>();
+        }
 
         public void RenderCards(Spell[] spells)
         {

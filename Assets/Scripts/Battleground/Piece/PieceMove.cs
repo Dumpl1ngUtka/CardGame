@@ -11,7 +11,6 @@ namespace Battleground
         private float _maxMoveDistance = 10f;
         private Vector3 _startPosition;
         private Vector3 _rayHitPosition;
-        private bool isStartDrag = false;
         private bool isMove = false;
 
         private void Awake()

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Units;
 using UnityEngine;
 
@@ -11,19 +12,32 @@ namespace Battleground
 
         public Unit Unit { get; private set; }
 
+        public LayerMask AvailableLayers => LayerMask.GetMask("Enemy Unit", "Player Unit", "Card");
+
         private void Awake()
         {
-            Unit = new Unit(3, _race, _class);
+            Init(new Unit(3, _race, _class));
         }
 
-        public void LeftMouseButtonDown(Player player)
+        public void Init(Unit unit)
         {
-            player.UI.ShowUnitInfo(Unit);
+            Unit = unit;
         }
 
-        public void RightMouseButtonDown(Player player)
+        public IEnumerator LeftMouseButtonDown(Player player)
+        {
+            //player.UI.ShowUnitInfo(Unit);
+            yield return null;
+        }
+
+        public IEnumerator RightMouseButtonDown(Player player)
         {
             throw new NotImplementedException();
+        }
+
+        public void Move(Vector3 position)
+        {
+            transform.position = position;
         }
     }
 }
