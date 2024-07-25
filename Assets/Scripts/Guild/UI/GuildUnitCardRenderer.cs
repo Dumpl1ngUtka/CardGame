@@ -1,6 +1,7 @@
 using TMPro;
 using Units;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.Port;
 
 namespace UI
 {
@@ -11,6 +12,8 @@ namespace UI
         [SerializeField] private ProgressBar _energy;
         [SerializeField] private ProgressBar _dexterity;
         [SerializeField] private ProgressBar _strength;
+        [SerializeField] private ProgressBar _intellegence;
+        [SerializeField] private ProgressBar _capacity;
         [SerializeField] private CellsProgressBar _starsRenderer;
 
         public Unit Unit { get; private set; }
@@ -28,6 +31,8 @@ namespace UI
             _energy.Render(Unit.SkillLevels.Energy);
             _dexterity.Render(Unit.SkillLevels.Dexterity);
             _strength.Render(Unit.SkillLevels.Strength);
+            _intellegence.Render(Unit.SkillLevels.Intelligence);
+            _capacity.Render(Unit.SkillLevels.Capacity);
         }
     }
 }

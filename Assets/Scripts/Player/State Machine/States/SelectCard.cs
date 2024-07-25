@@ -43,7 +43,7 @@ namespace Battleground
             if (piece != null)
             {
                 _piece = piece;
-                StateMachine.UI.ShowUnitInfo(_piece.Unit);
+                StateMachine.UI.UpdateUnitInfo(_piece.Unit);
             }
 
             hit.collider.TryGetComponent<SpellCard>(out var card);

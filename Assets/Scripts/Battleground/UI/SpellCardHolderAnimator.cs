@@ -9,7 +9,7 @@ namespace Battleground.UI
         private Vector2 _screenSize;
         private Animator _animator;
         private string _isSelect = "IsSelect";
-        private string _isRerender = "IsRerender";
+        private string _isHideCards = "IsHide";
         private bool _isCardsSelected;
 
         private void Awake()
@@ -34,9 +34,9 @@ namespace Battleground.UI
             }
         }
 
-        public void Rerender()
+        public void SetHide(bool isHide)
         {
-            _animator.SetTrigger(_isRerender);
+            _animator.SetBool(_isHideCards, isHide);
         }
     }
 }

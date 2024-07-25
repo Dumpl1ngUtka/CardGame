@@ -6,6 +6,7 @@ namespace Units
     public class Unit
     {
         private const int _additionalLevelsForStars = 2;
+        private const int _defaultSkillPoints = 25;
 
         private UnitClass _unitClass;
         private UnitRace _unitRace;
@@ -21,19 +22,21 @@ namespace Units
             StarCount = starCount;
             _unitRace = unitRace;   
             _unitClass = unitClass;
-            Name = "Test Name";
+            Name = _unitRace.GetRandomName();
             SetSkillLevels();
             Spells = GetSpellArray();
         }
 
         private void SetSkillLevels()
         {
-            var minSkillLevels = new int[4];
+            var minSkillLevels = new int[6];
             minSkillLevels[0] = Mathf.Max(new int[3] { 1, _unitRace.MinLevels.Health, _unitClass.MinLevels.Health});
             minSkillLevels[1] = Mathf.Max(new int[3] { 1, _unitRace.MinLevels.Energy, _unitClass.MinLevels.Energy });
             minSkillLevels[2] = Mathf.Max(new int[3] { 1, _unitRace.MinLevels.Dexterity, _unitClass.MinLevels.Dexterity});
             minSkillLevels[3] = Mathf.Max(new int[3] { 1, _unitRace.MinLevels.Strength, _unitClass.MinLevels.Strength});
-            SkillLevels = new SkillLevels(20 + StarCount * _additionalLevelsForStars, minSkillLevels);
+            minSkillLevels[4] = Mathf.Max(new int[3] { 1, _unitRace.MinLevels.Intelligence, _unitClass.MinLevels.Intelligence});
+            minSkillLevels[5] = Mathf.Max(new int[3] { 1, _unitRace.MinLevels.Capacity, _unitClass.MinLevels.Capacity});
+            SkillLevels = new SkillLevels(_defaultSkillPoints + StarCount * _additionalLevelsForStars, minSkillLevels);
         }
 
         public Spell[] GetSpellArray()

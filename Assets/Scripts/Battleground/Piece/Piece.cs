@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class Piece : MonoBehaviour, IInteractableForPlayer
+    public class Piece : MonoBehaviour
     {
         [SerializeField] private UnitRace _race;
         [SerializeField] private UnitClass _class;
@@ -22,17 +22,6 @@ namespace Battleground
         public void Init(Unit unit)
         {
             Unit = unit;
-        }
-
-        public IEnumerator LeftMouseButtonDown(Player player)
-        {
-            //player.UI.ShowUnitInfo(Unit);
-            yield return null;
-        }
-
-        public IEnumerator RightMouseButtonDown(Player player)
-        {
-            throw new NotImplementedException();
         }
 
         public void Move(Vector3 position)

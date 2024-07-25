@@ -8,10 +8,12 @@ namespace Units
     {
         private const int maxLevel = 10;
 
-        [SerializeField,Range(0, maxLevel)] private int _health;
+        [SerializeField, Range(0, maxLevel)] private int _health;
         [SerializeField, Range(0, maxLevel)] private int _energy;
         [SerializeField, Range(0, maxLevel)] private int _dexterity;
         [SerializeField, Range(0, maxLevel)] private int _strength;
+        [SerializeField, Range(0, maxLevel)] private int _intelligence;
+        [SerializeField, Range(0, maxLevel)] private int _capacity;
 
         public int Health
         {
@@ -32,6 +34,18 @@ namespace Units
         {
             get { return _strength; }
             set { _strength = value; }
+        }
+
+        public int Intelligence
+        {
+            get { return _intelligence; }
+            set { _intelligence = value; }
+        }
+                
+        public int Capacity
+        {
+            get { return _capacity; }
+            set { _capacity = value; }
         }
 
         public SkillLevels(int skillPoints, int[] minSkillLevels)
@@ -74,7 +88,9 @@ namespace Units
             Health = skillLevels[0];
             Energy = skillLevels[1];
             Dexterity = skillLevels[2];
-            Strength = minSkillLevels[3] + skillPoints;
+            Strength = skillLevels[3];
+            Intelligence = skillLevels[4];
+            Capacity = minSkillLevels[5] + skillPoints;
         }
     }
 }

@@ -7,34 +7,43 @@ namespace Battleground.UI
     public class BattleSceneUI : MonoBehaviour  
     {
         [SerializeField] private UnitInfoRenderer _infoRenderer;
-        [SerializeField] private GameObject _pauseMenu;
-        private List<GameObject> _activeTabsList = new();
+        [SerializeField] private PauseMenu _pauseMenu;
+        [SerializeField] private UseCardMenu _useCardMenu;
+        [SerializeField] private List<UIMenu> _activeTabsList = new();
 
         public bool IsTabsListEmpty => _activeTabsList.Count == 0;
 
         public void CloseOpenTab()
         {
             var lastTab = _activeTabsList[^1];
-            lastTab.gameObject.SetActive(false);
+            lastTab.Close();
             _activeTabsList.RemoveAt(_activeTabsList.Count - 1);
         }
 
         public void OpenMainMenu()
         {
             _activeTabsList.Add(_pauseMenu);
-            _pauseMenu.SetActive(true);
+            _pauseMenu.Open();
         }
 
         public void ShowUnitInfo(Unit unit)
         {
-            _activeTabsList.Add(_infoRenderer.gameObject);
+            _activeTabsList.Add(_infoRenderer);
             _infoRenderer.Init(unit);
-            _infoRenderer.gameObject.SetActive(true);
+            _infoRenderer.Open();
+        }
+
+        public void ShowSpellInfo(Spell spell)
+        {
+            _activeTabsList.Add(_useCardMenu);
+            _useCardMenu.Init(spell);
+            _useCardMenu.Open();
         }
 
         public void UpdateUnitInfo(Unit unit)
         {
-            ShowUnitInfo(unit);
+            _infoRenderer.Init(unit);
+            _infoRenderer.Open();
         }
     }
 }

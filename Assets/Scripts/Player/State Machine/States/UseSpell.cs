@@ -20,6 +20,7 @@ namespace Battleground
             base.Enter();
             _spell.Init(_piece);
             _spell.Start();
+            StateMachine.UI.ShowSpellInfo(_spell);
         }
 
         public override void Update()

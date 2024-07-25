@@ -14,5 +14,12 @@ namespace Units
         public UnitResists Resists;
         public SkillLevels MinLevels;
         public Spell[] Spells;
+        public string[] AvailableNames;
+
+        public string GetRandomName()
+        {
+            var index = Random.Range(0, AvailableNames.Length);
+            return AvailableNames[index];
+        }
     }
 }

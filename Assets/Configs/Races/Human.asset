@@ -32,3 +32,10 @@ MonoBehaviour:
     _dexterity: 0
     _strength: 0
   Spells: []
+  AvailableNames:
+  - Bob
+  - Tom
+  - John
+  - Will
+  - Leo
+  - Don

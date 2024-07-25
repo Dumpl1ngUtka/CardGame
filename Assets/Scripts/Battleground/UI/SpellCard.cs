@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace Battleground.UI
 {
-    public class SpellCard : MonoBehaviour, IInteractableForPlayer
+    public class SpellCard : MonoBehaviour
     {
+        [SerializeField] private SpellCardRenderer _renderer;
+
         public Spell Spell { get; private set; }
 
         public LayerMask AvailableLayers => Spell.Mask;
@@ -14,16 +16,7 @@ namespace Battleground.UI
         public void Init(Spell spell)
         {
             Spell = spell;
-        }
-
-        public IEnumerator LeftMouseButtonDown(Player player)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerator RightMouseButtonDown(Player player)
-        {
-            throw new System.NotImplementedException();
+            _renderer.Render(spell);
         }
     }
 }

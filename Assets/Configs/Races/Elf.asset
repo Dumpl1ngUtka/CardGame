@@ -34,3 +34,11 @@ MonoBehaviour:
   Spells:
   - {fileID: 11400000, guid: 52686b77db7438247a5a999d9018a29f, type: 2}
   - {fileID: 11400000, guid: 52686b77db7438247a5a999d9018a29f, type: 2}
+  AvailableNames:
+  - Narbeth Erxidor
+  - Luthais Varona
+  - Lysanthir Faralei
+  - Aeson Rophine
+  - Fhaornik Beican
+  - Almon Caisalor
+  - Marlevaur Ianra
