@@ -533,10 +533,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '-'
+  m_text: 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 64125968c665865488942f5f3aee23f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -566,7 +566,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3351,6 +3351,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2027204580}
     m_Modifications:
+    - target: {fileID: 854046562520314142, guid: 270bf431028a2614782b38b89f12020f,
+        type: 3}
+      propertyPath: _emptySprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3682799946771057588, guid: 270bf431028a2614782b38b89f12020f,
         type: 3}
       propertyPath: m_RootOrder

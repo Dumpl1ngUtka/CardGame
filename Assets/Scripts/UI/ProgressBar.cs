@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,11 +7,20 @@ namespace UI
     public class ProgressBar : MonoBehaviour
     {
         [SerializeField] private Image _bar;
-        private const int maxCellCount = 10;
+        [SerializeField] private TMP_Text _value;
+        [SerializeField] private TMP_Text _additionalValue;
+        private const int maxValue = 10;
 
-        public void Render(int cellCount)
+        public void Render(int value, int additionalValue = 0)
         {
-            _bar.fillAmount = (float)cellCount / maxCellCount;
+            if (_bar != null)
+                _bar.fillAmount = (float)value / maxValue;
+
+            if (_value != null)
+                _value.text = value.ToString();
+
+            if (_additionalValue != null)
+                _additionalValue.text = additionalValue != 0? additionalValue.ToString() : "";
         }
     }
 }

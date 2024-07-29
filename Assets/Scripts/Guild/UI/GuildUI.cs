@@ -20,8 +20,8 @@ namespace Guild
 
         private void UpdateRerollText()
         {
-            _rerollCount.text = _cardsGenerator.RerollCount.ToString();
-
+            if (_rerollCount != null)
+                _rerollCount.text = _cardsGenerator.RerollCount.ToString();
         }
     }
 }

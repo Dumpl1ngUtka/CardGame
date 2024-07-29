@@ -1,13 +1,14 @@
 using TMPro;
 using Units;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.Port;
 
 namespace UI
 {
     public class GuildUnitCardRenderer : MonoBehaviour
     {
         [SerializeField] private TMP_Text _name;
+        [SerializeField] private TMP_Text _race;
+        [SerializeField] private TMP_Text _class;
         [SerializeField] private ProgressBar _health;
         [SerializeField] private ProgressBar _energy;
         [SerializeField] private ProgressBar _dexterity;
@@ -26,6 +27,8 @@ namespace UI
         public void Render()
         {
             _name.text = Unit.Name;
+            _race.text = Unit.Race.Name;
+            _class.text = Unit.Class.Name;
             _starsRenderer.Render(Unit.StarCount);
             _health.Render(Unit.SkillLevels.Health);
             _energy.Render(Unit.SkillLevels.Energy);
