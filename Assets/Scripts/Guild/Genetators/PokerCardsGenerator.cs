@@ -16,12 +16,7 @@ namespace Guild
             set { _rerollCount = value; }
         }
 
-        private void Start()
-        {
-            GenerateCards();
-        }
-
-        public void GenerateCards(bool isReroll = false)  
+        public override void GenerateCards(bool isReroll = false)  
         {
             if (_rerollCount == 0 && isReroll)
                 return;

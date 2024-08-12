@@ -6,6 +6,7 @@ namespace Units
 {
     public abstract class Spell : ScriptableObject
     {
+        public string Name;
         public LayerMask Mask;
         public Sprite SpecializationIcon;
         public Sprite MainBackground;

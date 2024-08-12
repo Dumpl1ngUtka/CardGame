@@ -10,15 +10,9 @@ namespace Battleground
         public BattleSceneUI UI;
         private State _currentState;
 
-        private void Awake()
-        {
-            _currentState = new Default(this);
-        }
-
         public void ChangeState(State state)
         {
-            Debug.Log("State changed to " + state);
-            _currentState.Exit();
+            _currentState?.Exit();
             _currentState = state;
             state.Enter();
         }

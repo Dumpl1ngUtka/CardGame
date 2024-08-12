@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Units
         public UnitRace Race { get; private set; }
         public int StarCount { get; private set; }
         public SkillLevels SkillLevels { get; private set; }
+        public UnitInventory Inventory { get; private set; }
 
         public Spell[] Spells => GetSpellArray();
 
@@ -22,6 +24,7 @@ namespace Units
             Race = unitRace;   
             Class = unitClass;
             Name = Race.GetRandomName();
+            Inventory = new UnitInventory();
             SetSkillLevels();
         }
 
@@ -39,14 +42,12 @@ namespace Units
 
         public Spell[] GetSpellArray()
         {
-            var spellCount = Class.Spells.Length + Race.Spells.Length;
-            var spellArray = new Spell[spellCount];
-            var index = 0;
-            foreach (var spell in Class.Spells)
-                spellArray[index++] = spell;
-            foreach (var spell in Race.Spells)
-                spellArray[index++] = spell;
-            return spellArray;
+            var spells = new List<Spell>();
+            spells.AddRange(Class.Spells);
+            spells.AddRange(Race.Spells);
+            spells.AddRange(Inventory.GetSpells());
+            spells = spells.GroupBy(x => x.Name).Select(x => x.First()).ToList();
+            return spells.ToArray();
         }
     }
 }

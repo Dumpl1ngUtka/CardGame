@@ -6,11 +6,18 @@ namespace Battleground
     public class UseSpell : State
     {
         private Spell _spell;
+        private Unit _unit;
         private Piece _piece;
         public UseSpell(StateMachine stateMachine, Piece piece, Spell spell) : base(stateMachine)
         {
             _piece = piece;
             _spell = spell;
+        }
+
+        public UseSpell(StateMachine stateMachine, Piece piece, Unit unit) : base(stateMachine)
+        {
+            _piece = piece;
+            _unit = unit;
         }
 
         public override LayerMask LayerMask => _spell.Mask;
@@ -26,7 +33,7 @@ namespace Battleground
         public override void Update()
         {
             if (Input.GetKey(KeyCode.Escape) || _spell.IsSpellFinished)
-                StateMachine.ChangeState(new SelectCard(StateMachine, _piece));
+                StateMachine.ChangeState(new SelectSpellCard(StateMachine, _piece));
 
             base.Update();
             _spell.Update();

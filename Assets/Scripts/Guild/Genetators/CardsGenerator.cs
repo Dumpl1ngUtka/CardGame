@@ -10,6 +10,10 @@ namespace Guild
         [SerializeField] private UnitRace[] _availableRaces;
         [SerializeField] private UnitClass[] _availableClasses;
 
+        public virtual void GenerateCards(bool isReroll = false)
+        {
+        }
+
         protected Unit GenerateUnit()
         {
             var starCount = UnityEngine.Random.Range(0, 6);

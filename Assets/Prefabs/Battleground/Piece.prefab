@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 18820003}
   - component: {fileID: 18820005}
   - component: {fileID: 18820004}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ae9057be5eec11748b6ebda3971c82b0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8a00f277dde435b40a752e5a8a9d2c01, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 47275548}
   - component: {fileID: 47275550}
   - component: {fileID: 47275549}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ae9057be5eec11748b6ebda3971c82b0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8a00f277dde435b40a752e5a8a9d2c01, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 162962461}
   - component: {fileID: 162962463}
   - component: {fileID: 162962462}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HPBarBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8a00f277dde435b40a752e5a8a9d2c01, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 578488626}
   - component: {fileID: 578488628}
   - component: {fileID: 578488627}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Bars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 979172033}
   - component: {fileID: 979172035}
   - component: {fileID: 979172034}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: BarBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8a00f277dde435b40a752e5a8a9d2c01, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -391,7 +391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1035561648}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: StaminaBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429,7 +429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1424092433}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 1514235115}
   - component: {fileID: 1514235114}
   - component: {fileID: 1514235113}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -570,7 +570,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543450651743006500}
   - component: {fileID: 1957021905}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -602,7 +602,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147756365214}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 37124b649801c384a990a236cdfed352, type: 2}
   m_CullingMode: 0
@@ -626,7 +626,7 @@ GameObject:
   - component: {fileID: 7534246566592732213}
   - component: {fileID: 2073921712569630104}
   - component: {fileID: 6006373827176060533}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -708,8 +708,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7383491724556732750}
   - component: {fileID: 7383491724556732749}
+  - component: {fileID: 6295952905360001600}
   - component: {fileID: 7153306670530588130}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Piece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -746,6 +747,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _race: {fileID: 11400000, guid: d8a2b6dff4f6f504ba738b0282f80689, type: 2}
   _class: {fileID: 11400000, guid: eca485d27b5a2ab4680820a122fa4dc8, type: 2}
+  _UIRenderer: {fileID: 6295952905360001600}
+--- !u!114 &6295952905360001600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7383491724556732746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955833cb5f3a5784f87bb8cca621d25d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthBar: {fileID: 18820004}
+  _healthValue: {fileID: 0}
+  _powerBar: {fileID: 47275549}
 --- !u!136 &7153306670530588130
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -771,7 +788,7 @@ GameObject:
   - component: {fileID: 5680519942504433910}
   - component: {fileID: 3010172807717168927}
   - component: {fileID: 8544783546603482882}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}

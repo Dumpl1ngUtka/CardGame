@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c991914c993f4748a42f49462cd3007, type: 3}
   m_Name: Test spell
   m_EditorClassIdentifier: 
+  Name: Test
   Mask:
     serializedVersion: 2
     m_Bits: 256

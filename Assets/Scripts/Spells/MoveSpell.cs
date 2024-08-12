@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using Battleground;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Units
 {
@@ -20,7 +18,8 @@ namespace Units
 
         public override void LeftMouseClick(RaycastHit hit)
         {
-            Piece.Move(hit.point);
+            if (hit.collider.GetComponent<Piece>() == null)
+                Piece.Move(hit.point);
             IsSpellFinished = true;
         }
 
