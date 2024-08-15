@@ -12,11 +12,11 @@ namespace Battleground
         protected const string UILayer = "UI";
         #endregion
 
-        protected StateMachine StateMachine;
+        protected PlayerStateMachine StateMachine;
         
         public abstract LayerMask LayerMask { get; }
 
-        public State(StateMachine stateMachine)
+        public State(PlayerStateMachine stateMachine)
         {
             StateMachine = stateMachine;
         }

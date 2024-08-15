@@ -1,10 +1,11 @@
+using Battleground;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Units
 {
-    public class Unit
+    public class Unit : IObjectForCardRenderer
     {
         private const int _additionalLevelsForStars = 2;
         private const int _defaultSkillPoints = 25;
@@ -48,6 +49,15 @@ namespace Units
             spells.AddRange(Inventory.GetSpells());
             spells = spells.GroupBy(x => x.Name).Select(x => x.First()).ToList();
             return spells.ToArray();
+        }
+
+        public InfoForCardRenderer GetInfo()
+        {
+            return new InfoForCardRenderer
+            {
+                Title = Name,
+                UnderTitle = Race + " | " + Class,
+            };
         }
     }
 }

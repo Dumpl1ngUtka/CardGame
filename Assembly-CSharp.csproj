@@ -60,17 +60,20 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Spells\Spell.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraPosition.cs" />
+    <Compile Include="Assets\Scripts\Battleground\IObjectForCardRenderer.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\States\MainMenuState.cs" />
+    <Compile Include="Assets\Scripts\Battleground\BattleManager.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\SpellCardHolderAnimator.cs" />
     <Compile Include="Assets\Scripts\Guild\UI\GuildUnitCard.cs" />
     <Compile Include="Assets\Scripts\Spells\TestSpell.cs" />
+    <Compile Include="Assets\Scripts\Player\State Machine\States\WaitOtherPlayer.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceUIRenderer.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Armor\Armor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\States\SelectSpellCard.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
-    <Compile Include="Assets\Scripts\Player\State Machine\States\UseSpell.cs" />
+    <Compile Include="Assets\Scripts\Player\State Machine\States\ReleasingSpellCard.cs" />
     <Compile Include="Assets\Scripts\MainMenu\UI\MainMenuUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -103,7 +106,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Units\UnitResists.cs" />
-    <Compile Include="Assets\Scripts\Battleground\UI\SpellCardHolder.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\CardHolder.cs" />
     <Compile Include="Assets\Scripts\LineDrawer\LineDrawer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
@@ -111,14 +114,16 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\Scripts\Units\UnitClass.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\Scripts\Battleground\UI\SpellCard.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\UICard.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\Scripts\Player\State Machine\State.cs" />
+    <Compile Include="Assets\ListUnitsFromMainScene.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Scripts\Units\UnitRace.cs" />
-    <Compile Include="Assets\Scripts\Player\State Machine\StateMachine.cs" />
+    <Compile Include="Assets\Scripts\Player\State Machine\PlayerStateMachine.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\MovePoint\MovePoint.cs" />
+    <Compile Include="Assets\Scripts\Player\State Machine\States\ReleasingUnitCard.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Menus\UseCardMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
@@ -126,16 +131,19 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceHealth.cs" />
     <Compile Include="Assets\Scripts\Guild\GuildCardAnimator.cs" />
-    <Compile Include="Assets\Scripts\Battleground\UI\SpellCardRenderer.cs" />
+    <Compile Include="Assets\Scripts\Battleground\PieceCard.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\CardRenderer.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\SpellCardsHolderMover.cs" />
     <Compile Include="Assets\Scripts\Guild\UI\GuildUnitCardRenderer.cs" />
     <Compile Include="Assets\Scripts\Guild\Genetators\PokerCardsGenerator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\Menus\UnitCardsRenderer.cs" />
     <Compile Include="Assets\Scripts\PassiveEffect.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\States\SelectUnitsStats.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Enemy\Enemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Scripts\Units\SkillLevels.cs" />
     <Compile Include="Assets\Scripts\UI\CellsProgressBar.cs" />
@@ -154,9 +162,7 @@
     <Compile Include="Assets\Scripts\Player\State Machine\States\SelectUnitCard.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Accessories\Accessories.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
-    <Compile Include="Assets\Scripts\Battleground\BattleManager.cs" />
-    <Compile Include="Assets\Scripts\Battleground\Enemy\Enemy.cs" />
-    <Compile Include="Assets\Scripts\Player\State Machine\States\WaitOtherPlayer.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UnitCard.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

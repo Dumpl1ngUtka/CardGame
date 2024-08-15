@@ -1,21 +1,23 @@
-using System.Collections;
 using Units;
 using UnityEngine;
 
 namespace Battleground.UI
 {
-    public class SpellCardHolder : MonoBehaviour
+    public class CardHolder : MonoBehaviour
     {
-        [SerializeField] private SpellCard _spellCardPrefab;
+        #region string const
+        private const string _isSelect = "IsSelect";
+        private const string _isRerender = "IsRerender";
+        private const string _isHideCards = "HideCards";
+        #endregion
+
+        [SerializeField] private UICard _cardPrefab;
         [SerializeField] private Transform _container;
         [SerializeField] private Transform[] _spawnPositions;
-        private string _isSelect = "IsSelect";
-        private string _isRerender = "IsRerender";
-        private string _isHideCards = "HideCards";
         private Vector2 _screenSize;
         private Animator _animator;
         private bool _isCardsSelected;
-        private Spell[] _spells;
+        private IObjectForCardRenderer[] _renderedObjects;
 
         private void Awake()
         {
@@ -40,10 +42,10 @@ namespace Battleground.UI
             }
         }
 
-        public void ShowCards(Spell[] spells)
+        public void ShowCards(IObjectForCardRenderer[] objects)
         {
             gameObject.SetActive(true);
-            _spells = spells;
+            _renderedObjects = objects;
             _isCardsSelected = false;
             _animator.SetBool(_isRerender, true);
         }
@@ -52,14 +54,15 @@ namespace Battleground.UI
         {
             ClearContainer();
 
-            var index = (_spawnPositions.Length - _spells.Length) / 2;
+            var index = (_spawnPositions.Length - _renderedObjects.Length) / 2;
 
-            foreach (Spell spell in _spells)
+            foreach (var renderedObject in _renderedObjects)
             {
-                var spellCard = Instantiate(_spellCardPrefab, _spawnPositions[index].position, _spawnPositions[index].rotation, _container);
-                spellCard.Init(spell);
+                var spellCard = Instantiate(_cardPrefab, _spawnPositions[index].position, _spawnPositions[index].rotation, _container);
+                spellCard.Init(renderedObject);
                 index++;
             }
+
         }
 
         public void HideCards()

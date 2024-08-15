@@ -1,10 +1,8 @@
-using JetBrains.Annotations;
 using System;
 using UnityEngine;
 
 namespace Battleground
 {
-    [RequireComponent(typeof(Piece))]
     public class PieceHealth
     {
         private const int _defaultHealthValue = 20;
@@ -14,6 +12,7 @@ namespace Battleground
         private int _health;
         private Piece _piece;
 
+        public bool IsDied = false;
         public event Action<float> HealthChanged;
         public event Action Died;
 
@@ -37,8 +36,11 @@ namespace Battleground
         public void ApplyDamage(int value)
         {
             Health -= value;
-            if (Health < 0)
+            if (Health <= 0)
+            {
+                IsDied = true;
                 Died?.Invoke();
+            }
         }
     }
 }

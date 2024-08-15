@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using TMPro;
 using UI;
 using Units;
@@ -12,7 +9,7 @@ namespace Battleground.UI
     {
         [SerializeField] private TMP_Text _name;
         [SerializeField] private CellsProgressBar _starsRenderer;
-        [SerializeField] private SpellCardHolder _spellCardHolder;
+        [SerializeField] private CardHolder _spellCardHolder;
         private const string _isEnable = "IsEnable";
         private Animator _animator;
 

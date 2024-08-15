@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Battleground
@@ -8,24 +6,22 @@ namespace Battleground
     {
         public override LayerMask LayerMask => LayerMask.GetMask(EnemyUnitLayer);
 
-        public WaitOtherPlayer(StateMachine stateMachine) : base(stateMachine)
+        public WaitOtherPlayer(PlayerStateMachine stateMachine) : base(stateMachine)
         {
         }
 
         public override void Enter()
         {
             base.Enter();
-
+            StateMachine.MoveFinishedTrigger();
         }
 
         protected override void LeftMouseButtonDown(RaycastHit hit)
         {
-            throw new System.NotImplementedException();
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)
         {
-            throw new System.NotImplementedException();
         }
     }
 }

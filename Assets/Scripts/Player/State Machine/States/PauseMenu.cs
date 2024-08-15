@@ -6,7 +6,7 @@ namespace Battleground
 {
     public class PauseMenu : State
     {
-        public PauseMenu(StateMachine stateMachine) : base(stateMachine)
+        public PauseMenu(PlayerStateMachine stateMachine) : base(stateMachine)
         {
         }
 

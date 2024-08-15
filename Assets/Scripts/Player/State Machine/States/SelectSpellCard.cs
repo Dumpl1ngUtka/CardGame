@@ -10,7 +10,7 @@ namespace Battleground
     public class SelectSpellCard : State
     {
         private Piece _piece;
-        public SelectSpellCard(StateMachine stateMachine, Piece piece) : base(stateMachine)
+        public SelectSpellCard(PlayerStateMachine stateMachine, Piece piece) : base(stateMachine)
         {
             _piece = piece;
         }
@@ -20,7 +20,8 @@ namespace Battleground
         public override void Enter()
         {
             base.Enter();
-            StateMachine.UI.ShowUnitInfo(_piece.Unit);
+            Debug.Log(_piece.Unit);
+            StateMachine.UI.ShowInfo(_piece.Unit);
         }
 
         public override void Update()
@@ -46,9 +47,9 @@ namespace Battleground
                 StateMachine.UI.UpdateUnitInfo(_piece.Unit);
             }
 
-            hit.collider.TryGetComponent<SpellCard>(out var card);
+            hit.collider.TryGetComponent<UICard>(out var card);
             if (card != null)
-                StateMachine.ChangeState(new UseSpell(StateMachine, _piece, card.Spell));
+                StateMachine.ChangeState(new ReleasingSpellCard(StateMachine, _piece, card.Spell));
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)

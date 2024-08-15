@@ -1,10 +1,10 @@
 using Battleground;
-using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace Units
 {
-    public abstract class Spell : ScriptableObject
+    public abstract class Spell : ScriptableObject, IObjectForCardRenderer
     {
         public string Name;
         public LayerMask Mask;
@@ -27,6 +27,15 @@ namespace Units
         public abstract void LeftMouseClick(RaycastHit hit);
 
         public abstract void RightMouseClick(RaycastHit hit);
+
+        public InfoForCardRenderer GetInfo()
+        {
+            return new InfoForCardRenderer
+            {
+                Title = Name,
+                UnderTitle = Ñonsumption.ToString(),
+            };
+        }
     }
 }
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Battleground.UI
 {
-    public class SpellCardRenderer : MonoBehaviour
+    public class CardRenderer : MonoBehaviour
     {
         [SerializeField] private Image _specializationIcon;
         [SerializeField] private Image _background;
@@ -15,6 +15,12 @@ namespace Battleground.UI
         {
             _specializationIcon.sprite = spell.SpecializationIcon;
             _background.sprite = spell.MainBackground;
+        }
+
+        public void Render(Unit unit)
+        {
+            //_specializationIcon.sprite = spell.SpecializationIcon;
+            //_background.sprite = spell.MainBackground;
         }
     }
 }

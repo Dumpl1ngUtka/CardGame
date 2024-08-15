@@ -6,7 +6,7 @@ namespace Battleground
 {
     public class Default : State
     {
-        public Default(StateMachine stateMachine) : base(stateMachine)
+        public Default(PlayerStateMachine stateMachine) : base(stateMachine)
         {
         }
 

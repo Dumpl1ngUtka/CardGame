@@ -9,6 +9,7 @@ namespace Battleground.UI
         [SerializeField] private UnitInfoRenderer _infoRenderer;
         [SerializeField] private PauseMenu _pauseMenu;
         [SerializeField] private UseCardMenu _useCardMenu;
+        [SerializeField] private UnitCardsRenderer _unitCards;
         [SerializeField] private List<UIMenu> _activeTabsList = new();
 
         public bool IsTabsListEmpty => _activeTabsList.Count == 0;
@@ -26,18 +27,25 @@ namespace Battleground.UI
             _pauseMenu.Open();
         }
 
-        public void ShowUnitInfo(Unit unit)
+        public void ShowInfo(Unit unit)
         {
             _activeTabsList.Add(_infoRenderer);
             _infoRenderer.Init(unit);
             _infoRenderer.Open();
         }
 
-        public void ShowSpellInfo(Spell spell)
+        public void ShowInfo(Spell spell)
         {
             _activeTabsList.Add(_useCardMenu);
             _useCardMenu.Init(spell);
             _useCardMenu.Open();
+        }
+
+        public void ShowInfo(Player player)
+        {
+            _activeTabsList.Add(_useCardMenu);
+            _unitCards.Init(player);
+            _unitCards.Open();
         }
 
         public void UpdateUnitInfo(Unit unit)
