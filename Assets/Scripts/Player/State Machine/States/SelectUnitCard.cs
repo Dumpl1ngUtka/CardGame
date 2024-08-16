@@ -21,7 +21,7 @@ namespace Battleground
         public override void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape) && StateMachine.Player.HasPlayablePiece || StateMachine.Player.IsUnitsListEmpty)
-                StateMachine.ChangeState(new Default(StateMachine));
+                StateMachine.ChangeState(new WaitOtherPlayer(StateMachine));
 
             base.Update();
         }

@@ -56,7 +56,8 @@ namespace Units
             return new InfoForCardRenderer
             {
                 Title = Name,
-                UnderTitle = Race + " | " + Class,
+                UnderTitle = Race.Name + " | " + Class.Name,
+                ObjectsForCardRenderers = Spells
             };
         }
     }

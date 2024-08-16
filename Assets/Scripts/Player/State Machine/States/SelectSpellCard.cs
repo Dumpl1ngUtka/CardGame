@@ -20,8 +20,7 @@ namespace Battleground
         public override void Enter()
         {
             base.Enter();
-            Debug.Log(_piece.Unit);
-            StateMachine.UI.ShowInfo(_piece.Unit);
+            StateMachine.UI.ShowInfo(_piece);
         }
 
         public override void Update()
@@ -44,7 +43,7 @@ namespace Battleground
             if (piece != null)
             {
                 _piece = piece;
-                StateMachine.UI.UpdateUnitInfo(_piece.Unit);
+                StateMachine.UI.UpdateUnitInfo(_piece);
             }
 
             hit.collider.TryGetComponent<UICard>(out var card);

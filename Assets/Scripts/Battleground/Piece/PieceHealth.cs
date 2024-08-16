@@ -26,6 +26,8 @@ namespace Battleground
             }
         }
 
+        public float HealthFill => (float)Health / _maxHealth;
+
         public PieceHealth(Piece piece, int healthAttribute)
         {
             _piece = piece;

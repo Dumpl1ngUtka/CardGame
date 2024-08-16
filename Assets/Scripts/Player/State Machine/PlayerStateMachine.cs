@@ -42,7 +42,5 @@ namespace Battleground
         {
             MoveFinished?.Invoke();
         }
-
-        //public void InstantiatePiece()
     }
 }

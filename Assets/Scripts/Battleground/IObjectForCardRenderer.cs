@@ -12,5 +12,8 @@ namespace Battleground
         public string ContentLine1;
         public string ContentLine2;
         public string ContentLine3;
+        public float HealthBarFill;
+        public float StaminaBarFill;
+        public IObjectForCardRenderer[] ObjectsForCardRenderers;
     }
 }

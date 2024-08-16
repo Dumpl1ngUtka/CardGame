@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IObjectForCardRenderer
     {
         [SerializeField] private Transform _pieceConteiner;
         [SerializeField] private Piece _piecePrefab;
@@ -45,6 +45,14 @@ namespace Battleground
                     count++;
             }
             return count;
+        }
+
+        public InfoForCardRenderer GetInfo()
+        {
+            return new InfoForCardRenderer
+            {
+                ObjectsForCardRenderers = Units.ToArray()
+            };
         }
     }
 }

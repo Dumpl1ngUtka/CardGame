@@ -15,7 +15,7 @@ namespace Battleground
         public override void Enter()
         {
             base.Enter();
-            StateMachine.UI.OpenMainMenu();
+            StateMachine.UI.OpenPauseMenu();
         }
 
         public override void Update()
