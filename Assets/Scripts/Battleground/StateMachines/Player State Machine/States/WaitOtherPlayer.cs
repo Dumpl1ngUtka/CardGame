@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class WaitOtherPlayer : State
+    public class WaitOtherPlayer : PlayerState
     {
         public override LayerMask LayerMask => LayerMask.GetMask(EnemyUnitLayer);
 
@@ -13,6 +13,7 @@ namespace Battleground
         public override void Enter()
         {
             base.Enter();
+            StateMachine.ReleasingPiece.ChangeCondition(PieceCondition.Released);
             StateMachine.MoveFinishedTrigger();
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class PauseMenu : State
+    public class PauseMenu : PlayerState
     {
         public PauseMenu(PlayerStateMachine stateMachine) : base(stateMachine)
         {

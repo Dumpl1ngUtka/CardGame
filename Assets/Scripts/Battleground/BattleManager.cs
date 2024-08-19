@@ -34,6 +34,7 @@ namespace Battleground
             //    players[i].MoveFinished += NextMove;
             //}
             //players[0] = new PlayerStateMachine(AI, UI);
+            players[0] = new PlayerStateMachine(Player, UI);
             players[1] = new PlayerStateMachine(Player, UI);
             return players;
         }

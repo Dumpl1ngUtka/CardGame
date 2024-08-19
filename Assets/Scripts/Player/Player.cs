@@ -16,6 +16,7 @@ namespace Battleground
         public bool HasPlayablePiece => PlayablePieceCount() > 0;
         public bool IsUnitsListEmpty => Units.Count == 0;
 
+
         private void Awake()
         {
             Units = new List<Unit>

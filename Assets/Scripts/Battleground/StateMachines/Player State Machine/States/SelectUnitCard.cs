@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class SelectUnitCard : State
+    public class SelectUnitCard : PlayerState
     {
         public override LayerMask LayerMask => LayerMask.GetMask(PlayerUnitLayer, EnemyUnitLayer, CardLayer);
         
@@ -21,7 +21,7 @@ namespace Battleground
         public override void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape) && StateMachine.Player.HasPlayablePiece || StateMachine.Player.IsUnitsListEmpty)
-                StateMachine.ChangeState(new WaitOtherPlayer(StateMachine));
+                StateMachine.ChangeState(new Default(StateMachine));
 
             base.Update();
         }

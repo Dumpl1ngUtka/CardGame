@@ -1,7 +1,5 @@
-using Battleground;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Battleground;
 
 public class Test : MonoBehaviour
 {

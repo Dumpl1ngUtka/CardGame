@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Units;
 using UnityEngine;
 
@@ -8,6 +7,7 @@ namespace Battleground
     {
         [SerializeField] private PieceUIRenderer _UIRenderer;
 
+        public PieceCondition Condition { get; private set; }
         public PieceHealth Health { get; private set; }
         public Unit Unit { get; private set; }
 
@@ -15,7 +15,13 @@ namespace Battleground
         {
             Unit = unit;
             Health = new PieceHealth(this, unit.SkillLevels.Health);
+            Health.Died += Died;
             _UIRenderer.Init(this);
+        }
+
+        private void Died()
+        {
+            ChangeCondition(PieceCondition.Died);
         }
 
         public void Move(Vector3 position)
@@ -33,6 +39,16 @@ namespace Battleground
             var info = Unit.GetInfo();
             info.HealthBarFill = Health.HealthFill;
             return info;
+        }
+
+        public void ChangeCondition(PieceCondition newCondition)
+        {
+            Condition = newCondition;
+        }
+
+        private void OnDisable()
+        {
+            Health.Died -= Died;
         }
     }
 }

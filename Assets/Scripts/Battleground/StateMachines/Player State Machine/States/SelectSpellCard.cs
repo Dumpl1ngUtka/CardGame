@@ -1,13 +1,10 @@
-using Battleground;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Units;
 using Battleground.UI;
+
 
 namespace Battleground
 {
-    public class SelectSpellCard : State
+    public class SelectSpellCard : PlayerState
     {
         private Piece _piece;
         public SelectSpellCard(PlayerStateMachine stateMachine, Piece piece) : base(stateMachine)
@@ -39,16 +36,20 @@ namespace Battleground
 
         protected override void LeftMouseButtonDown(RaycastHit hit)
         {
-            hit.collider.TryGetComponent<Piece>(out var piece);
-            if (piece != null)
-            {
-                _piece = piece;
-                StateMachine.UI.UpdateUnitInfo(_piece);
-            }
 
             hit.collider.TryGetComponent<UICard>(out var card);
             if (card != null)
                 StateMachine.ChangeState(new ReleasingSpellCard(StateMachine, _piece, card.Spell));
+
+            hit.collider.TryGetComponent<Piece>(out var piece);
+            if (piece == null)
+                return;
+
+            if (StateMachine.ReleasingPiece == null || piece == StateMachine.ReleasingPiece)
+            {
+                _piece = piece;
+                StateMachine.UI.UpdateUnitInfo(_piece);
+            }
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)

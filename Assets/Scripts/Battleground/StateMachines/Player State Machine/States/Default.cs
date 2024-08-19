@@ -1,8 +1,9 @@
 using UnityEngine;
 
+
 namespace Battleground
 {
-    public class Default : State
+    public class Default : PlayerState
     {
         public Default(PlayerStateMachine stateMachine) : base(stateMachine)
         {
@@ -23,7 +24,9 @@ namespace Battleground
             if (!hit.collider.TryGetComponent<Piece>(out var piece))
                 return;
 
-            StateMachine.ChangeState(new SelectSpellCard(StateMachine, piece));
+            if (StateMachine.ReleasingPiece == null && piece.Condition == PieceCondition.Default 
+                || StateMachine.ReleasingPiece == piece)
+                StateMachine.ChangeState(new SelectSpellCard(StateMachine, piece));
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)

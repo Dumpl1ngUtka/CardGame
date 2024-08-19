@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class ReleasingSpellCard : State
+    public class ReleasingSpellCard : PlayerState
     {
         private Spell _spell;
         private Piece _piece;
@@ -26,8 +26,14 @@ namespace Battleground
 
         public override void Update()
         {
-            if (Input.GetKey(KeyCode.Escape) || _spell.IsSpellFinished)
+            if (Input.GetKey(KeyCode.Escape))
                 StateMachine.ChangeState(new SelectSpellCard(StateMachine, _piece));
+
+            if (_spell.IsSpellFinished)
+            {
+                StateMachine.ReleasingPiece = _piece;
+                StateMachine.ChangeState(new SelectSpellCard(StateMachine, _piece));
+            }
 
             base.Update();
             _spell.Update();

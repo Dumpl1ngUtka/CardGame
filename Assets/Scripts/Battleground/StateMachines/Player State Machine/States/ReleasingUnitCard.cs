@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class ReleasingUnitCard : State
+    public class ReleasingUnitCard : PlayerState
     {
         private Unit _unit;
 

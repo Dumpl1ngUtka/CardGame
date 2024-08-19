@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public abstract class State
+    public abstract class PlayerState : State
     {
         #region LayersName
         protected const string PlayerUnitLayer = "Player Unit";
@@ -16,14 +16,12 @@ namespace Battleground
         
         public abstract LayerMask LayerMask { get; }
 
-        public State(PlayerStateMachine stateMachine)
+        public PlayerState(PlayerStateMachine stateMachine)
         {
             StateMachine = stateMachine;
         }
 
-        public virtual void Enter() { }
-
-        public virtual void Update()
+        public override void Update()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 100, LayerMask))
@@ -35,8 +33,6 @@ namespace Battleground
                     RightMouseButtonDown(hit);
             }
         }
-
-        public virtual void Exit() { }
 
         protected abstract void LeftMouseButtonDown(RaycastHit hit);
 

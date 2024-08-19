@@ -1,41 +1,30 @@
 using Battleground.UI;
 using System;
-using UnityEngine;
 
 namespace Battleground
 {
-    public class PlayerStateMachine
+    public class PlayerStateMachine : StateMachine
     {
-        private State _currentState;
-
         public BattleSceneUI UI { get; private set; }
         public Player Player { get; private set; }
-
+        public Piece ReleasingPiece;
         public event Action MoveFinished;
 
         public PlayerStateMachine(Player player, BattleSceneUI uI)
         {
             Player = player;
             UI = uI;
-            _currentState = new WaitOtherPlayer(this);
-        }
-
-        public void ChangeState(State state)
-        {
-            Debug.Log("new state" + state);
-            _currentState?.Exit();
-            _currentState = state;
-            state.Enter();
-        }
-
-        public void StartNewMove()
-        {
-
+            CurrentState = new WaitOtherPlayer(this);
         }
 
         public void Update()
         {
-            _currentState.Update();
+            CurrentState.Update();
+        }
+
+        public void StartNewMove()
+        {
+            ReleasingPiece = null;
         }
 
         public void MoveFinishedTrigger()
