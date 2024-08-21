@@ -36,5 +36,13 @@ namespace Units
 
             return spells.ToArray();
         }
+
+        public float GetAccuracy()
+        {
+            var accurancy = 0f;
+            accurancy += MainWeapon.Accuracy;
+            accurancy += SecondWeapon.Accuracy;
+            return accurancy;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Units
         public List<PassiveEffect> PassiveEffects;
         public List<UnitClass> AvailableClasses;
         public UnitResists Resists;
-        public SkillLevels MinLevels;
+        public Attributes MinLevels;
         public Spell[] Spells;
         public string[] AvailableNames;
 

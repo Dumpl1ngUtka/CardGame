@@ -6,11 +6,8 @@ namespace Units.Items
     [CreateAssetMenu(menuName = ("Config/Weapon"))]
     public class Weapon : Item
     {
-        public WeaponTypes Type;
-        public DamageTypes MainDamageType;
-        public DamageTypes SecondaryDamageType;
-        [Range(1, 5)] public int Damage = 1;
-        [Range(1, 5)] public int Usability = 1;
+        [Min(0)] public int Damage = 1;
+        [Range(0, 1)] public float Accuracy = 0;
         public GameObject Model;
     }
 }

@@ -14,10 +14,19 @@ namespace Units
         public UnitClass Class { get; private set; }
         public UnitRace Race { get; private set; }
         public int StarCount { get; private set; }
-        public SkillLevels SkillLevels { get; private set; }
+        public Attributes SkillLevels { get; private set; }
         public UnitInventory Inventory { get; private set; }
 
         public Spell[] Spells => GetSpellArray();
+
+        public float Accuracy
+        {
+            get
+            {
+                var accuracy = Inventory.GetAccuracy();
+                return accuracy;
+            }
+        }
 
         public Unit(int starCount, UnitRace unitRace, UnitClass unitClass)
         {
@@ -38,7 +47,7 @@ namespace Units
             minSkillLevels[3] = Mathf.Max(new int[3] { 1, Race.MinLevels.Strength, Class.MinLevels.Strength});
             minSkillLevels[4] = Mathf.Max(new int[3] { 1, Race.MinLevels.Intelligence, Class.MinLevels.Intelligence});
             minSkillLevels[5] = Mathf.Max(new int[3] { 1, Race.MinLevels.Capacity, Class.MinLevels.Capacity});
-            SkillLevels = new SkillLevels(_defaultSkillPoints + StarCount * _additionalLevelsForStars, minSkillLevels);
+            SkillLevels = new Attributes(_defaultSkillPoints + StarCount * _additionalLevelsForStars, minSkillLevels);
         }
 
         public Spell[] GetSpellArray()

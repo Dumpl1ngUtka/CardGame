@@ -10,7 +10,7 @@ namespace Units
         public string Name;
         public List<WeaponTypes> AwailableWeaponsTypes;
         public List<PassiveEffect> PassiveEffects;
-        public SkillLevels MinLevels;
+        public Attributes MinLevels;
         public Spell[] Spells;
     }
 }
