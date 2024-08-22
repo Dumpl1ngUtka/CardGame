@@ -13,7 +13,6 @@ namespace Battleground
         public override void Enter()
         {
             base.Enter();
-            StateMachine.ReleasingPiece.ChangeCondition(PieceCondition.Released);
             StateMachine.MoveFinishedTrigger();
         }
 

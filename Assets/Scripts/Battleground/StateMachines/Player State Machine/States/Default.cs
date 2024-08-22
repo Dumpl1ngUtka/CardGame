@@ -24,9 +24,7 @@ namespace Battleground
             if (!hit.collider.TryGetComponent<Piece>(out var piece))
                 return;
 
-            if (StateMachine.ReleasingPiece == null && piece.Condition == PieceCondition.Default 
-                || StateMachine.ReleasingPiece == piece)
-                StateMachine.ChangeState(new SelectSpellCard(StateMachine, piece));
+            StateMachine.ChangeState(new SelectSpellCard(StateMachine, piece));
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)

@@ -127,6 +127,7 @@
     <Compile Include="Assets\Scripts\Units\UnitRace.cs" />
     <Compile Include="Assets\Scripts\Battleground\StateMachines\Player State Machine\PlayerStateMachine.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\MovePoint\MovePoint.cs" />
+    <Compile Include="Assets\Scripts\Timeline\Timeline.cs" />
     <Compile Include="Assets\Scripts\Battleground\StateMachines\Player State Machine\States\ReleasingUnitCard.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Menus\UseCardMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />

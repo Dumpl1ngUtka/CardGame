@@ -22,4 +22,5 @@ MonoBehaviour:
     _intelligence: 0
     _capacity: 0
   Spells:
+  - {fileID: 11400000, guid: 52686b77db7438247a5a999d9018a29f, type: 2}
   - {fileID: 11400000, guid: 510a19c2eca828745a79f21c842c7e45, type: 2}

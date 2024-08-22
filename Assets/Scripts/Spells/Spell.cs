@@ -1,4 +1,5 @@
 using Battleground;
+using System.Collections;
 using UnityEngine;
 
 
@@ -36,6 +37,8 @@ namespace Units
                 UnderTitle = Ñonsumption.ToString(),
             };
         }
+
+        public abstract IEnumerator Releasing();
     }
 }
 

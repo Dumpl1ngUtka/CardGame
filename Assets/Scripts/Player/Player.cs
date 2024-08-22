@@ -12,6 +12,7 @@ namespace Battleground
         [SerializeField] private UnitRace[] _races;
         [SerializeField] private UnitClass[] _classes;
 
+        public Timeline Timeline;
         public List<Unit> Units;
         public bool HasPlayablePiece => PlayablePieceCount() > 0;
         public bool IsUnitsListEmpty => Units.Count == 0;
@@ -32,7 +33,7 @@ namespace Battleground
         {
             Units.Remove(unit);
             var piece = Instantiate(_piecePrefab, hit.point, _piecePrefab.transform.rotation, _pieceConteiner);
-            piece.Init(unit);
+            piece.Init(unit, this);
             PlayablePieceCount();
         }
 

@@ -26,14 +26,8 @@ namespace Battleground
 
         public override void Update()
         {
-            if (Input.GetKey(KeyCode.Escape))
+            if (Input.GetKey(KeyCode.Escape) || _spell.IsSpellFinished)
                 StateMachine.ChangeState(new SelectSpellCard(StateMachine, _piece));
-
-            if (_spell.IsSpellFinished)
-            {
-                StateMachine.ReleasingPiece = _piece;
-                StateMachine.ChangeState(new SelectSpellCard(StateMachine, _piece));
-            }
 
             base.Update();
             _spell.Update();
