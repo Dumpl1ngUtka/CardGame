@@ -162,11 +162,13 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Item.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\States\BuyItemsState.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\Timeline\TimelineColorIndicator.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\BattleSceneUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\Battleground\StateMachines\Player State Machine\States\SelectUnitCard.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Accessories\Accessories.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\Timeline\TimelineCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

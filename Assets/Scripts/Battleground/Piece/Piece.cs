@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Units;
 using UnityEngine;
@@ -9,12 +7,12 @@ namespace Battleground
     public class Piece : MonoBehaviour, IObjectForCardRenderer
     {
         [SerializeField] private PieceUIRenderer _UIRenderer;
+        private int _timelineSize => Player.Timeline.MaxIndex;
+
         public PieceHealth Health { get; private set; }
         public Unit Unit { get; private set; }
-
-        public ActivitiesList Activities;
-
         public Player Player { get; private set; }
+        public List<Spell> Activities { get; private set; }
 
         public void Init(Unit unit, Player player)
         {
@@ -23,20 +21,13 @@ namespace Battleground
             Health.Died += Died;
             _UIRenderer.Init(this);
             Player = player;
-
+            Player.Timeline.OnValueChanged += MoveToTimeline;
             NewMove(Player.Timeline.MaxIndex);
         }
 
+
         private void Died()
         {
-        }
-
-
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-                StartCoroutine(Activities.Release());
         }
 
         public void Move(Vector3 position)
@@ -59,122 +50,70 @@ namespace Battleground
         private void OnDisable()
         {
             Health.Died -= Died;
+            Player.Timeline.OnValueChanged -= MoveToTimeline;
         }
 
         public void NewMove(int indexCount)
         {
-            Activities = new ActivitiesList(indexCount);
-        }
-    }
-
-    public class ActivitiesList
-    {
-        private int _indexCount;
-        private List<Activity> _activities;
-        public ActivitiesList(int indexCount)
-        {
-            _activities = new List<Activity>();
-            _indexCount = indexCount;
+            Activities = new();
         }
 
-        public bool AddAction(Activity actionEnumerator)
+        private void MoveToTimeline(int index)
         {
-            if (actionEnumerator.StartIndex + actionEnumerator.StepCount >= _indexCount)
-                return false;
-
-            var activitiesIndexes = GetStartEndIndexes();
-            
-            foreach (var activity in activitiesIndexes)
+            var startAndEndIndexes = new List<int[]>();
+            foreach (var spell in Activities)
             {
-                bool startInOtherActivity = actionEnumerator.StartIndex > activity[0] 
-                    && actionEnumerator.StartIndex < activity[1];
-                bool endInOtherActivity = actionEnumerator.EndIndex > activity[0] 
-                    && actionEnumerator.EndIndex < activity[1];
-                if (startInOtherActivity || endInOtherActivity)
-                {
-                    return false;
-                }
+                startAndEndIndexes.Add(new int[2] { spell.StartIndex, spell.EndIndex});
             }
 
-            _activities.Add(actionEnumerator);
+            foreach (var startEndIndex in startAndEndIndexes)
+            {
+                if (index >= startEndIndex[0] && index <= startEndIndex[1])
+                {
+                    foreach (var spell  in Activities)
+                    {
+                        if (spell.StartIndex == startEndIndex[0])
+                        {
+                            spell.Release(index - startEndIndex[0]);
+                        }
+                    }
+                }
+            }
+        }
 
-            //
+        public bool AddActivity(Spell activity)
+        {
+            if (activity.EndIndex > _timelineSize)
+                return false;
 
-            
+            var startEndIndexesPair = GetStartEndIndexes();
 
+            foreach (var startEndIndex in startEndIndexesPair)
+            {
+                var startInOtherActivity = activity.StartIndex > startEndIndex.Key && 
+                    activity.StartIndex < startEndIndex.Value;
+                var endInOtherActivity = activity.EndIndex > startEndIndex.Key && 
+                    activity.EndIndex < startEndIndex.Value;
+                if (startInOtherActivity || endInOtherActivity)
+                    return false;
+            }
+
+            Activities.Add(activity);
             return true;
         }
 
-        private List<int> GetStartIndexes()
+        private Dictionary<int,int> GetStartEndIndexes()
         {
-            List<int> indexes = new();
-            foreach (var enumerator in _activities)
+            var startEndPair = new Dictionary<int,int>();    
+            foreach (var activity in Activities)
             {
-                indexes.Add(enumerator.StartIndex);
+                startEndPair.Add(activity.StartIndex, activity.EndIndex);
             }
-            return indexes;
-        }
-
-        private List<int[]> GetStartEndIndexes()
-        {
-            List<int[]> indexes = new();
-            foreach (var enumerator in _activities)
-            {
-                indexes.Add(new int[2] { enumerator.StartIndex, enumerator.EndIndex });
-            }
-            return indexes;
-        }
-
-        private Activity GetEnumeratorByStartIndex(int startIndex)
-        {
-            foreach (var enumerator in _activities)
-                if (enumerator.StartIndex == startIndex)
-                    return enumerator;
-            
-            return null;
-        }
-
-        public IEnumerator Release()
-        {
-            var delay = new WaitForSeconds(0.1f);
-            var startIndexes = GetStartIndexes();
-
-            Activity currentActionEnumerator = null;
-
-            for (int i = 0; i < _indexCount; i++)
-            {
-                if (startIndexes.Contains(i))
-                    currentActionEnumerator = GetEnumeratorByStartIndex(i);
-
-                if (currentActionEnumerator != null && !currentActionEnumerator.MoveNext())
-                    currentActionEnumerator = null;
- 
-                yield return delay;
-            }
+            return startEndPair;
         }
     }
 
-    public class Activity : IEnumerator
-    {
-        public readonly IEnumerator ActionEnumerator;
-        public readonly int StepCount;
-        public readonly int StartIndex;
-
-        public int EndIndex => StartIndex + StepCount;
-
-        public object Current => ActionEnumerator.Current;
-        public bool MoveNext() => ActionEnumerator.MoveNext();
-        public void Reset() => ActionEnumerator.Reset();
-        //public bool MovePrevious() => ActionEnumerator.MoveNext();
-
-        public Activity(IEnumerator actionEnumerator, int stepCount, int startIndex)
-        {
-            ActionEnumerator = actionEnumerator;
-            StepCount = stepCount;
-            StartIndex = startIndex;
-        }
-    }
-}
+ }
 
 
 

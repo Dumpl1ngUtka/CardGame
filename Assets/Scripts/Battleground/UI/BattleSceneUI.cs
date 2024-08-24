@@ -9,6 +9,7 @@ namespace Battleground.UI
         [SerializeField] private InfoRenderer _infoRenderer;
         [SerializeField] private PauseMenu _pauseMenu;
         [SerializeField] private List<UIMenu> _activeTabsList = new();
+        [SerializeField] private Timeline _timeline;
 
         public bool IsTabsListEmpty => _activeTabsList.Count == 0;
 
@@ -30,12 +31,15 @@ namespace Battleground.UI
             _activeTabsList.Add(_infoRenderer);
             _infoRenderer.Init(obj);
             _infoRenderer.Open();
+            _timeline.UpdateTimeline(obj);
         }
 
         public void UpdateUnitInfo(IObjectForCardRenderer obj)
         {
             _infoRenderer.Init(obj);
             _infoRenderer.Open();
+            _timeline.UpdateTimeline(obj);
+
         }
     }
 }

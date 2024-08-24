@@ -7,8 +7,9 @@ namespace Units
     [CreateAssetMenu(menuName = "Spells/MoveSpell")]
     public class MoveSpell : Spell
     {
-        private const int stepCount = 20;
-        private Vector3 _movePosition;
+        private const int _stepCount = 20;
+        public Vector3 _movePosition;
+        private Vector3 _startPosition;
 
         public override void Start()
         {
@@ -24,11 +25,16 @@ namespace Units
         {
             if (hit.collider.GetComponent<Piece>() == null)
             {
-                _movePosition = hit.point;
-                var timelineIndex = Piece.Player.Timeline.GetIndex;
-                Piece.Activities.AddAction(new Activity(Releasing(), stepCount, timelineIndex));
+                var inst = Instantiate(this);
+                inst.Init(Piece);
+                inst._movePosition = hit.point;
+                inst._startPosition = Piece.transform.position;
+                inst.StartIndex = Piece.Player.Timeline.GetIndex;
+                if (Piece.AddActivity(inst))
+                    IsSpellFinished = true;
+                else
+                    Debug.Log("Ќе достаточно времен на выполнение заклинани€");
             }
-            IsSpellFinished = true;
         }
 
         public override void RightMouseClick(RaycastHit hit)
@@ -36,14 +42,9 @@ namespace Units
             
         }
 
-        public override IEnumerator Releasing()
+        public override void Release(int stepIndex)
         {
-            var currentStep = 0;
-            while (currentStep < stepCount)
-            {
-                this.Piece.transform.position = Vector3.Lerp(this.Piece.transform.position, _movePosition, (float)currentStep++ / stepCount);
-                yield return null;
-            }
+            Piece.transform.position = Vector3.Lerp(_startPosition, _movePosition, (float)stepIndex / _stepCount);            
         }
     }
 }

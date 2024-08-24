@@ -12,7 +12,12 @@ namespace Units
         public Sprite SpecializationIcon;
         public Sprite MainBackground;
         public int Ñonsumption;
+        public int StepCount;
+
         protected Piece Piece;
+        public int StartIndex { get; protected set; }
+        public int EndIndex => StartIndex + StepCount;
+
         public bool IsSpellFinished { get; protected set; }
 
         public virtual void Init(Piece piece) 
@@ -38,7 +43,7 @@ namespace Units
             };
         }
 
-        public abstract IEnumerator Releasing();
+        public abstract void Release(int stepIndex = 0);
     }
 }
 

@@ -2,7 +2,6 @@ using Battleground;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Units
 {
@@ -13,20 +12,20 @@ namespace Units
         {
             if (hit.collider.GetComponent<Piece>() == null)
             {
-                var timelineIndex = Piece.Player.Timeline.GetIndex;
-                Piece.Activities.AddAction(new Activity(Releasing(), 90, 0));
+                var inst = Instantiate(this);
+                inst.Init(Piece);
+                inst.StartIndex = Piece.Player.Timeline.GetIndex;
+                if (Piece.AddActivity(inst))
+                    IsSpellFinished = true;
+                else
+                    Debug.Log("Ќе достаточно времен на выполнение заклинани€");
             }
             IsSpellFinished = true;
         }
 
-        public override IEnumerator Releasing()
+        public override void Release(int stepIndex)
         {
-            var count = 0;
-            while (count < 90)
-            {
-                Debug.Log(count++);
-                yield return null;
-            }
+            Debug.Log(stepIndex);
         }
 
         public override void RightMouseClick(RaycastHit hit)
