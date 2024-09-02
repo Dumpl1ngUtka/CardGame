@@ -1,3 +1,5 @@
+using Battleground.UI;
+using System;
 using System.Collections.Generic;
 using Units;
 using UnityEngine;
@@ -8,12 +10,18 @@ namespace Battleground
     {
         [SerializeField] private Transform _pieceConteiner;
         [SerializeField] private Piece _piecePrefab;
+        [SerializeField] private BattleSceneUI UI;
 
         [SerializeField] private UnitRace[] _races;
         [SerializeField] private UnitClass[] _classes;
 
         public Timeline Timeline;
         public List<Unit> Units;
+        public PlayerStateMachine StateMachine;
+        public event Action MoveFinished;
+        public bool IsMoveFinished;
+
+
         public bool HasPlayablePiece => PlayablePieceCount() > 0;
         public bool IsUnitsListEmpty => Units.Count == 0;
 
@@ -27,6 +35,7 @@ namespace Battleground
                 new Unit(2,  _races[2], _classes[2]),
                 new Unit(3,  _races[3], _classes[3]),
             };
+            StateMachine = new PlayerStateMachine(this, UI);
         }
 
         public void InstantiatePiece(Unit unit, RaycastHit hit)
@@ -55,6 +64,18 @@ namespace Battleground
             {
                 ObjectsForCardRenderers = Units.ToArray()
             };
+        }
+
+        public void StartNewMove()
+        {
+            IsMoveFinished = false;
+            StateMachine.ChangeState(new SelectUnitCard(StateMachine));
+        }
+
+        public void MoveFinishedTrigger()
+        {
+            MoveFinished?.Invoke();
+            IsMoveFinished = true;
         }
     }
 }

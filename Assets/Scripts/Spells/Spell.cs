@@ -43,7 +43,7 @@ namespace Units
             };
         }
 
-        public abstract void Release(int stepIndex = 0);
+        public abstract void Release(float time = 0);
     }
 }
 

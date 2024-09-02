@@ -23,7 +23,7 @@ namespace Units
             IsSpellFinished = true;
         }
 
-        public override void Release(int stepIndex)
+        public override void Release(float stepIndex)
         {
             Debug.Log(stepIndex);
         }

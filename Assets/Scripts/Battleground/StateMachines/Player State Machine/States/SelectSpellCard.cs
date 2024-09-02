@@ -45,11 +45,8 @@ namespace Battleground
             if (piece == null)
                 return;
 
-            if (StateMachine.ReleasingPiece == null || piece == StateMachine.ReleasingPiece)
-            {
-                _piece = piece;
-                StateMachine.UI.UpdateUnitInfo(_piece);
-            }
+            _piece = piece;
+            StateMachine.UI.UpdateUnitInfo(_piece);
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)

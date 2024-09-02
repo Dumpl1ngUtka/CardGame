@@ -6,53 +6,75 @@ namespace Battleground
 {
     public class BattleManager : MonoBehaviour
     {
-        [SerializeField] private BattleSceneUI UI;
-        [SerializeField] private Player Player;
-        [SerializeField] private AIStateMachine AI;
-        private const int _playerCount = 2;
-        private PlayerStateMachine[] _players;
-        private int _currentPlayerIndex = 0;
-        private PlayerStateMachine _currentPlayer => _players[_currentPlayerIndex];
+        [SerializeField] private Player Player1;
+        [SerializeField] private Player Player2;
+        private Player[] _players;
+        private const int _playerCount = 1;
+        private const float _moveTime = 10f;
 
         private void Start()
         {
             _players = PlayersInit();
-            _currentPlayer.ChangeState(new SelectUnitCard(_currentPlayer));
+            SetNextMove();
         }
 
         private void Update()
         {
-            _currentPlayer?.Update();
+            foreach (var player in _players)
+                player.StateMachine.Update();
         }
 
-        private PlayerStateMachine[] PlayersInit()
+        private Player[] PlayersInit()
         {
-            var players = new PlayerStateMachine[_playerCount];
-            //for (int i = 0; i < _playerCount; i++)
-            //{
-            //    players[i] = new PlayerStateMachine(Player, UI);
-            //    players[i].MoveFinished += NextMove;
-            //}
-            //players[0] = new PlayerStateMachine(AI, UI);
-            players[0] = new PlayerStateMachine(Player, UI);
-            players[1] = new PlayerStateMachine(Player, UI);
+            var players = new Player[_playerCount];
+            for (int i = 0; i < _playerCount; i++)
+            {
+                //переделать 
+                if (i == 0)
+                    players[i] = Player1;
+                else
+                    players[i] = Player2;
+                //
+                players[i].MoveFinished += ContestantMoveFinished;
+            }
             return players;
         }
 
-        private void NextMove()
+        private void ContestantMoveFinished()
         {
-            SetNextPlayer();
-            foreach (var player in _players)
+            if (IsAllContestantsMoveFinished())
             {
-                player.StartNewMove();
+                StartCoroutine(Simulation());
             }
+
         }
 
-        private void SetNextPlayer()
+        public IEnumerator Simulation()
         {
-            if (++_currentPlayerIndex == _playerCount)
-                _currentPlayerIndex = 0;
-            _currentPlayer.ChangeState(new SelectUnitCard(_currentPlayer));
+            var timer = 0f;
+            while (timer < _moveTime)
+            {
+                foreach(var player in _players)
+                    player.Timeline.SetTime(timer);
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            SetNextMove();
+        }
+
+        private bool IsAllContestantsMoveFinished()
+        {
+            bool isAllContestantMoveFinished = true;
+            foreach (var player in _players)
+                if (!player.IsMoveFinished)
+                    isAllContestantMoveFinished = false;
+            return isAllContestantMoveFinished;
+        }
+
+        private void SetNextMove()
+        {
+            foreach (var player in _players)
+                player.StartNewMove();
         }
     }
 }

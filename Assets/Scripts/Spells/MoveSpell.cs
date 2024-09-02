@@ -42,9 +42,9 @@ namespace Units
             
         }
 
-        public override void Release(int stepIndex)
+        public override void Release(float time)
         {
-            Piece.transform.position = Vector3.Lerp(_startPosition, _movePosition, (float)stepIndex / _stepCount);            
+            Piece.transform.position = Vector3.Lerp(_startPosition, _movePosition, time / _stepCount);            
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Battleground
         private float _oldValue;
 
         public const float TimeStep = 0.1f;
-        public Action<int> OnValueChanged;
+        public Action<float> OnValueChanged;
 
         public int GetIndex
         {
@@ -46,8 +46,13 @@ namespace Battleground
             if (_slider.value != _oldValue)
             {
                 _oldValue = _slider.value;
-                OnValueChanged?.Invoke((int)_slider.value);
+                OnValueChanged?.Invoke(_slider.value);
             }
+        }
+
+        public void SetTime(float time)
+        {
+            _slider.value = time / TimeStep;
         }
 
         private void OnDisable()
@@ -55,9 +60,10 @@ namespace Battleground
             OnValueChanged -= ChangeRenderedText;
         }
 
-        private void ChangeRenderedText(int newText)
+        private void ChangeRenderedText(float value)
         {
-            _current.text = newText.ToString();
+            
+            _current.text = ((int)value).ToString();
         }
 
         public void UpdateTimeline(IObjectForCardRenderer obj)

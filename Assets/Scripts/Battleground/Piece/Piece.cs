@@ -58,7 +58,7 @@ namespace Battleground
             Activities = new();
         }
 
-        private void MoveToTimeline(int index)
+        private void MoveToTimeline(float index)
         {
             var startAndEndIndexes = new List<int[]>();
             foreach (var spell in Activities)
@@ -70,7 +70,7 @@ namespace Battleground
             {
                 if (index >= startEndIndex[0] && index <= startEndIndex[1])
                 {
-                    foreach (var spell  in Activities)
+                    foreach (var spell in Activities)
                     {
                         if (spell.StartIndex == startEndIndex[0])
                         {
