@@ -31,9 +31,12 @@ MonoBehaviour:
     _energy: 0
     _dexterity: 0
     _strength: 0
+    _intelligence: 0
+    _capacity: 0
   Spells:
   - {fileID: 11400000, guid: 52686b77db7438247a5a999d9018a29f, type: 2}
   - {fileID: 11400000, guid: 52686b77db7438247a5a999d9018a29f, type: 2}
+  - {fileID: 11400000, guid: 24e6bc7687f97e6448c0aae85f47be83, type: 2}
   AvailableNames:
   - Narbeth Erxidor
   - Luthais Varona

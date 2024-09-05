@@ -1,5 +1,4 @@
 using Battleground;
-using System.Collections;
 using UnityEngine;
 
 namespace Units
@@ -7,16 +6,10 @@ namespace Units
     [CreateAssetMenu(menuName = "Spells/MoveSpell")]
     public class MoveSpell : Spell
     {
-        private const int _stepCount = 20;
         public Vector3 _movePosition;
         private Vector3 _startPosition;
 
-        public override void Start()
-        {
-            
-        }
-
-        public override void Update()
+        public override void RemoveFromTimeline()
         {
 
         }
@@ -33,7 +26,7 @@ namespace Units
                 if (Piece.AddActivity(inst))
                     IsSpellFinished = true;
                 else
-                    Debug.Log("Ќе достаточно времен на выполнение заклинани€");
+                    Debug.Log("Ќедостаточно времени на выполнение заклинани€");
             }
         }
 
@@ -44,7 +37,15 @@ namespace Units
 
         public override void Release(float time)
         {
-            Piece.transform.position = Vector3.Lerp(_startPosition, _movePosition, time / _stepCount);            
+            Piece.transform.position = Vector3.Lerp(_startPosition, _movePosition, time / StepCount);            
+        }
+
+        public override void Update()
+        {
+        }
+
+        public override void Start()
+        {
         }
     }
 }

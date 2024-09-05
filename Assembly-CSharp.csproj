@@ -81,8 +81,10 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\PlayerInput.cs" />
     <Compile Include="Assets\Scripts\Battleground\StateMachines\AIStateMachine\AIStateMachine.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\StateMachine\PieceStateMachine.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Units\UnitParameters.cs" />
+    <Compile Include="Assets\Scripts\Spells\ObjectsForSpells\Fireball.cs" />
     <Compile Include="Assets\Scripts\IDragable.cs" />
     <Compile Include="Assets\Scripts\MainMenu\UI\MenuTab.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Assets\Scripts\Battleground\UI\Menus\UIMenu.cs" />
     <Compile Include="Assets\Scripts\UI\ProgressBar.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\Piece.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\StateMachine\PieceState.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Weapons\Weapon.cs" />
     <Compile Include="Assets\Scripts\Spells\MoveSpell.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
@@ -112,6 +115,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Units\UnitResists.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\CardHolder.cs" />
+    <Compile Include="Assets\Scripts\Spells\FireballSpell.cs" />
     <Compile Include="Assets\Scripts\LineDrawer\LineDrawer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
@@ -135,6 +139,7 @@
     <Compile Include="Assets\Scripts\Battleground\InfoForCardRenderer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Scripts\Battleground\StateMachines\Player State Machine\States\Default.cs" />
+    <Compile Include="Assets\Scripts\UI\Marker\Marker.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceHealth.cs" />
     <Compile Include="Assets\Scripts\Guild\GuildCardAnimator.cs" />

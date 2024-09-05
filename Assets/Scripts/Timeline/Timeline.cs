@@ -3,6 +3,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 namespace Battleground
 {
@@ -62,8 +63,9 @@ namespace Battleground
 
         private void ChangeRenderedText(float value)
         {
-            
-            _current.text = ((int)value).ToString();
+            var seconds = Mathf.FloorToInt(value / 10);
+            var fractionsOfSecond = Mathf.FloorToInt(value % 10);
+            _current.text = string.Format("{0:0}.{1:0}", seconds, fractionsOfSecond);
         }
 
         public void UpdateTimeline(IObjectForCardRenderer obj)

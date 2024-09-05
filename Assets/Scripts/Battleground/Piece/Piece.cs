@@ -60,56 +60,59 @@ namespace Battleground
 
         private void MoveToTimeline(float index)
         {
-            var startAndEndIndexes = new List<int[]>();
+            bool indexInSpell = false;
+
             foreach (var spell in Activities)
             {
-                startAndEndIndexes.Add(new int[2] { spell.StartIndex, spell.EndIndex});
+                if (index >= spell.StartIndex && index <= spell.EndIndex)
+                {
+                    indexInSpell = true;
+                    spell.Release(index - spell.StartIndex);
+                    break;
+                }
             }
 
-            foreach (var startEndIndex in startAndEndIndexes)
+            if (!indexInSpell)
             {
-                if (index >= startEndIndex[0] && index <= startEndIndex[1])
-                {
-                    foreach (var spell in Activities)
-                    {
-                        if (spell.StartIndex == startEndIndex[0])
-                        {
-                            spell.Release(index - startEndIndex[0]);
-                        }
-                    }
-                }
+                Spell lastSpell = null;
+                foreach (var spell in Activities)
+                    if (index > spell.EndIndex && (lastSpell == null || spell.EndIndex > lastSpell.EndIndex))
+                        lastSpell = spell;
+                lastSpell?.Release(lastSpell.StepCount);
             }
         }
 
-        public bool AddActivity(Spell activity)
+        public bool AddActivity(Spell newActivity)
         {
-            if (activity.EndIndex > _timelineSize)
+            if (newActivity.EndIndex > _timelineSize)
                 return false;
 
-            var startEndIndexesPair = GetStartEndIndexes();
-
-            foreach (var startEndIndex in startEndIndexesPair)
+            foreach (var activity in Activities)
             {
-                var startInOtherActivity = activity.StartIndex > startEndIndex.Key && 
-                    activity.StartIndex < startEndIndex.Value;
-                var endInOtherActivity = activity.EndIndex > startEndIndex.Key && 
-                    activity.EndIndex < startEndIndex.Value;
+                var startInOtherActivity = newActivity.StartIndex >= activity.StartIndex &&
+                    newActivity.StartIndex <= activity.EndIndex;
+                var endInOtherActivity = newActivity.EndIndex >= activity.StartIndex &&
+                    newActivity.EndIndex <= activity.EndIndex;
                 if (startInOtherActivity || endInOtherActivity)
                     return false;
             }
 
-            Activities.Add(activity);
+            Activities.Add(newActivity);
             return true;
         }
 
-        private Dictionary<int,int> GetStartEndIndexes()
+        public void RemoveActivityByStartIndex(int startIndex)
         {
-            var startEndPair = new Dictionary<int,int>();    
-            foreach (var activity in Activities)
+            MoveToTimeline(startIndex);
+            for (int i = 0; i < Activities.Count; i++)
             {
-                startEndPair.Add(activity.StartIndex, activity.EndIndex);
+                if (Activities[i].StartIndex >= startIndex)
+                {
+                    Activities[i].RemoveFromTimeline();
+                    Activities.Remove(Activities[i--]);
+                }
             }
-            return startEndPair;
+            Player.StateMachine.UI.ShowInfo(this);
         }
     }
 

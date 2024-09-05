@@ -33,14 +33,18 @@ namespace Units
             throw new System.NotImplementedException();
         }
 
-        public override void Start()
+        public override void RemoveFromTimeline()
         {
-            throw new System.NotImplementedException();
         }
 
         public override void Update()
         {
+            throw new System.NotImplementedException();
+        }
 
+        public override void Start()
+        {
+            throw new System.NotImplementedException();
         }
     }
 

@@ -27,7 +27,7 @@ namespace Battleground.UI
                 var inst = Instantiate(_cellPrefab, _container);
                 inst.GetComponent<RectTransform>().offsetMin = new (spell.StartIndex * _stepSizeByPixels - _width  / 2, 0);
                 inst.GetComponent<RectTransform>().offsetMax = new (spell.EndIndex * _stepSizeByPixels - _width / 2, 0);
-                inst.Render(spell);
+                inst.Init(spell);
             }
                 
         }

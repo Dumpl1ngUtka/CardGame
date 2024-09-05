@@ -13,7 +13,6 @@ namespace Battleground
         #endregion
 
         protected PlayerStateMachine StateMachine;
-        
         public abstract LayerMask LayerMask { get; }
 
         public PlayerState(PlayerStateMachine stateMachine)

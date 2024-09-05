@@ -29,8 +29,8 @@ namespace Battleground
             if (Input.GetKey(KeyCode.Escape) || _spell.IsSpellFinished)
                 StateMachine.ChangeState(new SelectSpellCard(StateMachine, _piece));
 
-            base.Update();
             _spell.Update();
+            base.Update();
         }
 
         protected override void LeftMouseButtonDown(RaycastHit hit)

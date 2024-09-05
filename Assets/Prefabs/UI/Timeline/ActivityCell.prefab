@@ -86,6 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7520414816521840599}
   - component: {fileID: -1941160160166646352}
+  - component: {fileID: 6349963809048731576}
   m_Layer: 5
   m_Name: ActivityCell
   m_TagString: Untagged
@@ -127,6 +128,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 7520414816196394106}
+--- !u!893571522 &6349963809048731576
+CustomCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7520414816521840596}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_CustomShapes:
+    m_Shapes: []
+    m_Vertices: []
 --- !u!1 &7520414817142127879
 GameObject:
   m_ObjectHideFlags: 0
