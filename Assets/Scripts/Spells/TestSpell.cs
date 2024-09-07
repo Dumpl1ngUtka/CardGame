@@ -12,10 +12,8 @@ namespace Units
         {
             if (hit.collider.GetComponent<Piece>() == null)
             {
-                var inst = Instantiate(this);
-                inst.Init(Piece);
-                inst.StartIndex = Piece.Player.Timeline.GetIndex;
-                if (Piece.AddActivity(inst))
+                StartIndex = Piece.Player.Timeline.GetIndex;
+                if (Piece.AddActivity(this))
                     IsSpellFinished = true;
                 else
                     Debug.Log("Ќе достаточно времен на выполнение заклинани€");
@@ -30,7 +28,7 @@ namespace Units
 
         public override void RightMouseClick(RaycastHit hit)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
 
         public override void RemoveFromTimeline()
@@ -39,12 +37,17 @@ namespace Units
 
         public override void Update()
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
 
-        public override void Start()
+        public override void StartRelease()
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
+        }
+
+        public override void EndRelease()
+        {
+            //throw new System.NotImplementedException();
         }
     }
 

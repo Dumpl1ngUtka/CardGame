@@ -38,7 +38,8 @@ namespace Units
 
         public abstract void Update();
 
-        public abstract void Start();
+        public abstract void StartRelease();
+        public abstract void EndRelease();
 
         public InfoForCardRenderer GetInfo()
         {

@@ -15,18 +15,16 @@ namespace Units
         public Vector3 _startPosition;
         public Fireball _fireball;
 
+        private Marker _marker;
+
         public override void LeftMouseClick(RaycastHit hit)
         {
-            var inst = Instantiate(this);
-            inst.Init(Piece);
-            inst._startPosition = Piece.transform.position;
-            inst._targetPosition = hit.point;
-            inst.StartIndex = Piece.Player.Timeline.GetIndex;
-            if (Piece.AddActivity(inst))
+            _targetPosition = hit.point;
+            StartIndex = Piece.Player.Timeline.GetIndex;
+            if (Piece.AddActivity(this))
             {
-                Debug.Log(StartIndex);
-                inst._fireball = Instantiate(_fireballPrefab);
-                inst._fireball.Init(inst.Piece.Player, inst._startPosition, inst._targetPosition, inst.EndIndex);
+                _fireball = Instantiate(_fireballPrefab);
+                _fireball.Init(Piece.Player, _startPosition, _targetPosition, EndIndex);
                 IsSpellFinished = true;
             }
             else
@@ -50,10 +48,16 @@ namespace Units
         {
         }
 
-        public override void Start()
+        public override void StartRelease()
         {
-            var a = Instantiate(MarkerPrefab);
-            MarkerPrefab.Init(Mask, _startPosition);
+            _startPosition = Piece.transform.position;
+            _marker = Instantiate(MarkerPrefab);
+            _marker.Init(_fireballPrefab, _startPosition);
+        }
+
+        public override void EndRelease()
+        {
+            Destroy(_marker.gameObject);
         }
     }
 }

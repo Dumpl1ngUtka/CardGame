@@ -3,7 +3,6 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 namespace Battleground
 {
@@ -16,7 +15,7 @@ namespace Battleground
         private int _maxTimePerSecond = 10;
         private float _oldValue;
 
-        public const float TimeStep = 0.1f;
+        public static float TimeStep = 0.1f;
         public Action<float> OnValueChanged;
 
         public int GetIndex
@@ -73,6 +72,12 @@ namespace Battleground
             var piece = obj as Piece;
             if (piece != null)
                 _colorIndicator.Render(piece.Activities);
+        }
+
+        public interface IMoveByTimeline
+        {
+            void NextStep();
+            void MoveBy(float time);
         }
     }
 }

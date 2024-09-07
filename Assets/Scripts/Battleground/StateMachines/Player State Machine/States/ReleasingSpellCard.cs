@@ -11,7 +11,7 @@ namespace Battleground
         public ReleasingSpellCard(PlayerStateMachine stateMachine, Piece piece, Spell spell) : base(stateMachine)
         {
             _piece = piece;
-            _spell = spell;
+            _spell = Object.Instantiate(spell);
         }
 
         public override LayerMask LayerMask => _spell.Mask;
@@ -20,7 +20,7 @@ namespace Battleground
         {
             base.Enter();
             _spell.Init(_piece);
-            _spell.Start();
+            _spell.StartRelease();
             StateMachine.UI.ShowInfo(_spell);
         }
 
@@ -31,6 +31,12 @@ namespace Battleground
 
             _spell.Update();
             base.Update();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            _spell.EndRelease();
         }
 
         protected override void LeftMouseButtonDown(RaycastHit hit)

@@ -1,4 +1,6 @@
 using Battleground;
+using System.IO;
+using Units;
 using UnityEngine;
 
 namespace UI.Marker
@@ -6,13 +8,15 @@ namespace UI.Marker
     public class Marker : MonoBehaviour
     {
         [SerializeField] private LineRenderer _lineRenderer;
-        private Vector3 _piecePosition;
-        private LayerMask _layerMask;
+        private Fireball _obj;
+        private Vector3 _startPos;
+        private const int StepCount = 15;
 
-        public void Init(LayerMask layerMask, Vector3 piecePosition)
+        public void Init(Fireball obj, Vector3 startPos)
         {
-            _layerMask = layerMask;
-            _piecePosition = piecePosition;
+            _obj = obj;
+            _startPos = startPos;
+            _lineRenderer.positionCount = StepCount;
         }
 
         private void Update()
@@ -20,8 +24,10 @@ namespace UI.Marker
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 100))
             {
-                _lineRenderer.SetPosition(0, _piecePosition);
-                _lineRenderer.SetPosition(1, hit.point);
+                for (int i = 0; i < StepCount; i++)
+                {
+                    _lineRenderer.SetPosition(i, _obj.GetPositionByProgress(_startPos, hit.point, (float)i / StepCount));
+                }
             }
         }
     }

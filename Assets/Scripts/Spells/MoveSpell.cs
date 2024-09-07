@@ -18,12 +18,10 @@ namespace Units
         {
             if (hit.collider.GetComponent<Piece>() == null)
             {
-                var inst = Instantiate(this);
-                inst.Init(Piece);
-                inst._movePosition = hit.point;
-                inst._startPosition = Piece.transform.position;
-                inst.StartIndex = Piece.Player.Timeline.GetIndex;
-                if (Piece.AddActivity(inst))
+                _movePosition = hit.point;
+                _startPosition = Piece.transform.position;
+                StartIndex = Piece.Player.Timeline.GetIndex;
+                if (Piece.AddActivity(this))
                     IsSpellFinished = true;
                 else
                     Debug.Log("Ќедостаточно времени на выполнение заклинани€");
@@ -44,8 +42,13 @@ namespace Units
         {
         }
 
-        public override void Start()
+        public override void StartRelease()
         {
+        }
+
+        public override void EndRelease()
+        {
+            //throw new System.NotImplementedException();
         }
     }
 }
