@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Units
 {
-    public class Fireball : MonoBehaviour
+    public class Fireball : MonoBehaviour, IMoveByTimeline
     {
         [SerializeField] private float _distanceByStep;
         [SerializeField] private float _arcSize;
@@ -15,29 +15,22 @@ namespace Units
         private Vector3 _endPos;
         private int _startIndex;
         private int _stepCount;
-        private int _collideIndex = -1;
 
         public void Init(Player player, Vector3 startPos, Vector3 endPos, int startIndex)
         {
             _player = player;
-            _collideIndex = -1;
             _startPos = startPos;
             _endPos = endPos;
             _startIndex = startIndex;
             _stepCount = (int)((_startPos - _endPos).magnitude / _distanceByStep);
-            _player.Timeline.OnValueChanged += MoveToTimeline;
-            MoveToTimeline(0);
+            _player.Timeline.OnValueChanged += MoveByTimeline;
+            MoveByTimeline(0);
         }
 
-        private void MoveToTimeline(float index)
+        public void MoveByTimeline(float index)
         {
             var currentIndex = index - _startIndex;
             if (currentIndex < 0)
-            {
-                SetHide(true);
-                return;
-            }
-            if (_collideIndex != -1 && currentIndex > _collideIndex)
             {
                 SetHide(true);
                 return;
@@ -62,7 +55,12 @@ namespace Units
 
         private void OnDisable()
         {
-            _player.Timeline.OnValueChanged -= MoveToTimeline;
+            _player.Timeline.OnValueChanged -= MoveByTimeline;
+        }
+
+        public void NextMove()
+        {
+            throw new System.NotImplementedException();
         }
 
         //private IEnumerator CollisionCalculations()
@@ -82,7 +80,7 @@ namespace Units
         //        }
         //    }
         //    yield return null;
-            
+
         //}
     }
 }

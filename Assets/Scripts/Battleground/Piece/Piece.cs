@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class Piece : MonoBehaviour, IObjectForCardRenderer
+    public class Piece : MonoBehaviour, IObjectForCardRenderer, IMoveByTimeline
     {
         [SerializeField] private PieceUIRenderer _UIRenderer;
         private int _timelineSize => Player.Timeline.MaxIndex;
@@ -21,8 +21,8 @@ namespace Battleground
             Health.Died += Died;
             _UIRenderer.Init(this);
             Player = player;
-            Player.Timeline.OnValueChanged += MoveToTimeline;
-            NewMove(Player.Timeline.MaxIndex);
+            Player.Timeline.OnValueChanged += MoveByTimeline;
+            NextMove();
         }
 
 
@@ -50,15 +50,15 @@ namespace Battleground
         private void OnDisable()
         {
             Health.Died -= Died;
-            Player.Timeline.OnValueChanged -= MoveToTimeline;
+            Player.Timeline.OnValueChanged -= MoveByTimeline;
         }
 
-        public void NewMove(int indexCount)
+        public void NextMove()
         {
             Activities = new();
         }
 
-        private void MoveToTimeline(float index)
+        public void MoveByTimeline(float index)
         {
             bool indexInSpell = false;
 
@@ -103,7 +103,7 @@ namespace Battleground
 
         public void RemoveActivityByStartIndex(int startIndex)
         {
-            MoveToTimeline(startIndex);
+            MoveByTimeline(startIndex);
             for (int i = 0; i < Activities.Count; i++)
             {
                 if (Activities[i].StartIndex >= startIndex)

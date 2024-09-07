@@ -74,11 +74,13 @@ namespace Battleground
                 _colorIndicator.Render(piece.Activities);
         }
 
-        public interface IMoveByTimeline
-        {
-            void NextStep();
-            void MoveBy(float time);
-        }
+
+    }
+    public interface IMoveByTimeline
+    {
+        void NextMove();
+        void MoveByTimeline(float index);
+
     }
 }
 
