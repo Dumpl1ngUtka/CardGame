@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3642363673251616569}
   - component: {fileID: 3642363673251616568}
   m_Layer: 0
-  m_Name: Marker
+  m_Name: MissileMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

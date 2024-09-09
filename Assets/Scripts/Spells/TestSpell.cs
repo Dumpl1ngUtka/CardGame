@@ -12,11 +12,11 @@ namespace Units
         {
             if (hit.collider.GetComponent<Piece>() == null)
             {
-                StartIndex = Piece.Player.Timeline.GetIndex;
+                StartTime = Piece.Player.Timeline.GetTime;
                 if (Piece.AddActivity(this))
                     IsSpellFinished = true;
                 else
-                    Debug.Log("Ќе достаточно времен на выполнение заклинани€");
+                    Debug.Log("Ќедостаточно времен на выполнение заклинани€");
             }
             IsSpellFinished = true;
         }

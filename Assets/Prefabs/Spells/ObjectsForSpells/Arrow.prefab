@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 261963593785185514}
   - component: {fileID: 158689220103373582}
   m_Layer: 0
-  m_Name: Fireball
+  m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 261963593785185515}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.31, y: 3.52, z: 19.87}
-  m_LocalScale: {x: 3, y: 3, z: 3}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261963593785185515}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &261963593785185508
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -111,31 +111,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebbaf54760c76fc4e8807979bcb2d09e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
+  _damage: 25
   _activeTime: 5
   _hitbox: {fileID: 261963593785185509}
-  _distanceBySecond: 5
-  _arcSize: 5
+  _distanceBySecond: 20
+  _arcSize: 1
   _positionCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.8440552
-      inSlope: 0.12018646
-      outSlope: 0.12018646
-      tangentMode: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.142
+      outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: -3.6732686
-      outSlope: -3.6732686
-      tangentMode: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.048940122
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

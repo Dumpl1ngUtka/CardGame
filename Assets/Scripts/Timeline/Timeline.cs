@@ -12,33 +12,34 @@ namespace Battleground
         [SerializeField] private TMP_Text _current;
         [SerializeField] private TMP_Text _max;
         [SerializeField] private TimelineColorIndicator _colorIndicator;
-        private int _maxTimePerSecond = 10;
+        private float _maxTime;
+        private float _minTime;
         private float _oldValue;
+        private float _currentTime;
 
-        public static float TimeStep = 0.1f;
-        public Action<float> OnValueChanged;
+        public Action<float, bool> OnTimeChanged;
 
-        public int GetIndex
+        public float GetTime => _currentTime;
+        public float MinTime => _minTime;
+        public float MaxTime => _maxTime;
+        public float TimeRange => _maxTime - _minTime;
+
+        public void SetTimeBounds(float minTime, float maxTime)
         {
-            get
-            {
-                return (int)(_slider.value);
-            }
-        }
-        public int MaxIndex
-        {
-            get
-            {
-                return (int)Mathf.Ceil(_maxTimePerSecond / TimeStep);
-            }
+            _minTime = minTime;
+            _maxTime = maxTime;
+
+            _slider.minValue = minTime;
+            _slider.maxValue = maxTime;
+            _slider.value = _minTime;
+            _oldValue = _slider.value;
+
+            ChangeRenderedText(_slider.value);
         }
 
         private void OnEnable()
         {
-            _slider.maxValue = _maxTimePerSecond/ TimeStep;
-            _oldValue = _slider.value;
-            OnValueChanged += ChangeRenderedText;
-            ChangeRenderedText((int)_slider.value);
+            OnTimeChanged += ChangeRenderedText;
         }
 
         private void Update()
@@ -46,40 +47,40 @@ namespace Battleground
             if (_slider.value != _oldValue)
             {
                 _oldValue = _slider.value;
-                OnValueChanged?.Invoke(_slider.value);
+                SetTime(_slider.value, false);
             }
         }
 
-        public void SetTime(float time)
+        public void SetTime(float time, bool isSimulation)
         {
-            _slider.value = time / TimeStep;
+            _currentTime = time;
+            OnTimeChanged?.Invoke(_currentTime, isSimulation);
         }
 
         private void OnDisable()
         {
-            OnValueChanged -= ChangeRenderedText;
+            OnTimeChanged -= ChangeRenderedText;
         }
 
-        private void ChangeRenderedText(float value)
+        private void ChangeRenderedText(float value, bool isSimulation = false)
         {
-            var seconds = Mathf.FloorToInt(value / 10);
-            var fractionsOfSecond = Mathf.FloorToInt(value % 10);
-            _current.text = string.Format("{0:0}.{1:0}", seconds, fractionsOfSecond);
+            _current.text = string.Format("{0:0.00}", value);
+            _max.text = string.Format("{0:0.00}", _maxTime);
         }
 
-        public void UpdateTimeline(IObjectForCardRenderer obj)
+        public void UpdateTimelineRender(IObjectForCardRenderer obj)
         {
             var piece = obj as Piece;
             if (piece != null)
                 _colorIndicator.Render(piece.Activities);
         }
-
-
     }
+
     public interface IMoveByTimeline
     {
         void NextMove();
-        void MoveByTimeline(float index);
+
+        void MoveByTimeline(float time, bool isSimulation = false);
 
     }
 }

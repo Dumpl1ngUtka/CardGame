@@ -11,7 +11,7 @@ namespace Battleground.UI
         [SerializeField] private TimelineCell _cellPrefab;
         private RectTransform _rectTransform;
         private float _width;
-        private float _stepSizeByPixels => _width/ _timeline.MaxIndex;
+        private float _stepSizeByPixels => _width/ _timeline.TimeRange;
 
         private void OnEnable()
         {
@@ -25,8 +25,8 @@ namespace Battleground.UI
             foreach (Spell spell in spells)
             {
                 var inst = Instantiate(_cellPrefab, _container);
-                inst.GetComponent<RectTransform>().offsetMin = new (spell.StartIndex * _stepSizeByPixels - _width  / 2, 0);
-                inst.GetComponent<RectTransform>().offsetMax = new (spell.EndIndex * _stepSizeByPixels - _width / 2, 0);
+                inst.GetComponent<RectTransform>().offsetMin = new ((spell.StartTime - _timeline.MinTime) * _stepSizeByPixels - _width / 2, 0);
+                inst.GetComponent<RectTransform>().offsetMax = new ((spell.EndTime - _timeline.MinTime) * _stepSizeByPixels - _width / 2, 0);
                 inst.Init(spell);
             }
                 

@@ -6,7 +6,8 @@ namespace Units
     [CreateAssetMenu(menuName = "Spells/MoveSpell")]
     public class MoveSpell : Spell
     {
-        public Vector3 _movePosition;
+        [SerializeField] private float _distancePerSecond;
+        private Vector3 _movePosition;
         private Vector3 _startPosition;
 
         public override void RemoveFromTimeline()
@@ -20,7 +21,8 @@ namespace Units
             {
                 _movePosition = hit.point;
                 _startPosition = Piece.transform.position;
-                StartIndex = Piece.Player.Timeline.GetIndex;
+                StartTime = Piece.Player.Timeline.GetTime;
+                ActionTime = (_startPosition - _movePosition).magnitude / _distancePerSecond;
                 if (Piece.AddActivity(this))
                     IsSpellFinished = true;
                 else
@@ -35,7 +37,7 @@ namespace Units
 
         public override void Release(float time)
         {
-            Piece.transform.position = Vector3.Lerp(_startPosition, _movePosition, time / StepCount);            
+            Piece.transform.position = Vector3.Lerp(_startPosition, _movePosition, time / ActionTime);            
         }
 
         public override void Update()

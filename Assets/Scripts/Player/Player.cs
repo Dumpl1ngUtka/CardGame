@@ -43,7 +43,6 @@ namespace Battleground
             Units.Remove(unit);
             var piece = Instantiate(_piecePrefab, hit.point, _piecePrefab.transform.rotation, _pieceConteiner);
             piece.Init(unit, this);
-            PlayablePieceCount();
         }
 
         public int PlayablePieceCount()
@@ -66,8 +65,14 @@ namespace Battleground
             };
         }
 
-        public void StartNewMove()
+        public void StartNewMove(float minTime, float maxTime)
         {
+            Timeline.SetTimeBounds(minTime, maxTime);
+            foreach (Transform child in _pieceConteiner)
+            {
+                var piece = child.GetComponent<Piece>();
+                piece.NextMove();
+            }
             IsMoveFinished = false;
             StateMachine.ChangeState(new SelectUnitCard(StateMachine));
         }

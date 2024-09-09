@@ -19,7 +19,7 @@ namespace Battleground.UI
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button == PointerEventData.InputButton.Right)
-                _spell.Piece.RemoveActivityByStartIndex(_spell.StartIndex);
+                _spell.Piece.RemoveActivityByStartTime(_spell.StartTime);
         }
     }
 }

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4432ff34650cdfc41990915ee64f7aa7, type: 3}
-  m_Name: Fireball
+  m_Name: ArrowShot
   m_EditorClassIdentifier: 
-  Name: Fireball
+  Name: Arrow Shot
   Mask:
     serializedVersion: 2
     m_Bits: 576
-  SpecializationIcon: {fileID: 21300000, guid: 1861cceded14ba447a4f37e18fe187c3, type: 3}
+  SpecializationIcon: {fileID: 21300000, guid: a8642847a8b1eca43b3000f2b99de9e5, type: 3}
   MainBackground: {fileID: 21300000, guid: 50dcd25388d6e734e9a3ee201106f4db, type: 3}
   "\u0421onsumption": 5
   ActionTime: 2
   MarkerPrefab: {fileID: 3642363673251616568, guid: f12437fa2128267449ef89bd125c5bdf,
     type: 3}
-  _missilePrefab: {fileID: 261963593785185514, guid: 7bb83541145c68f48aa2363b130c5040,
+  _missilePrefab: {fileID: 261963593785185514, guid: 2938ba1d7391aee46bfe8b90cd307458,
     type: 3}

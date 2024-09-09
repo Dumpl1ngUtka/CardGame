@@ -31,14 +31,14 @@ namespace Battleground.UI
             _activeTabsList.Add(_infoRenderer);
             _infoRenderer.Init(obj);
             _infoRenderer.Open();
-            _timeline.UpdateTimeline(obj);
+            _timeline.UpdateTimelineRender(obj);
         }
 
         public void UpdateUnitInfo(IObjectForCardRenderer obj)
         {
             _infoRenderer.Init(obj);
             _infoRenderer.Open();
-            _timeline.UpdateTimeline(obj);
+            _timeline.UpdateTimelineRender(obj);
 
         }
     }

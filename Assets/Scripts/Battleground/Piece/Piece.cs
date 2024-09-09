@@ -7,7 +7,7 @@ namespace Battleground
     public class Piece : MonoBehaviour, IObjectForCardRenderer, IMoveByTimeline
     {
         [SerializeField] private PieceUIRenderer _UIRenderer;
-        private int _timelineSize => Player.Timeline.MaxIndex;
+        private float _timeMaxTime => Player.Timeline.MaxTime;
 
         public PieceHealth Health { get; private set; }
         public Unit Unit { get; private set; }
@@ -21,7 +21,7 @@ namespace Battleground
             Health.Died += Died;
             _UIRenderer.Init(this);
             Player = player;
-            Player.Timeline.OnValueChanged += MoveByTimeline;
+            Player.Timeline.OnTimeChanged += MoveByTimeline;
             NextMove();
         }
 
@@ -50,7 +50,7 @@ namespace Battleground
         private void OnDisable()
         {
             Health.Died -= Died;
-            Player.Timeline.OnValueChanged -= MoveByTimeline;
+            Player.Timeline.OnTimeChanged -= MoveByTimeline;
         }
 
         public void NextMove()
@@ -58,16 +58,16 @@ namespace Battleground
             Activities = new();
         }
 
-        public void MoveByTimeline(float index)
+        public void MoveByTimeline(float index, bool isSimulation)
         {
             bool indexInSpell = false;
 
             foreach (var spell in Activities)
             {
-                if (index >= spell.StartIndex && index <= spell.EndIndex)
+                if (index >= spell.StartTime && index <= spell.EndTime)
                 {
                     indexInSpell = true;
-                    spell.Release(index - spell.StartIndex);
+                    spell.Release(index - spell.StartTime);
                     break;
                 }
             }
@@ -76,23 +76,23 @@ namespace Battleground
             {
                 Spell lastSpell = null;
                 foreach (var spell in Activities)
-                    if (index > spell.EndIndex && (lastSpell == null || spell.EndIndex > lastSpell.EndIndex))
+                    if (index > spell.EndTime && (lastSpell == null || spell.EndTime > lastSpell.EndTime))
                         lastSpell = spell;
-                lastSpell?.Release(lastSpell.StepCount);
+                lastSpell?.Release(lastSpell.ActionTime);
             }
         }
 
         public bool AddActivity(Spell newActivity)
         {
-            if (newActivity.EndIndex > _timelineSize)
+            if (newActivity.EndTime > _timeMaxTime)
                 return false;
 
             foreach (var activity in Activities)
             {
-                var startInOtherActivity = newActivity.StartIndex >= activity.StartIndex &&
-                    newActivity.StartIndex <= activity.EndIndex;
-                var endInOtherActivity = newActivity.EndIndex >= activity.StartIndex &&
-                    newActivity.EndIndex <= activity.EndIndex;
+                var startInOtherActivity = newActivity.StartTime >= activity.StartTime &&
+                    newActivity.StartTime <= activity.EndTime;
+                var endInOtherActivity = newActivity.EndTime >= activity.StartTime &&
+                    newActivity.EndTime <= activity.EndTime;
                 if (startInOtherActivity || endInOtherActivity)
                     return false;
             }
@@ -101,12 +101,12 @@ namespace Battleground
             return true;
         }
 
-        public void RemoveActivityByStartIndex(int startIndex)
+        public void RemoveActivityByStartTime(float startTime)
         {
-            MoveByTimeline(startIndex);
+            MoveByTimeline(startTime, false);
             for (int i = 0; i < Activities.Count; i++)
             {
-                if (Activities[i].StartIndex >= startIndex)
+                if (Activities[i].StartTime >= startTime)
                 {
                     Activities[i].RemoveFromTimeline();
                     Activities.Remove(Activities[i--]);

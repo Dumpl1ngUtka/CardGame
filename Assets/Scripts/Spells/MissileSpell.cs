@@ -1,30 +1,29 @@
 using Battleground;
-using System.Runtime.InteropServices;
 using UI.Marker;
 using UnityEngine;
 
 namespace Units
 {
-    [CreateAssetMenu(menuName = "Spells/Fireball")]
+    [CreateAssetMenu(menuName = "Spells/SimpleMissileOrZone")]
 
-    public class FireballSpell : Spell
+    public class MissileSpell : Spell
     {
-        [SerializeField] private Fireball _fireballPrefab;
+        [SerializeField] private SpellObject _missilePrefab;
 
-        public Vector3 _targetPosition;
-        public Vector3 _startPosition;
-        public Fireball _fireball;
+        private Vector3 _targetPosition;
+        private Vector3 _startPosition;
+        private SpellObject _missile;
 
         private Marker _marker;
 
         public override void LeftMouseClick(RaycastHit hit)
         {
             _targetPosition = hit.point;
-            StartIndex = Piece.Player.Timeline.GetIndex;
+            StartTime = Piece.Player.Timeline.GetTime;
             if (Piece.AddActivity(this))
             {
-                _fireball = Instantiate(_fireballPrefab);
-                _fireball.Init(Piece.Player, _startPosition, _targetPosition, EndIndex);
+                _missile = Instantiate(_missilePrefab);
+                _missile.Init(Piece.Player.Timeline, _startPosition, _targetPosition, EndTime);
                 IsSpellFinished = true;
             }
             else
@@ -41,7 +40,8 @@ namespace Units
 
         public override void RemoveFromTimeline()
         {
-            Destroy(_fireball.gameObject); 
+            if (_missile.gameObject != null)
+                Destroy(_missile.gameObject); 
         }
 
         public override void Update()
@@ -52,7 +52,7 @@ namespace Units
         {
             _startPosition = Piece.transform.position;
             _marker = Instantiate(MarkerPrefab);
-            _marker.Init(_fireballPrefab, _startPosition);
+            _marker.Init(_missilePrefab, _startPosition);
         }
 
         public override void EndRelease()

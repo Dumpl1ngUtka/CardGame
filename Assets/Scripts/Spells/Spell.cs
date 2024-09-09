@@ -13,12 +13,12 @@ namespace Units
         public Sprite SpecializationIcon;
         public Sprite MainBackground;
         public int Ñonsumption;
-        public int StepCount;
+        public float ActionTime;
         public Marker MarkerPrefab;
 
         public Piece Piece { get; protected set; }
-        public int StartIndex { get; protected set; }
-        public int EndIndex => StartIndex + StepCount;
+        public float StartTime { get; protected set; }
+        public float EndTime => StartTime + ActionTime;
 
         public bool IsSpellFinished { get; protected set; }
 
