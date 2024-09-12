@@ -5,10 +5,9 @@ public class Test : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Piece pieceHealth))
+        if (other.TryGetComponent(out Piece piece))
         {
-            pieceHealth.ApplyDamage(10);
-
+            piece.ApplyDamage(new Damage(10, piece));
         }
     }
 }

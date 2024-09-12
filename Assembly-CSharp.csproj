@@ -131,6 +131,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\ListUnitsFromMainScene.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Damage\Damage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Scripts\Units\UnitRace.cs" />
     <Compile Include="Assets\Scripts\Battleground\StateMachines\Player State Machine\PlayerStateMachine.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Assets\Scripts\Spells\ObjectsForSpells\SimpleZone.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Scripts\Units\Attributes.cs" />
+    <Compile Include="Assets\AnimationTest.cs" />
     <Compile Include="Assets\Scripts\UI\CellsProgressBar.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Weapons\DamageTypes.cs" />
@@ -178,6 +180,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\Battleground\StateMachines\Player State Machine\States\SelectUnitCard.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Accessories\Accessories.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\PieceAttributes.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
   </ItemGroup>
   <ItemGroup>

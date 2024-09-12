@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class Piece : MonoBehaviour, IObjectForCardRenderer, IMoveByTimeline
+    public class Piece : MonoBehaviour, IObjectForCardRenderer, IMoveByTimeline, IDamageable
     {
-        [SerializeField] private PieceUIRenderer _UIRenderer;
+        //[SerializeField] private PieceUIRenderer _UIRenderer;
         private float _timeMaxTime => Player.Timeline.MaxTime;
 
+        public Animator Animator;
         public PieceHealth Health { get; private set; }
         public Unit Unit { get; private set; }
         public Player Player { get; private set; }
@@ -19,7 +20,7 @@ namespace Battleground
             Unit = unit;
             Health = new PieceHealth(this, unit.SkillLevels.Health);
             Health.Died += Died;
-            _UIRenderer.Init(this);
+            //_UIRenderer.Init(this);
             Player = player;
             Player.Timeline.OnTimeChanged += MoveByTimeline;
             NextMove();
@@ -28,16 +29,6 @@ namespace Battleground
 
         private void Died()
         {
-        }
-
-        public void Move(Vector3 position)
-        {
-            transform.position = position;
-        }
-
-        public void ApplyDamage(int value)
-        {
-            Health.ApplyDamage(value);
         }
 
         public InfoForCardRenderer GetInfo()
@@ -97,6 +88,8 @@ namespace Battleground
                     return false;
             }
 
+            RemoveActivityByStartTime(newActivity.EndTime);
+
             Activities.Add(newActivity);
             return true;
         }
@@ -113,6 +106,11 @@ namespace Battleground
                 }
             }
             Player.StateMachine.UI.ShowInfo(this);
+        }
+
+        public void ApplyDamage(Damage damage)
+        {
+            Health.ApplyDamage(damage.Value);
         }
     }
 

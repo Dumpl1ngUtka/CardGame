@@ -11,7 +11,6 @@ namespace Units
         public Armor Armor { get; private set; }
         public Accessories[] Accessories { get; private set; } = new Accessories[3];
         public Item[] InBagItems { get; private set; } = new Item[6];
-
         public Item[] EquippedItems
         {
             get
@@ -43,6 +42,18 @@ namespace Units
             accurancy += MainWeapon.Accuracy;
             accurancy += SecondWeapon.Accuracy;
             return accurancy;
+        }
+
+        public float GetItemsWeight()
+        {
+            var weight = 0f;
+            foreach (var item in EquippedItems)
+                weight += item != null ? item.Weight : 0;
+
+            foreach (var item in InBagItems)
+                weight += item != null ? item.Weight : 0;
+
+            return weight;
         }
     }
 }

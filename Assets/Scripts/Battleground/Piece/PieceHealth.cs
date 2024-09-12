@@ -7,34 +7,34 @@ namespace Battleground
         private const int _defaultHealthValue = 20;
         private const int _additionHealthValue = 2;
 
-        private int _maxHealth;
-        private int _health;
+        private float _maxHealth;
+        private float _health;
         private Piece _piece;
 
         public bool IsDied = false;
         public event Action<float> HealthChanged;
         public event Action Died;
 
-        public int Health
+        public float Health
         {
             get { return _health; }
             private set
             {
                 _health = value;
-                HealthChanged?.Invoke((float)_health / _maxHealth);
+                HealthChanged?.Invoke(_health / _maxHealth);
             }
         }
 
-        public float HealthFill => (float)Health / _maxHealth;
+        public float HealthFill => Health / _maxHealth;
 
-        public PieceHealth(Piece piece, int healthAttribute)
+        public PieceHealth(Piece piece, float healthAttribute)
         {
             _piece = piece;
             _maxHealth = _defaultHealthValue + _additionHealthValue * healthAttribute;
             _health = _maxHealth;
         }
 
-        public void ApplyDamage(int value)
+        public void ApplyDamage(float value)
         {
             Health -= value;
             if (Health <= 0)

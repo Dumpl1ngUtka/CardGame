@@ -23,7 +23,7 @@ namespace Units
             if (Piece.AddActivity(this))
             {
                 _missile = Instantiate(_missilePrefab);
-                _missile.Init(Piece.Player.Timeline, _startPosition, _targetPosition, EndTime);
+                _missile.Init(Piece, _startPosition, _targetPosition, ActionTime * 0.7f + StartTime);
                 IsSpellFinished = true;
             }
             else
@@ -31,7 +31,8 @@ namespace Units
         }
         public override void Release(float time = 0)
         {
-            //play anim
+            Piece.Animator.Play("CastSpell");
+            Piece.Animator.SetFloat("Progress", time/ActionTime);
         }
 
         public override void RightMouseClick(RaycastHit hit)

@@ -13,10 +13,12 @@ namespace Battleground
         protected Vector3 _endPos;
         protected float _startTime;
         protected List<IDamageable> _collidedObjects;
+        protected Piece _piece;
 
-        public virtual void Init(Timeline timeline, Vector3 startPos, Vector3 endPos, float startTime)
+        public virtual void Init(Piece piece, Vector3 startPos, Vector3 endPos, float startTime)
         {
-            _timeline = timeline;
+            _piece = piece;
+            _timeline = piece.Player.Timeline;
             _startPos = startPos;
             _endPos = endPos;
             _startTime = startTime;
@@ -45,7 +47,7 @@ namespace Battleground
 
             if (isSimulation)
                 foreach (var collidedObject in _collidedObjects)
-                    collidedObject.ApplyDamage(_damage);
+                    collidedObject.ApplyDamage(new Damage(_damage, collidedObject, _piece));
         }
 
         private void OnTriggerExit(Collider other)

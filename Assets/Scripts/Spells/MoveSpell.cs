@@ -7,8 +7,12 @@ namespace Units
     public class MoveSpell : Spell
     {
         [SerializeField] private float _distancePerSecond;
-        private Vector3 _movePosition;
+        private Vector3 _endPosition;
         private Vector3 _startPosition;
+        private Vector3 _startRotate;
+        private Vector3 _endRotate;
+        private float _rotationTime;
+        private float _rotationSpeed = 90;
 
         public override void RemoveFromTimeline()
         {
@@ -19,10 +23,16 @@ namespace Units
         {
             if (hit.collider.GetComponent<Piece>() == null)
             {
-                _movePosition = hit.point;
                 _startPosition = Piece.transform.position;
+                _endPosition = hit.point;
+
+                _startRotate = Piece.transform.forward;
+                _endRotate = (_endPosition - _startPosition);
+
+                ActionTime = (_startPosition - _endPosition).magnitude / _distancePerSecond;
+                _rotationTime = Vector3.Angle(_startRotate, _endRotate) / _rotationSpeed;
+
                 StartTime = Piece.Player.Timeline.GetTime;
-                ActionTime = (_startPosition - _movePosition).magnitude / _distancePerSecond;
                 if (Piece.AddActivity(this))
                     IsSpellFinished = true;
                 else
@@ -37,7 +47,12 @@ namespace Units
 
         public override void Release(float time)
         {
-            Piece.transform.position = Vector3.Lerp(_startPosition, _movePosition, time / ActionTime);            
+            if (time <= _rotationTime)
+                Piece.transform.forward = Vector3.Lerp(_startRotate, _endRotate, time / _rotationTime);
+
+            Piece.Animator.Play("Walk");
+            Piece.Animator.SetFloat("Progress", time);
+            Piece.transform.position = Vector3.Lerp(_startPosition, _endPosition, time / ActionTime);
         }
 
         public override void Update()

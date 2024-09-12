@@ -5,9 +5,9 @@ namespace Battleground
 {
     public class SimpleZone : SpellObject
     {
-        public override void Init(Timeline timeline, Vector3 startPos, Vector3 endPos, float startTime)
+        public override void Init(Piece piece, Vector3 startPos, Vector3 endPos, float startTime)
         {
-            base.Init(timeline, startPos, endPos, startTime);
+            base.Init(piece, startPos, endPos, startTime);
             transform.position = endPos;
         }
 

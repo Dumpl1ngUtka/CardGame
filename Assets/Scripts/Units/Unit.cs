@@ -19,15 +19,6 @@ namespace Units
 
         public Spell[] Spells => GetSpellArray();
 
-        public float Accuracy
-        {
-            get
-            {
-                var accuracy = Inventory.GetAccuracy();
-                return accuracy;
-            }
-        }
-
         public Unit(int starCount, UnitRace unitRace, UnitClass unitClass)
         {
             StarCount = starCount;

@@ -9,9 +9,9 @@ namespace Battleground
         [SerializeField] private float _arcSize;
         [SerializeField] private AnimationCurve _positionCurve;
 
-        public override void Init(Timeline timeline, Vector3 startPos, Vector3 endPos, float startTime)
+        public override void Init(Piece piece, Vector3 startPos, Vector3 endPos, float startTime)
         {
-            base.Init(timeline, startPos, endPos, startTime);
+            base.Init(piece, startPos, endPos, startTime);
             var newActiveTime = (_startPos - _endPos).magnitude / _distanceBySecond;
             _activeTime = Mathf.Min(newActiveTime, _activeTime);
         }

@@ -8,7 +8,7 @@ namespace Units.Items
     {
         public string Name;
         public Sprite Icon;
-        [Min(0)] public int Weight;
+        [Min(0)] public float Weight;
         public List<Spell> Spells;
     }
 }
