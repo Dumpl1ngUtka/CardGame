@@ -26,17 +26,17 @@ namespace Battleground.UI
             _pauseMenu.Open();
         }
 
-        public void ShowInfo(IObjectForCardRenderer obj)
+        public void ShowInfo(IObjectForCardRenderer obj, PlayerState callbackState = null)
         {
             _activeTabsList.Add(_infoRenderer);
-            _infoRenderer.Init(obj);
+            _infoRenderer.Init(obj, callbackState);
             _infoRenderer.Open();
             _timeline.UpdateTimelineRender(obj);
         }
 
-        public void UpdateUnitInfo(IObjectForCardRenderer obj)
+        public void UpdateUnitInfo(IObjectForCardRenderer obj, PlayerState callbackState = null)
         {
-            _infoRenderer.Init(obj);
+            _infoRenderer.Init(obj, callbackState);
             _infoRenderer.Open();
             _timeline.UpdateTimelineRender(obj);
 

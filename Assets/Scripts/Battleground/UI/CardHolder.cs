@@ -1,4 +1,5 @@
-using Units;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Battleground.UI
@@ -12,18 +13,21 @@ namespace Battleground.UI
         #endregion
 
         [SerializeField] private UICard _cardPrefab;
-        [SerializeField] private Transform _container;
-        [SerializeField] private Transform[] _spawnPositions;
+        [SerializeField] private RectTransform _container;
         private Vector2 _screenSize;
-        private Animator _animator;
         private bool _isCardsSelected;
+        private List<UICard> _cards;
         private IObjectForCardRenderer[] _renderedObjects;
+        private Vector2 _targetPosition;
+        private RectTransform _rectTransform;
+        private float _lerpSpeed = 10;
 
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
+            _rectTransform = GetComponent<RectTransform>();
             _screenSize = new Vector2(Screen.width, Screen.height);
             gameObject.SetActive(false);
+            _targetPosition = _rectTransform.localPosition;
         }
 
         private void Update()
@@ -31,49 +35,81 @@ namespace Battleground.UI
             var verticalMouseScreenPosition = Input.mousePosition.y / _screenSize.y;
             if (verticalMouseScreenPosition < 0.2f && !_isCardsSelected)
             {
+                _targetPosition = new Vector3(0, 200 - _screenSize.y / 2);
                 _isCardsSelected = true;
-                _animator.SetBool(_isSelect, true);
             }
 
             if (verticalMouseScreenPosition > 0.3f && _isCardsSelected)
             {
+                _targetPosition = new Vector3(0, -_screenSize.y / 2);
                 _isCardsSelected = false;
-                _animator.SetBool(_isSelect, false);
             }
+            LerpMove(_targetPosition);
         }
 
-        public void ShowCards(IObjectForCardRenderer[] objects)
+        private void LerpMove(Vector2 targetPosition)
         {
+            _rectTransform.localPosition = 
+                Vector2.Lerp(_rectTransform.localPosition, targetPosition, Time.deltaTime * _lerpSpeed);
+        }
+
+        public void ShowCards(IObjectForCardRenderer[] objects, PlayerState callbackState)
+        {
+            if (objects == null)
+                return;
             gameObject.SetActive(true);
             _renderedObjects = objects;
-            _isCardsSelected = false;
-            _animator.SetBool(_isRerender, true);
-        }
-
-        private void RenderCards()
-        {
             ClearContainer();
-
-            var index = (_spawnPositions.Length - _renderedObjects.Length) / 2;
-
+            var size = _container.rect.width;
+            var cardCount = objects.Length;
+            var delta = Mathf.Clamp(size / cardCount, 50, 250);
+            var index = 0;
+            var offset = (size - ((cardCount - 1) * delta + 300)) / 2 + 150;
             foreach (var renderedObject in _renderedObjects)
             {
-                var spellCard = Instantiate(_cardPrefab, _spawnPositions[index].position, _spawnPositions[index].rotation, _container);
-                spellCard.Init(renderedObject);
-                index++;
+                var spellCard = Instantiate(_cardPrefab, _container);
+                var rect = spellCard.GetComponent<RectTransform>();
+                var xPos = delta * index++ - size / 2 + offset;
+                var pos = new Vector3(xPos, -Mathf.Abs(xPos / (size / 2) * 100), index);
+                rect.anchoredPosition = pos;
+                rect.localRotation = Quaternion.Euler(0, 0, -xPos / (size / 2) * 10);
+                spellCard.Init(index, this, callbackState, renderedObject);
             }
+        }
 
+        private void UpdateCards()
+        {
+            //var size = _container.rect.width;
+            //var cardCount = objects.Length;
+            //var delta = Mathf.Clamp(size / cardCount, 50, 250);
+            //var index = 0;
+            //var offset = (size - ((cardCount - 1) * delta + 300)) / 2 + 150;
+            //foreach (var renderedObject in _renderedObjects)
+            //{
+            //    var spellCard = Instantiate(_cardPrefab, _container);
+            //    var rect = spellCard.GetComponent<RectTransform>();
+            //    var xPos = delta * index++ - size / 2 + offset;
+            //    var pos = new Vector3(xPos, -Mathf.Abs(xPos / (size / 2) * 200), index);
+            //    rect.anchoredPosition = pos;
+            //    rect.localRotation = Quaternion.Euler(0, 0, -xPos / (size / 2) * 25);
+            //    spellCard.Init(index, this, renderedObject);
+            //}
         }
 
         public void HideCards()
         {
-            _animator.SetTrigger(_isHideCards);
+            _targetPosition = new Vector3(0, -200 - _screenSize.y / 2);
         }
 
         private void ClearContainer()
         {
             foreach (Transform child in _container.transform)
                 Destroy(child.gameObject);
+        }
+
+        public void SelectCardEvent(int cardIndex)
+        {
+
         }
     }
 }

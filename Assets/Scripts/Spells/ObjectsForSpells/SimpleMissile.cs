@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class SimpleMissile : SpellObject
+    public class SimpleMissile : SpellObject, ICameraPivot
     {
         [SerializeField] private float _distanceBySecond;
         [SerializeField] private float _arcSize;

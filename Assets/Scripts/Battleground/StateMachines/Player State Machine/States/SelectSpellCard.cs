@@ -1,6 +1,6 @@
 using UnityEngine;
 using Battleground.UI;
-
+using UnityEngine.EventSystems;
 
 namespace Battleground
 {
@@ -12,12 +12,13 @@ namespace Battleground
             _piece = piece;
         }
 
-        public override LayerMask LayerMask => LayerMask.GetMask(PlayerUnitLayer, EnemyUnitLayer, CardLayer);
+        public override LayerMask LayerMask => ~0;
 
         public override void Enter()
         {
             base.Enter();
-            StateMachine.UI.ShowInfo(_piece);
+            StateMachine.CameraMover.SetPivot(_piece.transform);
+            StateMachine.UI.ShowInfo(_piece,this);
         }
 
         public override void Update()
@@ -32,26 +33,35 @@ namespace Battleground
         {
             base.Exit();
             StateMachine.UI.CloseOpenTab();
+            StateMachine.CameraMover.SetPivot();
         }
 
         protected override void LeftMouseButtonDown(RaycastHit hit)
         {
-
-            hit.collider.TryGetComponent<UICard>(out var card);
-            if (card != null)
-                StateMachine.ChangeState(new ReleasingSpellCard(StateMachine, _piece, card.Spell));
-
-            hit.collider.TryGetComponent<Piece>(out var piece);
-            if (piece == null)
+            if (hit.collider.TryGetComponent<Piece>(out var piece))
+            {
+                _piece = piece;
+                StateMachine.CameraMover.SetPivot(_piece.transform);
+                StateMachine.UI.UpdateUnitInfo(_piece, this);
                 return;
+            }
 
-            _piece = piece;
-            StateMachine.UI.UpdateUnitInfo(_piece);
+            StateMachine.ChangeState(new Default(StateMachine));
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)
         {
-            throw new System.NotImplementedException();
+        }
+
+        public override void LeftMouseButtonDownOverUI(RaycastResult hit)
+        {
+            base.LeftMouseButtonDownOverUI(hit);
+            Debug.Log("AAAA");
+            if (hit.gameObject.TryGetComponent<UICard>(out var card))
+            {
+                StateMachine.ChangeState(new ReleasingSpellCard(StateMachine, _piece, card.Spell));
+                return;
+            }   
         }
     }
 }

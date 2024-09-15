@@ -1,11 +1,12 @@
 using Battleground.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Battleground
 {
     public class SelectUnitCard : PlayerState
     {
-        public override LayerMask LayerMask => LayerMask.GetMask(PlayerUnitLayer, EnemyUnitLayer, CardLayer);
+        public override LayerMask LayerMask => LayerMask.GetMask(PlayerUnitLayer, EnemyUnitLayer, CardLayer,UILayer);
         
         public SelectUnitCard(PlayerStateMachine stateMachine) : base(stateMachine)
         {
@@ -15,7 +16,7 @@ namespace Battleground
         public override void Enter()
         {
             base.Enter();
-            StateMachine.UI.ShowInfo(StateMachine.Player);
+            StateMachine.UI.ShowInfo(StateMachine.Player,this);
         }
 
         public override void Update()
@@ -34,14 +35,18 @@ namespace Battleground
 
         protected override void LeftMouseButtonDown(RaycastHit hit)
         {
-            hit.collider.TryGetComponent<UICard>(out var card);
+
+        }
+
+        public override void LeftMouseButtonDownOverUI(RaycastResult hit)
+        {
+            hit.gameObject.TryGetComponent<UICard>(out var card);
             if (card != null)
                 StateMachine.ChangeState(new ReleasingUnitCard(StateMachine, card.Unit));
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)
         {
-            throw new System.NotImplementedException();
         }
     }
 }

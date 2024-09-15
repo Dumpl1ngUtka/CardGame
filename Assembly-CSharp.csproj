@@ -109,6 +109,7 @@
     <Compile Include="Assets\Scripts\Guild\UI\GuildUI.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\State.cs" />
     <Compile Include="Assets\Scripts\Battleground\StateMachines\StateMachine.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\IPlayerUI.cs" />
     <Compile Include="Assets\Scripts\Units\UnitInventory.cs" />
     <Compile Include="Assets\Scripts\Units\Unit.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraMover.cs" />
@@ -138,7 +139,6 @@
     <Compile Include="Assets\Scripts\Battleground\Piece\MovePoint\MovePoint.cs" />
     <Compile Include="Assets\Scripts\Timeline\Timeline.cs" />
     <Compile Include="Assets\Scripts\Battleground\StateMachines\Player State Machine\States\ReleasingUnitCard.cs" />
-    <Compile Include="Assets\Scripts\Battleground\UI\Menus\UseCardMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\Scripts\Battleground\InfoForCardRenderer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
@@ -152,7 +152,6 @@
     <Compile Include="Assets\Scripts\Guild\UI\GuildUnitCardRenderer.cs" />
     <Compile Include="Assets\Scripts\Guild\Genetators\PokerCardsGenerator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
-    <Compile Include="Assets\Scripts\Battleground\UI\Menus\UnitCardsRenderer.cs" />
     <Compile Include="Assets\Scripts\PassiveEffect.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\States\SelectUnitsStats.cs" />

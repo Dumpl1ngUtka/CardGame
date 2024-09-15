@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class Piece : MonoBehaviour, IObjectForCardRenderer, IMoveByTimeline, IDamageable
+    public class Piece : MonoBehaviour, IObjectForCardRenderer, IMoveByTimeline, IDamageable, ICameraPivot
     {
         //[SerializeField] private PieceUIRenderer _UIRenderer;
         private float _timeMaxTime => Player.Timeline.MaxTime;

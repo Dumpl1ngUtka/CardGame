@@ -11,6 +11,7 @@ namespace Battleground
         [SerializeField] private Transform _pieceConteiner;
         [SerializeField] private Piece _piecePrefab;
         [SerializeField] private BattleSceneUI UI;
+        [SerializeField] private CameraMover _cameraMover;
 
         [SerializeField] private UnitRace[] _races;
         [SerializeField] private UnitClass[] _classes;
@@ -19,7 +20,7 @@ namespace Battleground
         public List<Unit> Units;
         public PlayerStateMachine StateMachine;
         public event Action MoveFinished;
-        public bool IsMoveFinished;
+        public bool IsMoveFinished { get; private set; }
 
 
         public bool HasPlayablePiece => PlayablePieceCount() > 0;
@@ -35,7 +36,7 @@ namespace Battleground
                 new Unit(2,  _races[2], _classes[2]),
                 new Unit(3,  _races[3], _classes[3]),
             };
-            StateMachine = new PlayerStateMachine(this, UI);
+            StateMachine = new PlayerStateMachine(this, UI, _cameraMover);
         }
 
         public void InstantiatePiece(Unit unit, RaycastHit hit)

@@ -1,5 +1,7 @@
 using Battleground;
 using UnityEngine;
+using System.Reflection;
+using UnityEditor.Animations;
 
 namespace Units
 {
@@ -7,6 +9,10 @@ namespace Units
     public class MoveSpell : Spell
     {
         [SerializeField] private float _distancePerSecond;
+
+        //Delte this
+        [SerializeField] private RuntimeAnimatorController _controller;
+
         private Vector3 _endPosition;
         private Vector3 _startPosition;
         private Vector3 _startRotate;
@@ -49,6 +55,7 @@ namespace Units
         {
             if (time <= _rotationTime)
                 Piece.transform.forward = Vector3.Lerp(_startRotate, _endRotate, time / _rotationTime);
+
 
             Piece.Animator.Play("Walk");
             Piece.Animator.SetFloat("Progress", time);

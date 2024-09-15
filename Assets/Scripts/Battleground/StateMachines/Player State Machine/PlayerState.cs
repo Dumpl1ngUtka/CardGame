@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Battleground
 {
@@ -36,5 +37,8 @@ namespace Battleground
         protected abstract void LeftMouseButtonDown(RaycastHit hit);
 
         protected abstract void RightMouseButtonDown(RaycastHit hit);
+
+        public virtual void LeftMouseButtonDownOverUI(RaycastResult hit) { }
+
     }
 }

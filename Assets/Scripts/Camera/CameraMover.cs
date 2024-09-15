@@ -8,19 +8,40 @@ namespace Battleground
         [SerializeField] private float _lerpScrollSpeed = 2f;
         [SerializeField] private float _cameraSensitivity = 2f;
         [SerializeField] private float _mapSize = 5f;
-        private CameraPosition _lowPosition = new(5, new(25, 0, 0)); //new(25, new(60, 0, 0))
-        private CameraPosition _highPosition = new(20, new(80, 0, 0));
+        [SerializeField] private Transform _defaultPivot;
+        [SerializeField] private Camera _camera;
+        [SerializeField] private float _pivotSpeed = 0.4f;
         private float _lerpScroll;
         private float _zoom;
         private Vector3 _mousePositionDelta;
-        private float _borderOffset = 0.4f;
-        private float _returnInFieldSpeed = 40;
+        private Transform _pivot;
+        private Vector3 _pivotPos;
+
+        private Vector3 PivotPos
+        {
+            get
+            {
+                return _pivot.position;
+            }
+            set
+            {
+                _pivot = transform;
+                _pivotPos = value;
+            }
+        }
+
+        private void Start()
+        {
+            SetPivot(_defaultPivot);
+        }
 
         private void Update()
         {
             InputScroll();
             ChangeZoom();
+            RotateCamera();
             MoveCamera();
+            transform.position = Vector3.Lerp(transform.position, PivotPos, Time.deltaTime * _pivotSpeed);
         }
 
         private void InputScroll()
@@ -32,38 +53,49 @@ namespace Battleground
 
         private void ChangeZoom()
         {
-            var height = Mathf.Lerp(_lowPosition.Height, _highPosition.Height, _lerpScroll);
-            transform.position = new(transform.position.x, height, transform.position.z);
-            transform.rotation = Quaternion.Euler(Vector3.Lerp(_lowPosition.Rotation, _highPosition.Rotation, _lerpScroll));
+            var height = Mathf.Lerp(5, 20, _lerpScroll);
+            _camera.transform.localPosition = new(0,0 , -height);
+            //transform.rotation = Quaternion.Euler(Vector3.Lerp(_lowPosition.Rotation, _highPosition.Rotation, _lerpScroll));
         }
 
-        private void MoveCamera()
+        private void RotateCamera()
         {
             if (Input.GetMouseButtonDown(1))
             {
                 _mousePositionDelta = Input.mousePosition;
+                SetPivot();
             }
             if (Input.GetMouseButton(1))
             {
                 var delta = (_mousePositionDelta - Input.mousePosition) * GetCameraSensitivityByDistance();
-                var newPosition = transform.position + new Vector3(delta.x, 0, delta.y);
-                transform.position = newPosition;
+                var newPivotRotation = transform.rotation.eulerAngles + new Vector3(delta.y, delta.x);
+                transform.rotation = Quaternion.Euler(newPivotRotation);
                 _mousePositionDelta = Input.mousePosition;
             }
-            else if (new Vector2(transform.position.x, transform.position.z).magnitude > GetMapSizeByZoom())
+        }
+
+        private void MoveCamera()
+        {
+            if (Input.GetMouseButtonDown(2))
             {
-                var fieldCenter = new Vector3(0, transform.position.y, 0);
-                transform.position = Vector3.MoveTowards(transform.position, fieldCenter, Time.deltaTime * _returnInFieldSpeed);
+                _mousePositionDelta = Input.mousePosition;
+            }
+            if (Input.GetMouseButton(2))
+            {
+                var delta = (_mousePositionDelta - Input.mousePosition) * GetCameraSensitivityByDistance() / 10;
+                var newPivotPosition = PivotPos + new Vector3(delta.x , 0 , delta.y);
+                PivotPos = newPivotPosition;
+                _mousePositionDelta = Input.mousePosition;
             }
         }
 
         private float GetCameraSensitivityByDistance()
         {
-            if (GetMapSizeByZoom() == 0)
-                return 0;
-            var distance = 1 - new Vector2(transform.position.x, transform.position.z).magnitude / GetMapSizeByZoom() + _borderOffset;
-            var currentSensitivity = Mathf.Lerp(0, _cameraSensitivity, distance);
-            return currentSensitivity;
+            //if (GetMapSizeByZoom() == 0)
+            //    return 0;
+            //var distance = 1 - new Vector2(transform.position.x, transform.position.z).magnitude / GetMapSizeByZoom() + _borderOffset;
+            //var currentSensitivity = Mathf.Lerp(0, _cameraSensitivity, distance);
+            return _cameraSensitivity;
         }
 
         private float GetMapSizeByZoom()
@@ -71,5 +103,19 @@ namespace Battleground
             var mapSize = Mathf.Lerp(0, _mapSize, 1 - _zoom);
             return mapSize;
         }
+
+        public void SetPivot(Transform pivot)
+        {
+            _pivot = pivot;
+        }
+
+        public void SetPivot()
+        {
+            _pivot = transform;
+        }
+    }
+    public interface ICameraPivot
+    {
+
     }
 }

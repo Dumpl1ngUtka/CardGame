@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 namespace Battleground
 {
     public class Default : PlayerState
@@ -9,7 +8,7 @@ namespace Battleground
         {
         }
 
-        public override LayerMask LayerMask => LayerMask.GetMask(PlayerUnitLayer, EnemyUnitLayer);
+        public override LayerMask LayerMask => ~0;
 
         public override void Update()
         {
@@ -21,15 +20,14 @@ namespace Battleground
 
         protected override void LeftMouseButtonDown(RaycastHit hit)
         {
-            if (!hit.collider.TryGetComponent<Piece>(out var piece))
-                return;
-
-            StateMachine.ChangeState(new SelectSpellCard(StateMachine, piece));
+            if (hit.collider.TryGetComponent<Piece>(out var piece))
+                StateMachine.ChangeState(new SelectSpellCard(StateMachine, piece));
+            if (hit.collider.TryGetComponent(out ICameraPivot _))
+                StateMachine.CameraMover.SetPivot(hit.transform);
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)
         {
-            throw new System.NotImplementedException();
         }
     }
 }

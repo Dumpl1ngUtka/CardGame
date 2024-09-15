@@ -1,8 +1,6 @@
 using TMPro;
 using UI;
-using Units;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Battleground.UI
 {
@@ -17,25 +15,21 @@ namespace Battleground.UI
         [SerializeField] private ProgressBar _staminaBar;
         //[SerializeField] private CellsProgressBar _starsRenderer;
         [SerializeField] private CardHolder _spellCardHolder;
-        private const string _isEnable = "IsEnable";
-        private Animator _animator;
+        private PlayerState _callbackState;   
 
-        public IObjectForCardRenderer renderedObj { get; private set; }
 
-        private void Awake()
+        public IObjectForCardRenderer RenderedObj { get; private set; }
+
+
+        public void Init(IObjectForCardRenderer obj, PlayerState callbackState)
         {
-            _animator = GetComponent<Animator>();   
-        }
-
-        public void Init(IObjectForCardRenderer obj)
-        {
-            renderedObj = obj;
+            RenderedObj = obj;
+            _callbackState = callbackState;
         }
 
         public override void Open()
         {
-            _animator.SetBool(_isEnable,true);
-            var info = renderedObj.GetInfo();
+            var info = RenderedObj.GetInfo();
             _title.text = info.Title;
             _underTitle.text = info.UnderTitle;
             _contentLine1.text = info.ContentLine1;
@@ -52,12 +46,11 @@ namespace Battleground.UI
                 _staminaBar.SetActive(false);
 
             //_starsRenderer?.Render(Unit.StarCount);
-            _spellCardHolder.ShowCards(info.ObjectsForCardRenderers);
+            _spellCardHolder.ShowCards(info.ObjectsForCardRenderers, _callbackState);
         }
 
         public override void Close()
         {
-            _animator.SetBool(_isEnable,false);
             _spellCardHolder.HideCards();
 
             _title.text = "";
