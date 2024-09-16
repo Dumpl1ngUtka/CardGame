@@ -18,10 +18,10 @@ namespace Battleground.UI
         private PlayerState _callbackState;   
 
 
-        public IObjectForCardRenderer RenderedObj { get; private set; }
+        public IObjectForInfoRenderer RenderedObj { get; private set; }
 
 
-        public void Init(IObjectForCardRenderer obj, PlayerState callbackState)
+        public void Init(IObjectForInfoRenderer obj, PlayerState callbackState)
         {
             RenderedObj = obj;
             _callbackState = callbackState;
@@ -60,6 +60,7 @@ namespace Battleground.UI
             _contentLine3.text = "";
             _healthBar.SetActive(false);
             _staminaBar.SetActive(false);
+            _spellCardHolder.ClearContainer();
         }
     }
 }

@@ -2,6 +2,12 @@ using Battleground;
 using UnityEngine;
 using System.Reflection;
 using UnityEditor.Animations;
+using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
+using UnityEngine.EventSystems;
+using UI.Marker;
+using System.Drawing;
+using System.IO;
 
 namespace Units
 {
@@ -19,6 +25,9 @@ namespace Units
         private Vector3 _endRotate;
         private float _rotationTime;
         private float _rotationSpeed = 90;
+        private NavMeshAgent _agent; 
+        private MoveMarker _marker;
+        public Vector3[] Path => _agent.path.corners; 
 
         public override void RemoveFromTimeline()
         {
@@ -29,13 +38,13 @@ namespace Units
         {
             if (hit.collider.GetComponent<Piece>() == null)
             {
-                _startPosition = Piece.transform.position;
                 _endPosition = hit.point;
 
                 _startRotate = Piece.transform.forward;
                 _endRotate = (_endPosition - _startPosition);
 
-                ActionTime = (_startPosition - _endPosition).magnitude / _distancePerSecond;
+
+                ActionTime = CalculatePathDistance(Path) / _distancePerSecond;
                 _rotationTime = Vector3.Angle(_startRotate, _endRotate) / _rotationSpeed;
 
                 StartTime = Piece.Player.Timeline.GetTime;
@@ -46,6 +55,16 @@ namespace Units
             }
         }
 
+        private float CalculatePathDistance(Vector3[] path)
+        {
+            var distance = 0f;
+            for (int i = 0; i < path.Length - 1; i++)
+            {
+                distance += Vector3.Distance(path[i], path[i + 1]);
+            }
+            return distance;
+        }
+
         public override void RightMouseClick(RaycastHit hit)
         {
             
@@ -53,26 +72,36 @@ namespace Units
 
         public override void Release(float time)
         {
-            if (time <= _rotationTime)
-                Piece.transform.forward = Vector3.Lerp(_startRotate, _endRotate, time / _rotationTime);
+            //if (time <= _rotationTime)
+            //    Piece.transform.forward = Vector3.Lerp(_startRotate, _endRotate, time / _rotationTime);
 
 
             Piece.Animator.Play("Walk");
             Piece.Animator.SetFloat("Progress", time);
+            //Piece.transform.position = 
             Piece.transform.position = Vector3.Lerp(_startPosition, _endPosition, time / ActionTime);
         }
 
         public override void Update()
         {
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 100))
+            {
+                _agent.destination = hit.point;
+            }
         }
 
         public override void StartRelease()
         {
+            _startPosition = Piece.transform.position;
+            _marker = Instantiate(MarkerPrefab) as MoveMarker;
+            _marker.Init(this);
+            _agent = Piece.Agent;
         }
 
         public override void EndRelease()
         {
-            //throw new System.NotImplementedException();
+            Destroy(_marker.gameObject);
         }
     }
 }

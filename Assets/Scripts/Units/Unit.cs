@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Units
 {
-    public class Unit : IObjectForCardRenderer
+    public class Unit : IObjectForInfoRenderer
     {
         private const int _additionalLevelsForStars = 2;
         private const int _defaultSkillPoints = 25;
@@ -51,9 +51,9 @@ namespace Units
             return spells.ToArray();
         }
 
-        public InfoForCardRenderer GetInfo()
+        public InfoForInfoRenderer GetInfo()
         {
-            return new InfoForCardRenderer
+            return new InfoForInfoRenderer
             {
                 Title = Name,
                 UnderTitle = Race.Name + " | " + Class.Name,

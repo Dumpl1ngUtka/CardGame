@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public struct InfoForCardRenderer
+    public struct InfoForInfoRenderer
     {
         public string Title;
         public string UnderTitle;
@@ -14,6 +14,6 @@ namespace Battleground
         public string ContentLine3;
         public float HealthBarFill;
         public float StaminaBarFill;
-        public IObjectForCardRenderer[] ObjectsForCardRenderers;
+        public IObjectForInfoRenderer[] ObjectsForCardRenderers;
     }
 }

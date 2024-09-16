@@ -8,20 +8,29 @@ namespace Battleground.UI
     public class UICard : MonoBehaviour, IPlayerUI, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private CardRenderer _renderer;
-        private IObjectForCardRenderer _containedObj;
+        [SerializeField] private bool isLerp;
+        private IObjectForInfoRenderer _containedObj;
         private CardHolder _cardHolder;
-        private int _index;
         private PlayerState _callbackState;
         private RectTransform _rectTransform;
         private Vector3 _targetSize = Vector3.one;
+        private Vector3 _targetPosition;
         private float _sizeChangeSpeed = 15f;
+        private float _lerpSpeed = 10;
+        #region SpringMove
+        private float _spring = 0.1f;
+        private float _drag = 0.3f;
+        private Vector2 _vel = Vector2.zero;
+        #endregion
+        private Quaternion _targetRotation;
+        private float _rotatonSpeed = 10;
 
-        public int Weight { get; private set; } = 1;
+        public bool IsSelected { get; private set; } = false;
         public Spell Spell => _containedObj as Spell;
         public Unit Unit => _containedObj as Unit;
         public RectTransform RectTransform => _rectTransform;
 
-        public void Init(int index, CardHolder cardHolder, PlayerState stateForCallback, IObjectForCardRenderer obj)
+        public void Init(CardHolder cardHolder, PlayerState stateForCallback, IObjectForInfoRenderer obj)
         {
             _rectTransform = GetComponent<RectTransform>();
             _callbackState = stateForCallback;
@@ -31,12 +40,14 @@ namespace Battleground.UI
                 _renderer.Render(Spell);
             else if (Unit != null)
                 _renderer.Render(Unit);
-            _index = index;
+            SetSize(0.8f);
         }
 
         private void Update()
         {
             LerpSized(_targetSize);
+            LerpMove(_targetPosition);
+            LerpRotate(_targetRotation);
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -47,9 +58,8 @@ namespace Battleground.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _targetSize = Vector3.one * 1.2f;
-            Weight = 3;
-            _cardHolder.SelectCardEvent(_index);
+            IsSelected = true;
+            _cardHolder.SelectCardEvent(true);
         }
 
         private void LerpSized(Vector3 targetSize)
@@ -59,8 +69,40 @@ namespace Battleground.UI
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            _targetSize = Vector3.one;
-            Weight = 1;
+            IsSelected = false;
+            _cardHolder.SelectCardEvent(false);
+        }
+
+        public void SetPosition(Vector3 position)
+        {
+            _targetPosition = position;
+        }
+
+        public void SetRotation(Quaternion rotation)
+        {
+            _targetRotation = rotation;
+        }
+
+        private void LerpMove(Vector3 targetPosition)
+        {
+            RectTransform.anchoredPosition =
+                Vector2.Lerp(_rectTransform.localPosition, targetPosition, Time.deltaTime * _lerpSpeed);
+        }
+        private void SpringMove(Vector2 targetPosition)
+        {
+            _vel += (targetPosition - RectTransform.anchoredPosition) * _spring;
+            _vel -= _vel * _drag;
+            RectTransform.anchoredPosition += _vel;
+        }
+
+        private void LerpRotate(Quaternion targetRotation)
+        {
+            RectTransform.localRotation = Quaternion.Lerp(RectTransform.localRotation,targetRotation, Time.deltaTime * _rotatonSpeed);
+        }
+
+        public void SetSize(float size)
+        {
+            _targetSize = Vector3.one * size;
         }
     }
 }

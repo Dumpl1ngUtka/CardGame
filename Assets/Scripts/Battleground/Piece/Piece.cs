@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 using Units;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Battleground
 {
-    public class Piece : MonoBehaviour, IObjectForCardRenderer, IMoveByTimeline, IDamageable, ICameraPivot
+    public class Piece : MonoBehaviour, IObjectForInfoRenderer, IMoveByTimeline, IDamageable, ICameraPivot
     {
         //[SerializeField] private PieceUIRenderer _UIRenderer;
         private float _timeMaxTime => Player.Timeline.MaxTime;
 
+        public NavMeshAgent Agent;
         public Animator Animator;
         public PieceHealth Health { get; private set; }
         public Unit Unit { get; private set; }
@@ -31,7 +33,7 @@ namespace Battleground
         {
         }
 
-        public InfoForCardRenderer GetInfo()
+        public InfoForInfoRenderer GetInfo()
         {
             var info = Unit.GetInfo();
             info.HealthBarFill = Health.HealthFill;

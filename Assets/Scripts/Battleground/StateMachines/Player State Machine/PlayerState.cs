@@ -24,6 +24,9 @@ namespace Battleground
         public override void Update()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
             if (Physics.Raycast(ray, out RaycastHit hit, 100, LayerMask))
             {
                 if (Input.GetMouseButtonDown(0))

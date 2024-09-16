@@ -56,7 +56,6 @@ namespace Battleground
         public override void LeftMouseButtonDownOverUI(RaycastResult hit)
         {
             base.LeftMouseButtonDownOverUI(hit);
-            Debug.Log("AAAA");
             if (hit.gameObject.TryGetComponent<UICard>(out var card))
             {
                 StateMachine.ChangeState(new ReleasingSpellCard(StateMachine, _piece, card.Spell));

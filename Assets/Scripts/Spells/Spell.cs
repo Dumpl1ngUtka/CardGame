@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Units
 {
-    public abstract class Spell : ScriptableObject, IObjectForCardRenderer
+    public abstract class Spell : ScriptableObject, IObjectForInfoRenderer
     {
         public string Name;
         public LayerMask Mask;
@@ -42,9 +42,9 @@ namespace Units
         public abstract void StartRelease();
         public abstract void EndRelease();
 
-        public InfoForCardRenderer GetInfo()
+        public InfoForInfoRenderer GetInfo()
         {
-            return new InfoForCardRenderer
+            return new InfoForInfoRenderer
             {
                 Title = Name,
                 UnderTitle = Ñonsumption.ToString(),

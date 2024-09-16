@@ -68,7 +68,7 @@ namespace Battleground
             _max.text = string.Format("{0:0.00}", _maxTime);
         }
 
-        public void UpdateTimelineRender(IObjectForCardRenderer obj)
+        public void UpdateTimelineRender(IObjectForInfoRenderer obj)
         {
             var piece = obj as Piece;
             if (piece != null)
