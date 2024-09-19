@@ -24,7 +24,7 @@ namespace UI.Marker
             _lineRenderer.positionCount = corners.Length;
             for (int i = 0; i < corners.Length; i++)
             {
-                _lineRenderer.SetPosition(i, corners[i]);
+                _lineRenderer.SetPosition(i, corners[i] + Vector3.up);
             }
         }
     }

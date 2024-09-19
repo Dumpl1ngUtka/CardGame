@@ -26,7 +26,7 @@ namespace Battleground
             set
             {
                 _pivot = transform;
-                _pivotPos = value;
+                _pivot.position = value;
             }
         }
 
@@ -53,7 +53,7 @@ namespace Battleground
 
         private void ChangeZoom()
         {
-            var height = Mathf.Lerp(5, 20, _lerpScroll);
+            var height = Mathf.Lerp(5, 40, _lerpScroll);
             _camera.transform.localPosition = new(0,0 , -height);
             //transform.rotation = Quaternion.Euler(Vector3.Lerp(_lowPosition.Rotation, _highPosition.Rotation, _lerpScroll));
         }

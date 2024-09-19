@@ -16,8 +16,8 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 64
-  SpecializationIcon: {fileID: 21300000, guid: 4f300866db5e5d340aa01ad0240674be, type: 3}
-  MainBackground: {fileID: 21300000, guid: 50dcd25388d6e734e9a3ee201106f4db, type: 3}
+  SpecializationIcon: {fileID: 21300000, guid: dcb8b427e4c005f45a8bf2b13e9b908c, type: 3}
+  MainBackground: {fileID: 21300000, guid: 9399193d885891740bebf0dad0cae06c, type: 3}
   "\u0421onsumption": 1
   ActionTime: 5
   MarkerPrefab: {fileID: 6329128528129658472, guid: b51b6bfcab946f244b5f812697228517,
