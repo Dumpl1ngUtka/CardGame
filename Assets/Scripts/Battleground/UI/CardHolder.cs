@@ -13,10 +13,10 @@ namespace Battleground.UI
         #endregion
 
         [SerializeField] private UICard _cardPrefab;
-        [SerializeField] private RectTransform _container;
         private Vector2 _screenSize;
         private bool _isCardsSelected;
         private List<UICard> _cards = new List<UICard>();
+        private UICard _selectedCard;
         private IObjectForInfoRenderer[] _renderedObjects;
         private Vector2 _targetPosition;
         private RectTransform _rectTransform;
@@ -26,6 +26,9 @@ namespace Battleground.UI
         private float _drag = 0.3f;
         private Vector3 _vel = Vector3.zero;
         #endregion
+
+        public RectTransform Container;
+        public RectTransform SelectedCardConteiner;
 
         private void Awake()
         {
@@ -60,74 +63,82 @@ namespace Battleground.UI
             _cards = new List<UICard>();
             _renderedObjects = objects;
             ClearContainer();
-            var width = _container.rect.width;
+            var width = Container.rect.width;
             var cardCount = objects.Length;
             var delta = Mathf.Clamp(width / cardCount, 50, 250);
             var index = 0;
             var offset = (width - ((cardCount - 1) * delta + 300)) / 2 + 150;
             foreach (var renderedObject in _renderedObjects)
             {
-                var spellCard = Instantiate(_cardPrefab, _container);
+                var spellCard = Instantiate(_cardPrefab, Container);
                 spellCard.Init(this, callbackState, renderedObject);
                 _cards.Add(spellCard);
                 var rect = spellCard.RectTransform;
                 var xPos = delta * index++ - width / 2 + offset;
-                var pos = new Vector3(xPos, -Mathf.Abs(xPos / (width / 2) * 100), index);
+                var pos = new Vector2(xPos, 0);
                 spellCard.SetPosition(pos);
-                spellCard.SetRotation(Quaternion.Euler(0, 0, -xPos / (width / 2) * 10));
+                //spellCard.SetRotation(Quaternion.Euler(0, 0, -xPos / (width / 2) * 10));
             }
+            _selectedCard = Instantiate(_cardPrefab, Container);
+            _selectedCard.gameObject.SetActive(false);
         }
 
         private void UpdateCards(bool hasSelectedCard)
         {
-            if (hasSelectedCard)
+            var selectedCardIndex = -1;
+            for (int i = 0; i < _cards.Count; i++)
             {
-                var index = 0;
-                var width = _container.rect.width;
-                var aroundSelectedCard= (_cards.Count / 6) + 1 * 2;
-                var cardCount = _cards.Count + aroundSelectedCard;
-                var delta = Mathf.Clamp(width / cardCount, 25, 150);
-                var offset = (width - ((cardCount - 1) * delta + 300)) / 2 + 150;
-                for (int i = 0; i < _cards.Count; i++)
+                if (_cards[i].IsSelected)
                 {
-                    if (_cards[i].IsSelected)
-                    {
-                        index += aroundSelectedCard/2;
-                        var xPos = delta * index - width / 2 + offset;
-                        var pos = new Vector2(xPos, 0);
-                        _cards[i].SetPosition(pos);
-                        _cards[i].SetRotation(Quaternion.identity);
-                        _cards[i].SetSize(1f);
-                        index += aroundSelectedCard;
-                    }
-                    else
-                    {
-                        var xPos = delta * index++ - width / 2 + offset;
-                        var pos = new Vector2(xPos, -Mathf.Abs(xPos / (width / 2) * 50));
-                        _cards[i].SetPosition(pos);
-                        _cards[i].SetRotation(Quaternion.Euler(0, 0, -xPos / (width / 2) * 10));
-                        _cards[i].SetSize(0.8f);
-
-                    }
+                    selectedCardIndex = i;
+                   // _cards[i].gameObject.SetActive(false);
+                    ///_selectedCard.Init(this, _cards[i].CallbackState, _cards[i].Spell != null ? _cards[i].Spell : _cards[i].Unit);
+                }
+            }
+            if (selectedCardIndex != -1)
+            {
+                //_selectedCard.gameObject.SetActive(true);
+                var index = 0;
+                var width = Container.rect.width;
+                var cardCount = _cards.Count;
+                var distanceBetweenCards = Mathf.Clamp(width / cardCount, 50, 250);
+                var offset = (width - ((cardCount - 1) * distanceBetweenCards + 300)) / 2 + 150;
+                for (index = 0; index < selectedCardIndex; index++)
+                {
+                    var xPos = distanceBetweenCards * index - width / 2 + offset;
+                    var influence = Mathf.Max(0,(4 - (selectedCardIndex - index)));
+                    var delta = Mathf.Min(100, Mathf.Lerp(0, distanceBetweenCards, (float)influence / (4 - 1)));
+                    _cards[index].SetPosition(new Vector2(xPos - delta, -150));
+                    _cards[index].SetSize(0.8f);
+                }
+                //_selectedCard.RectTransform.anchoredPosition = _cards[index].RectTransform.anchoredPosition;
+                _selectedCard.SetSize(1.2f);   
+                for (index += 1; index < _cards.Count; index++)
+                {
+                    var xPos = distanceBetweenCards * index - width / 2 + offset;
+                    var influence = Mathf.Max(0, (4 - (index - selectedCardIndex)));
+                    var delta = Mathf.Min(100, Mathf.Lerp(0, distanceBetweenCards, (float)influence / (4 - 1)));
+                    _cards[index].SetPosition(new Vector2(xPos + delta, -150));
+                    _cards[index].SetSize(0.8f);
                 }
             }
             else
             {
+                //_selectedCard.gameObject.SetActive(false);
                 var index = 0;
-                var width = _container.rect.width;
+                var width = Container.rect.width;
                 var cardCount = _cards.Count;
                 var delta = Mathf.Clamp(width / cardCount, 50, 250);
                 var offset = (width - ((cardCount - 1) * delta + 300)) / 2 + 150;
                 foreach (var card in _cards)
                 {
-                    var rect = card.RectTransform;
                     var xPos = delta * index++ - width / 2 + offset;
-                    var pos = new Vector2(xPos, -Mathf.Abs(xPos / (width / 2) * 50));
+                    var pos = new Vector2(xPos, 0);
                     card.SetPosition(pos);
-                    card.SetRotation(Quaternion.Euler(0, 0, -xPos / (width / 2) * 10));
-                    card.SetSize(0.8f);
+                    card.SetSize(1f);
                 }
             }
+ 
         }
 
         public void HideCards()
@@ -149,13 +160,18 @@ namespace Battleground.UI
 
         public void ClearContainer()
         {
-            foreach (Transform child in _container.transform)
+            foreach (Transform child in Container.transform)
                 Destroy(child.gameObject);
         }
 
         public void SelectCardEvent(bool isSelect)
         {
             UpdateCards(isSelect);
+        }
+
+        public void SetFilter(ref bool param, bool value)
+        {
+            param = value;
         }
     }
 }

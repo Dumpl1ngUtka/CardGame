@@ -15,7 +15,7 @@ TagManager:
   - Card
   - Player Unit
   - Enemy Unit
-  - 
+  - SelectedCard
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Card
+    uniqueID: 1763265705
+    locked: 0
+  - name: SelectedCard
+    uniqueID: 619223061
     locked: 0

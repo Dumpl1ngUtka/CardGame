@@ -2,13 +2,13 @@ using System;
 using Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
 namespace Battleground.UI
 {
     public class UICard : MonoBehaviour, IPlayerUI, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private CardRenderer _renderer;
-        [SerializeField] private bool isLerp;
         private IObjectForInfoRenderer _containedObj;
         private CardHolder _cardHolder;
         private PlayerState _callbackState;
@@ -29,6 +29,7 @@ namespace Battleground.UI
         public Spell Spell => _containedObj as Spell;
         public Unit Unit => _containedObj as Unit;
         public RectTransform RectTransform => _rectTransform;
+        public PlayerState CallbackState => _callbackState;
 
         public void Init(CardHolder cardHolder, PlayerState stateForCallback, IObjectForInfoRenderer obj)
         {
@@ -40,14 +41,14 @@ namespace Battleground.UI
                 _renderer.Render(Spell);
             else if (Unit != null)
                 _renderer.Render(Unit);
-            SetSize(0.8f);
+            SetSize(1);
         }
 
         private void Update()
         {
             LerpSized(_targetSize);
             LerpMove(_targetPosition);
-            LerpRotate(_targetRotation);
+            //LerpRotate(_targetRotation);
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -61,6 +62,8 @@ namespace Battleground.UI
             IsSelected = true;
             _cardHolder.SelectCardEvent(true);
         }
+
+
 
         private void LerpSized(Vector3 targetSize)
         {

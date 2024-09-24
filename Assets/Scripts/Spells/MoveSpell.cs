@@ -1,13 +1,7 @@
 using Battleground;
 using UnityEngine;
-using System.Reflection;
-using UnityEditor.Animations;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
-using UnityEngine.EventSystems;
 using UI.Marker;
-using System.Drawing;
-using System.IO;
 
 namespace Units
 {
@@ -27,6 +21,9 @@ namespace Units
         private float _rotationSpeed = 90;
         private NavMeshAgent _agent; 
         private MoveMarker _marker;
+        private float[] _pathTimeArray;
+        private Vector3[] _finalPath;
+
         public Vector3[] Path => _agent.path.corners; 
 
         public override void RemoveFromTimeline()
@@ -41,10 +38,14 @@ namespace Units
                 _endPosition = hit.point;
 
                 _startRotate = Piece.transform.forward;
+                _finalPath = new Vector3[Path.Length + 1];
+                Path.CopyTo(_finalPath, 1);
+                _finalPath[0] = _startPosition;
                 _endRotate = (_endPosition - _startPosition);
 
-
-                ActionTime = CalculatePathDistance(Path) / _distancePerSecond;
+                CalculatePathParameters(_finalPath, out float[] timeArray, out float distance);
+                _pathTimeArray = timeArray;
+                ActionTime = distance / _distancePerSecond;
                 _rotationTime = Vector3.Angle(_startRotate, _endRotate) / _rotationSpeed;
 
                 StartTime = Piece.Player.Timeline.GetTime;
@@ -52,18 +53,27 @@ namespace Units
                     IsSpellFinished = true;
                 else
                     Debug.Log("Ќедостаточно времени на выполнение заклинани€");
+                Debug.Log(_pathTimeArray.Length + " TimeArray" + _finalPath.Length + " FinPath");
             }
         }
 
-        private float CalculatePathDistance(Vector3[] path)
+        private void CalculatePathParameters(Vector3[] path, out float[] timeArray, out float distance)
         {
-            var distance = 0f;
+            timeArray = new float[path.Length];
+            distance = 0f;
             for (int i = 0; i < path.Length - 1; i++)
             {
-                distance += Vector3.Distance(path[i], path[i + 1]);
+                timeArray[i] = distance / _distancePerSecond;
+                var dist = Vector3.Distance(path[i], path[i + 1]);
+                distance += dist;
             }
-            return distance;
+            timeArray[path.Length - 1] = distance / _distancePerSecond;
         }
+
+        //private Vector3 SmoothPath(Vector3[] originPath)
+        //{
+        //    BezierCurve 
+        //}
 
         public override void RightMouseClick(RaycastHit hit)
         {
@@ -78,8 +88,16 @@ namespace Units
 
             Piece.Animator.Play("Walk");
             Piece.Animator.SetFloat("Progress", time);
-            //Piece.transform.position = 
-            Piece.transform.position = Vector3.Lerp(_startPosition, _endPosition, time / ActionTime);
+            for (int i = 1; i < _pathTimeArray.Length; i++)
+            {
+                if (_pathTimeArray[i] >= time)
+                {
+                    var progress = (time - _pathTimeArray[i-1])/(_pathTimeArray[i] - _pathTimeArray[i-1]);
+                    //Debug.Log("time =" + time + " V1 = " + _pathTimeArray[i - 1] + " V2 = " + _pathTimeArray[i] + "Pr =" +progress);
+                    Piece.transform.position = Vector3.Lerp(_finalPath[i - 1], _finalPath[i], progress);
+                    break;
+                }
+            }
         }
 
         public override void Update()
@@ -87,7 +105,8 @@ namespace Units
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 100))
             {
-                _agent.destination = hit.point;
+                if (_agent.enabled)
+                    _agent.destination = hit.point;
             }
         }
 
@@ -97,11 +116,13 @@ namespace Units
             _marker = Instantiate(MarkerPrefab) as MoveMarker;
             _marker.Init(this);
             _agent = Piece.Agent;
+            _agent.enabled = true;
         }
 
         public override void EndRelease()
         {
             Destroy(_marker.gameObject);
+            _agent.enabled = false;
         }
     }
 }

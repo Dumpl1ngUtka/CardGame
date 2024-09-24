@@ -47,7 +47,13 @@ namespace Units
             spells.AddRange(Class.Spells);
             spells.AddRange(Race.Spells);
             spells.AddRange(Inventory.GetSpells());
-            spells = spells.GroupBy(x => x.Name).Select(x => x.First()).ToList();
+            spells.AddRange(Class.Spells);
+            spells.AddRange(Race.Spells);
+            spells.AddRange(Inventory.GetSpells());
+            spells.AddRange(Class.Spells);
+            spells.AddRange(Race.Spells);
+            spells.AddRange(Inventory.GetSpells());
+            //spells = spells.GroupBy(x => x.Name).Select(x => x.First()).ToList();
             return spells.ToArray();
         }
 

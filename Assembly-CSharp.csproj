@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\Battleground\StateMachines\AIStateMachine\AIStateMachine.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\StateMachine\PieceStateMachine.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\CardHolderFilterButton.cs" />
     <Compile Include="Assets\Scripts\Units\UnitParameters.cs" />
     <Compile Include="Assets\Scripts\Spells\ObjectsForSpells\SimpleMissile.cs" />
     <Compile Include="Assets\Scripts\IDragable.cs" />
@@ -199,6 +200,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\Shaders\1.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
