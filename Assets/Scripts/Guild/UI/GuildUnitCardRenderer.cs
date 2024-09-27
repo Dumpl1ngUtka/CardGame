@@ -30,12 +30,12 @@ namespace UI
             _race.text = Unit.Race.Name;
             _class.text = Unit.Class.Name;
             _starsRenderer.Render(Unit.StarCount);
-            _health.Render(Unit.SkillLevels.Health);
-            _energy.Render(Unit.SkillLevels.Energy);
-            _dexterity.Render(Unit.SkillLevels.Dexterity);
-            _strength.Render(Unit.SkillLevels.Strength);
-            _intellegence.Render(Unit.SkillLevels.Intelligence);
-            _capacity.Render(Unit.SkillLevels.Capacity);
+            _health.Render(Unit.Attributes.Health);
+            _energy.Render(Unit.Attributes.Energy);
+            _dexterity.Render(Unit.Attributes.Dexterity);
+            _strength.Render(Unit.Attributes.Strength);
+            _intellegence.Render(Unit.Attributes.Intelligence);
+            _capacity.Render(Unit.Attributes.Capacity);
         }
     }
 }

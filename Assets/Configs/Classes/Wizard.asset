@@ -19,5 +19,8 @@ MonoBehaviour:
     _energy: 4
     _dexterity: 1
     _strength: 0
+    _intelligence: 0
+    _capacity: 0
   Spells:
   - {fileID: 11400000, guid: 510a19c2eca828745a79f21c842c7e45, type: 2}
+  - {fileID: 11400000, guid: d4d9c0014ac810c4a9f1142852943e12, type: 2}

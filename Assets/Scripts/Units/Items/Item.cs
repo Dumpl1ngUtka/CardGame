@@ -1,4 +1,4 @@
-using System.Collections;
+using Battleground;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +10,7 @@ namespace Units.Items
         public Sprite Icon;
         [Min(0)] public float Weight;
         public List<Spell> Spells;
+        public AdditionalPieceAttributes Attributes;
     }
 }
 

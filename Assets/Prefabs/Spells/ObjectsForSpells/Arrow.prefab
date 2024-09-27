@@ -114,6 +114,7 @@ MonoBehaviour:
   _damage: 25
   _activeTime: 5
   _hitbox: {fileID: 261963593785185509}
+  _renderer: {fileID: 261963593785185508}
   _distanceBySecond: 40
   _arcSize: 1
   _positionCurve:

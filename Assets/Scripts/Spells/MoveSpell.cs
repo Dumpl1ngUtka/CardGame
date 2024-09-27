@@ -53,7 +53,6 @@ namespace Units
                     IsSpellFinished = true;
                 else
                     Debug.Log("Ќедостаточно времени на выполнение заклинани€");
-                Debug.Log(_pathTimeArray.Length + " TimeArray" + _finalPath.Length + " FinPath");
             }
         }
 

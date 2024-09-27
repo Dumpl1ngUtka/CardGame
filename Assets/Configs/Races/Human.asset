@@ -36,7 +36,7 @@ MonoBehaviour:
   Spells:
   - {fileID: 11400000, guid: 24e6bc7687f97e6448c0aae85f47be83, type: 2}
   - {fileID: 11400000, guid: c9071396fef712c489cea71095d1a243, type: 2}
-  - {fileID: 11400000, guid: 0d72c1894829ffd4ba40aea14f5d7516, type: 2}
+  - {fileID: 11400000, guid: 7d028e2765f83b84bbb4d7fefc3cdad9, type: 2}
   AvailableNames:
   - Bob
   - Tom

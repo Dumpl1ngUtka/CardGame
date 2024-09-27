@@ -14,7 +14,7 @@ namespace Units
         public UnitClass Class { get; private set; }
         public UnitRace Race { get; private set; }
         public int StarCount { get; private set; }
-        public Attributes SkillLevels { get; private set; }
+        public Attributes Attributes { get; private set; }
         public UnitInventory Inventory { get; private set; }
 
         public Spell[] Spells => GetSpellArray();
@@ -38,7 +38,7 @@ namespace Units
             minSkillLevels[3] = Mathf.Max(new int[3] { 1, Race.MinLevels.Strength, Class.MinLevels.Strength});
             minSkillLevels[4] = Mathf.Max(new int[3] { 1, Race.MinLevels.Intelligence, Class.MinLevels.Intelligence});
             minSkillLevels[5] = Mathf.Max(new int[3] { 1, Race.MinLevels.Capacity, Class.MinLevels.Capacity});
-            SkillLevels = new Attributes(_defaultSkillPoints + StarCount * _additionalLevelsForStars, minSkillLevels);
+            Attributes = new Attributes(_defaultSkillPoints + StarCount * _additionalLevelsForStars, minSkillLevels);
         }
 
         public Spell[] GetSpellArray()
@@ -47,13 +47,13 @@ namespace Units
             spells.AddRange(Class.Spells);
             spells.AddRange(Race.Spells);
             spells.AddRange(Inventory.GetSpells());
-            spells.AddRange(Class.Spells);
-            spells.AddRange(Race.Spells);
-            spells.AddRange(Inventory.GetSpells());
-            spells.AddRange(Class.Spells);
-            spells.AddRange(Race.Spells);
-            spells.AddRange(Inventory.GetSpells());
-            //spells = spells.GroupBy(x => x.Name).Select(x => x.First()).ToList();
+            //spells.AddRange(Class.Spells);
+            //spells.AddRange(Race.Spells);
+            //spells.AddRange(Inventory.GetSpells());
+            //spells.AddRange(Class.Spells);
+            //spells.AddRange(Race.Spells);
+            //spells.AddRange(Inventory.GetSpells());
+            spells = spells.GroupBy(x => x.Name).Select(x => x.First()).ToList();
             return spells.ToArray();
         }
 

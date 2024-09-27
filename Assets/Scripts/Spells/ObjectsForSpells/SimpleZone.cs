@@ -21,8 +21,12 @@ namespace Battleground
 
             if (isSimulation)
             {
-                foreach (var obj in _objectsInZone)
-                    obj.ApplyDamage(new Damage(damageCount, obj));
+                if (time > _damagePeriod * damageCount)
+                {
+                    foreach (var obj in _objectsInZone)
+                        obj.ApplyDamage(new Damage(_damage, obj));
+                    damageCount++;
+                }
             }
         }
 

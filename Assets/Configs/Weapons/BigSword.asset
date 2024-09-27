@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: BigSword
   m_EditorClassIdentifier: 
   Name: BigSword
-  Type: 0
-  MainDamageType: 1
-  SecondaryDamageType: 0
-  Damage: 3
-  Usability: 1
-  Weight: 4
-  Model: {fileID: 919132149155446097, guid: 794e18ca5134a1848a6a441480ff4e7f, type: 3}
   Icon: {fileID: 21300000, guid: a1a31e25ed80c5e45ade7a8e14702886, type: 3}
+  Weight: 4
+  Spells: []
+  Attributes:
+    Attributes:
+    - type: 0
+      value: 0
+    - type: 0
+      value: 0
+  Damage: 3
+  Accuracy: 0
+  Model: {fileID: 919132149155446097, guid: 794e18ca5134a1848a6a441480ff4e7f, type: 3}

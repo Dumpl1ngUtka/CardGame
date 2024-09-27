@@ -5,12 +5,12 @@ namespace UI.Marker
 {
     public abstract class Marker : MonoBehaviour
     {
-        public abstract void Init(SpellObject obj, Vector3 startPos);
+        protected abstract LayerMask Mask { get; }
 
         protected virtual void Update()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 100))
+            if (Physics.Raycast(ray, out RaycastHit hit, 100, Mask))
             {
                 Render(hit);
             }

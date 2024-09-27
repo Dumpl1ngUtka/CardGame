@@ -12,6 +12,7 @@ namespace Battleground
 
         public NavMeshAgent Agent;
         public Animator Animator;
+        public PieceAttributes Attributes { get; private set; }
         public PieceHealth Health { get; private set; }
         public Unit Unit { get; private set; }
         public Player Player { get; private set; }
@@ -20,7 +21,8 @@ namespace Battleground
         public void Init(Unit unit, Player player)
         {
             Unit = unit;
-            Health = new PieceHealth(this, unit.SkillLevels.Health);
+            Attributes = new(this);
+            Health = new(Attributes);
             Health.Died += Died;
             //_UIRenderer.Init(this);
             Player = player;
@@ -115,7 +117,6 @@ namespace Battleground
             Health.ApplyDamage(damage.Value);
         }
     }
-
  }
 
 

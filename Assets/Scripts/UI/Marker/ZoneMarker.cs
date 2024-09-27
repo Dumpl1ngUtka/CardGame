@@ -1,15 +1,21 @@
 using Battleground;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace UI.Marker
 {
     public class ZoneMarker : Marker
     {
         private SimpleZone _simpleZone;
+        private LayerMask _layerMask;
 
-        public override void Init(SpellObject obj, Vector3 startPos)
+        protected override LayerMask Mask => _layerMask;
+
+
+        public void Init(LayerMask layerMask, SimpleZone obj)
         {
-            _simpleZone = obj as SimpleZone;
+            _layerMask = layerMask;
+            _simpleZone = obj;
         }
 
         protected override void Render(RaycastHit point)

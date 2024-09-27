@@ -9,10 +9,14 @@ namespace UI.Marker
         private SimpleMissile _obj;
         private Vector3 _startPos;
         private const int StepCount = 15;
+        private LayerMask _layerMask;
 
-        public override void Init(SpellObject obj, Vector3 startPos)
+        protected override LayerMask Mask => _layerMask;
+
+        public void Init(LayerMask layerMask, SimpleMissile prefab, Vector3 startPos)
         {
-            _obj = obj as SimpleMissile;
+            _layerMask = layerMask;
+            _obj = prefab;
             _startPos = startPos;
             _lineRenderer.positionCount = StepCount;
         }

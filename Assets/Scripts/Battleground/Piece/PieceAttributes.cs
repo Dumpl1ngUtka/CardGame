@@ -1,62 +1,107 @@
-using Units;
+using System;
+using UnityEngine;
 
 namespace Battleground
 {
+    [Serializable]
     public class PieceAttributes
     {
-        private Unit _unit;
+        private Units.Attributes _unitAttributes;
+        private Units.UnitInventory _unitInventory;
+        private AdditionalPieceAttributes _additionalPieceAttributes;
+
         public float MaxHealth
         {
             get
             {
-                return 50 + _unit.SkillLevels.Health * 10;
+                float value = 50 + _unitAttributes.Health * 10;
+                value += _additionalPieceAttributes.Health;
+                value *= _additionalPieceAttributes.HealthPercent / 100;
+                return value;
             }
         }
-
-        public float Accuracy
+        public float AccuracyPercent
         {
             get
             {
-                return _unit.Inventory.GetAccuracy();
+                return _additionalPieceAttributes.AccuracyPercent;
             }
         }
-
-        public float DodgeChance
+        public float DodgeChancePercent
         {
             get
             {
-                return _unit.SkillLevels.Dexterity * 0.02f;
+                float value = _unitAttributes.Dexterity * 2f;
+                value += _additionalPieceAttributes.DodgeChancePercent;
+                return value;
             }
         }
-
+        public float BlockChancePercent
+        {
+            get
+            {
+                float value = 0;
+                value += _additionalPieceAttributes.BlockChancePercent;
+                return value;
+            }
+        }
         public float MaxWeight
         {
             get
             {
-                return 30 + _unit.SkillLevels.Capacity * 5f;
+                float value = 30 + _unitAttributes.Capacity * 5f;
+                value += _additionalPieceAttributes.MaxWeight;
+                return value;
             }
         }
-
-        public int WeightGroup
+        public float Weight
         {
             get
             {
-                int groupNumber = 1;
-                var excessPercent = _unit.Inventory.GetItemsWeight() / MaxWeight;
-                for (float i = 0; i <= 1; i += 0.5f)
-                {
-                    if (excessPercent < i)
-                        break;
-                    groupNumber++;
-                }
-                return groupNumber;
+                return _unitInventory.GetItemsWeight();
             }
         }
 
+
         public PieceAttributes(Piece piece)
         {
-            _unit = piece.Unit;
+            _unitAttributes = piece.Unit.Attributes;
+            _unitInventory = piece.Unit.Inventory;
+            _unitInventory.InventoryChanged += InventoryChanged;
+        }
 
+        public void InventoryChanged()
+        {
+            _additionalPieceAttributes = _unitInventory.GetAdditionalAttributes();
+        }
+    }
+
+    [Serializable]
+    public struct AdditionalPieceAttributes
+    {
+        [Header("Health Attributes")]
+        public float Health;
+        public float HealthPercent;
+        [Space, Header("Weapon Attributes")]
+        public float AccuracyPercent;
+        [Space, Header("Protection Attributes")]
+        public float DodgeChancePercent;
+        public float BlockChancePercent;
+        [Space, Header("Other")]
+        public float MaxWeight;
+
+        public static AdditionalPieceAttributes operator +(AdditionalPieceAttributes a, AdditionalPieceAttributes b)
+        {
+            var newAttributes = new AdditionalPieceAttributes
+            {
+                Health = a.Health + b.Health,
+                HealthPercent = a.HealthPercent + b.HealthPercent,
+                AccuracyPercent = a.AccuracyPercent + b.AccuracyPercent,
+                DodgeChancePercent = a.DodgeChancePercent + b.DodgeChancePercent,
+                BlockChancePercent = a.BlockChancePercent + b.BlockChancePercent,
+                MaxWeight = a.MaxWeight + b.MaxWeight
+            };
+            return newAttributes;
         }
     }
 }

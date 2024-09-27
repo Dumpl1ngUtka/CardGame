@@ -108,7 +108,7 @@ namespace Battleground.UI
                     var xPos = distanceBetweenCards * index - width / 2 + offset;
                     var influence = Mathf.Max(0,(4 - (selectedCardIndex - index)));
                     var delta = Mathf.Min(100, Mathf.Lerp(0, distanceBetweenCards, (float)influence / (4 - 1)));
-                    _cards[index].SetPosition(new Vector2(xPos - delta, -150));
+                    _cards[index].SetPosition(new Vector2(xPos - delta,0));
                     _cards[index].SetSize(0.8f);
                 }
                 //_selectedCard.RectTransform.anchoredPosition = _cards[index].RectTransform.anchoredPosition;
@@ -118,7 +118,7 @@ namespace Battleground.UI
                     var xPos = distanceBetweenCards * index - width / 2 + offset;
                     var influence = Mathf.Max(0, (4 - (index - selectedCardIndex)));
                     var delta = Mathf.Min(100, Mathf.Lerp(0, distanceBetweenCards, (float)influence / (4 - 1)));
-                    _cards[index].SetPosition(new Vector2(xPos + delta, -150));
+                    _cards[index].SetPosition(new Vector2(xPos + delta,0));
                     _cards[index].SetSize(0.8f);
                 }
             }
@@ -138,12 +138,12 @@ namespace Battleground.UI
                     card.SetSize(1f);
                 }
             }
- 
         }
 
         public void HideCards()
         {
             _targetPosition = new Vector3(0, -200 - _screenSize.y / 2);
+            _isCardsSelected = false;
         }
         private void LerpMove(Vector3 targetPosition)
         {

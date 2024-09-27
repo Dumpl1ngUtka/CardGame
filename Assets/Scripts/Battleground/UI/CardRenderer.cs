@@ -20,7 +20,7 @@ namespace Battleground.UI
         {
             _specializationIcon.sprite = spell.SpecializationIcon;
             _mainIcon.sprite = spell.MainBackground;
-            _name.text = spell.name;
+            _name.text = spell.Name;
             _actionTime.text = spell.ActionTime.ToString();
             _consumptions.text = spell.Ñonsumption.ToString();
         }

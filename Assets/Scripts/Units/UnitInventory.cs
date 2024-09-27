@@ -1,7 +1,8 @@
+using Battleground;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Units.Items;
-using UnityEngine;
 
 namespace Units
 {
@@ -20,11 +21,8 @@ namespace Units
                 return items;
             }
         }
+        public Action InventoryChanged;
 
-        public UnitInventory()
-        {
-            
-        }
 
         public Spell[] GetSpells()
         {
@@ -37,12 +35,14 @@ namespace Units
             return spells.ToArray();
         }
 
-        public float GetAccuracy()
+        public AdditionalPieceAttributes GetAdditionalAttributes()
         {
-            var accurancy = 0f;
-            accurancy += MainWeapon.Accuracy;
-            accurancy += SecondWeapon.Accuracy;
-            return accurancy;
+            var additionalAttributes = new AdditionalPieceAttributes();
+            foreach (var item in EquippedItems)
+            {
+                additionalAttributes += item.Attributes;
+            }
+            return additionalAttributes;
         }
 
         public float GetItemsWeight()
@@ -55,6 +55,11 @@ namespace Units
                 weight += item != null ? item.Weight : 0;
 
             return weight;
+        }
+
+        public void AddItem(Item item)
+        {
+            InventoryChanged?.Invoke();
         }
     }
 }

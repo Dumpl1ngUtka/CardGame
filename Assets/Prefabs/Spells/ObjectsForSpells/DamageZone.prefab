@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 261963593785185508}
   - component: {fileID: 158689220103373582}
   - component: {fileID: 6148106831499160756}
-  - component: {fileID: 4402129078112299977}
+  - component: {fileID: 7670757937320667163}
   m_Layer: 0
   m_Name: DamageZone
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261963593785185515}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.31, y: 3.52, z: 19.87}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 2, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -115,7 +115,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4402129078112299977
+--- !u!114 &7670757937320667163
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,6 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b859e35325c004598ddcf72d3a75b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 15
-  _activeTime: 10
+  _damage: 5
+  _activeTime: 5
   _hitbox: {fileID: 6148106831499160756}
+  _renderer: {fileID: 261963593785185508}
+  _damagePeriod: 1
