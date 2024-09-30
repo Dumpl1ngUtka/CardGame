@@ -9,6 +9,7 @@ namespace Battleground
         [SerializeField] private float _arcSize;
         [SerializeField] private AnimationCurve _positionCurve;
         private List<IDamageable> _collidedObjects;
+        public Vector3 PivotPosition => transform.position;
 
         public override void Init(Piece piece, Vector3 startPos, Vector3 endPos, float startTime)
         {

@@ -11,28 +11,20 @@ namespace Battleground
         [SerializeField] private Transform _defaultPivot;
         [SerializeField] private Camera _camera;
         [SerializeField] private float _pivotSpeed = 0.4f;
+        #region SpringMove
+        private float _spring = 0.1f;
+        private float _drag = 0.3f;
+        private Vector3 _vel = Vector3.zero;
+        #endregion
         private float _lerpScroll;
         private float _zoom;
         private Vector3 _mousePositionDelta;
-        private Transform _pivot;
+        private ICameraPivot _pivot;
         private Vector3 _pivotPos;
-
-        private Vector3 PivotPos
-        {
-            get
-            {
-                return _pivot.position;
-            }
-            set
-            {
-                _pivot = transform;
-                _pivot.position = value;
-            }
-        }
 
         private void Start()
         {
-            SetPivot(_defaultPivot);
+            _pivotPos = transform.position;
         }
 
         private void Update()
@@ -40,8 +32,10 @@ namespace Battleground
             InputScroll();
             ChangeZoom();
             RotateCamera();
-            MoveCamera();
-            transform.position = Vector3.Lerp(transform.position, PivotPos, Time.deltaTime * _pivotSpeed);
+            SetCameraPosition();
+            if (_pivot != null)
+                _pivotPos = _pivot.PivotPosition;
+            SpringCameraMove();
         }
 
         private void InputScroll()
@@ -63,7 +57,6 @@ namespace Battleground
             if (Input.GetMouseButtonDown(1))
             {
                 _mousePositionDelta = Input.mousePosition;
-                SetPivot();
             }
             if (Input.GetMouseButton(1))
             {
@@ -74,19 +67,37 @@ namespace Battleground
             }
         }
 
-        private void MoveCamera()
+        private void SpringCameraMove()
+        {
+            _vel += (_pivotPos - transform.position) * _spring;
+            _vel -= _vel * _drag;
+            transform.position += _vel;
+            //transform.position = Vector3.Lerp(transform.position, _pivotPos, Time.deltaTime * _pivotSpeed);
+        }
+
+        private void SetCameraPosition()
         {
             if (Input.GetMouseButtonDown(2))
             {
                 _mousePositionDelta = Input.mousePosition;
+                _pivot = null;
             }
             if (Input.GetMouseButton(2))
             {
                 var delta = (_mousePositionDelta - Input.mousePosition) * GetCameraSensitivityByDistance() / 10;
-                var newPivotPosition = PivotPos + new Vector3(delta.x , 0 , delta.y);
-                PivotPos = newPivotPosition;
+                var newPivotPosition = _pivotPos + (transform.up * delta.y + transform.right * delta.x);
+                if (!IsOnCollision(_pivotPos, newPivotPosition))
+                {
+                    _pivotPos = newPivotPosition;
+                }
                 _mousePositionDelta = Input.mousePosition;
             }
+        }
+
+        private bool IsOnCollision(Vector3 startPosition, Vector3 endPosition)
+        {
+            var distance = (startPosition - endPosition).magnitude;
+            return Physics.Raycast(startPosition, (endPosition - startPosition).normalized, distance);
         }
 
         private float GetCameraSensitivityByDistance()
@@ -104,18 +115,18 @@ namespace Battleground
             return mapSize;
         }
 
-        public void SetPivot(Transform pivot)
+        public void SetPivot(ICameraPivot pivot)
         {
             _pivot = pivot;
         }
 
         public void SetPivot()
         {
-            _pivot = transform;
+            _pivot = null;
         }
     }
     public interface ICameraPivot
     {
-
+        public Vector3 PivotPosition { get; }
     }
 }

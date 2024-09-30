@@ -17,6 +17,7 @@ namespace Battleground
         public Unit Unit { get; private set; }
         public Player Player { get; private set; }
         public List<Spell> Activities { get; private set; }
+        public Vector3 PivotPosition => transform.position;
 
         public void Init(Unit unit, Player player)
         {

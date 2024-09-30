@@ -17,7 +17,7 @@ namespace Battleground
         public override void Enter()
         {
             base.Enter();
-            StateMachine.CameraMover.SetPivot(_piece.transform);
+            StateMachine.CameraMover.SetPivot(_piece);
             StateMachine.UI.ShowInfo(_piece,this);
         }
 
@@ -41,7 +41,7 @@ namespace Battleground
             if (hit.collider.TryGetComponent<Piece>(out var piece))
             {
                 _piece = piece;
-                StateMachine.CameraMover.SetPivot(_piece.transform);
+                StateMachine.CameraMover.SetPivot(_piece);
                 StateMachine.UI.UpdateUnitInfo(_piece, this);
                 return;
             }

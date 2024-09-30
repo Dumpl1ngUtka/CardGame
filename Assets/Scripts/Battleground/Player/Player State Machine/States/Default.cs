@@ -22,8 +22,8 @@ namespace Battleground
         {
             if (hit.collider.TryGetComponent<Piece>(out var piece))
                 StateMachine.ChangeState(new SelectSpellCard(StateMachine, piece));
-            if (hit.collider.TryGetComponent(out ICameraPivot _))
-                StateMachine.CameraMover.SetPivot(hit.transform);
+            if (hit.collider.TryGetComponent(out ICameraPivot pivot))
+                StateMachine.CameraMover.SetPivot(pivot);
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)
