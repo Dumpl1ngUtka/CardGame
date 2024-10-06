@@ -16,7 +16,7 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 320
-  SpecializationIcon: {fileID: 21300000, guid: 632d8880dc1db62469b60aa3a945dae2, type: 3}
+  Type: 3
   MainBackground: {fileID: 21300000, guid: 20e368f9258b98841bb7bef09d38a087, type: 3}
   "\u0421onsumption": 7
   ActionTime: 8

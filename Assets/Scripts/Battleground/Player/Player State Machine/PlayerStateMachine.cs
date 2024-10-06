@@ -9,14 +9,14 @@ namespace Battleground
         public BattleSceneUI UI { get; private set; }
         public Player Player { get; private set; }
 
-        public CameraMover CameraMover { get; private set; }
+        public CameraModeChanger CameraMode { get; private set; }
 
-        public PlayerStateMachine(Player player, BattleSceneUI uI, CameraMover cameraMover)
+        public PlayerStateMachine(Player player, BattleSceneUI uI, CameraModeChanger cameraMover)
         {
             Player = player;
             UI = uI;
             CurrentState = new WaitOtherPlayer(this);
-            CameraMover = cameraMover;
+            CameraMode = cameraMover;
         }
 
         public void Update()

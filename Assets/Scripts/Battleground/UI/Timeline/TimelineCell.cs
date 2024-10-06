@@ -13,7 +13,7 @@ namespace Battleground.UI
         public void Init(Spell spell)
         {
             _spell = spell;
-            _icon.sprite = spell.SpecializationIcon;
+            _icon.sprite = Resources.Load<Sprite>("Sprites/SpellTypes/" + spell.Type.ToString());
         }
 
         public void OnPointerClick(PointerEventData eventData)

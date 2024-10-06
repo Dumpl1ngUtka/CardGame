@@ -22,7 +22,7 @@ namespace Battleground
             _spell.Init(_piece);
             _spell.StartRelease();
             StateMachine.UI.ShowInfo(_spell);
-            StateMachine.CameraMover.SetPivot();
+            StateMachine.CameraMode.SetDefaultPivot();
         }
 
         public override void Update()

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Units;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +17,7 @@ namespace Battleground.UI
 
         public void Render(Spell spell)
         {
-            _specializationIcon.sprite = spell.SpecializationIcon;
+            _specializationIcon.sprite = Resources.Load<Sprite>("Sprites/SpellTypes/" + spell.Type.ToString());
             _mainIcon.sprite = spell.MainBackground;
             _name.text = spell.Name;
             _actionTime.text = spell.ActionTime.ToString();

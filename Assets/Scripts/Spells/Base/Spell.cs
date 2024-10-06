@@ -1,7 +1,5 @@
 using Battleground;
-using System.Collections;
 using UI.Marker;
-using UnityEditor.Animations;
 using UnityEngine;
 
 
@@ -11,7 +9,7 @@ namespace Units
     {
         public string Name;
         public LayerMask Mask;
-        public Sprite SpecializationIcon;
+        public SpellTypes Type;
         public Sprite MainBackground;
         public int Ñonsumption;
         public float ActionTime;

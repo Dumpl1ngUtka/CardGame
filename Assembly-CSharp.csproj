@@ -58,19 +58,18 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Spells\Spell.cs" />
-    <Compile Include="Assets\Scripts\Camera\CameraPosition.cs" />
     <Compile Include="Assets\Scripts\Battleground\IObjectForInfoRenderer.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\States\MainMenuState.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceCondition.cs" />
     <Compile Include="Assets\Scripts\Battleground\BattleManager.cs" />
-    <Compile Include="Assets\Scripts\Battleground\UI\SpellCardHolderAnimator.cs" />
     <Compile Include="Assets\Scripts\Guild\UI\GuildUnitCard.cs" />
+    <Compile Include="Assets\Scripts\Spells\Base\SpellTypes.cs" />
     <Compile Include="Assets\Scripts\Spells\TestSpell.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\States\WaitOtherPlayer.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceUIRenderer.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Armor\Armor.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\Scripts\Camera\FreeCameraPivotMover.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Timeline\TimelineCell.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\UI\Marker\ZoneMarker.cs" />
@@ -84,7 +83,7 @@
     <Compile Include="Assets\Scripts\Battleground\Enemy\AIStateMachine\AIStateMachine.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStateMachine.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\Battleground\UI\CardHolderFilterButton.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\Cards\CardHolderFilterButton.cs" />
     <Compile Include="Assets\Scripts\Units\UnitParameters.cs" />
     <Compile Include="Assets\Scripts\Spells\ObjectsForSpells\SimpleMissile.cs" />
     <Compile Include="Assets\Scripts\IDragable.cs" />
@@ -101,7 +100,7 @@
     <Compile Include="Assets\Scripts\Units\Items\Weapons\Weapon.cs" />
     <Compile Include="Assets\Scripts\Spells\MoveSpell.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
-    <Compile Include="Assets\Scripts\Spells\ObjectsForSpells\SpellObject.cs" />
+    <Compile Include="Assets\Scripts\Spells\Base\SpellObject.cs" />
     <Compile Include="Assets\Scripts\UI\Marker\MoveMarker.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\StateMachine.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Weapons\WeaponTypes.cs" />
@@ -115,14 +114,13 @@
     <Compile Include="Assets\Scripts\Battleground\UI\IPlayerUI.cs" />
     <Compile Include="Assets\Scripts\Units\UnitInventory.cs" />
     <Compile Include="Assets\Scripts\Units\Unit.cs" />
-    <Compile Include="Assets\Scripts\Camera\CameraMover.cs" />
     <Compile Include="Assets\Scripts\RareColors.cs" />
-    <Compile Include="Assets\Scripts\Battleground\UI\IObjectForCardHolder.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\Cards\IObjectForCardHolder.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\Battleground\StateMachines\State.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Units\UnitResists.cs" />
-    <Compile Include="Assets\Scripts\Battleground\UI\CardHolder.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\Cards\CardHolder.cs" />
     <Compile Include="Assets\Scripts\Spells\MissileSpell.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
@@ -150,7 +148,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceHealth.cs" />
     <Compile Include="Assets\Scripts\Guild\GuildCardAnimator.cs" />
-    <Compile Include="Assets\Scripts\Battleground\UI\CardRenderer.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\Cards\CardRenderer.cs" />
     <Compile Include="Assets\Scripts\Guild\UI\GuildUnitCardRenderer.cs" />
     <Compile Include="Assets\Scripts\Guild\Genetators\PokerCardsGenerator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
@@ -165,6 +163,7 @@
     <Compile Include="Assets\Scripts\Units\Attributes.cs" />
     <Compile Include="Assets\AnimationTest.cs" />
     <Compile Include="Assets\Scripts\UI\CellsProgressBar.cs" />
+    <Compile Include="Assets\Scripts\Camera\CameraModeChanger.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\Spells\MeleeAttackSpell.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Weapons\DamageTypes.cs" />
@@ -175,6 +174,7 @@
     <Compile Include="Assets\Scripts\UI\Marker\Marker.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\States\PauseMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\Spells\Base\Spell.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Item.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\States\BuyItemsState.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Timeline\TimelineColorIndicator.cs" />
@@ -1104,6 +1104,14 @@
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.2D.Aseprite.Editor">

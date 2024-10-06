@@ -11,7 +11,7 @@ namespace Battleground
         [SerializeField] private Transform _pieceConteiner;
         [SerializeField] private Piece _piecePrefab;
         [SerializeField] private BattleSceneUI UI;
-        [SerializeField] private CameraMover _cameraMover;
+        [SerializeField] private CameraModeChanger _cameraMode;
 
         [SerializeField] private UnitRace[] _races;
         [SerializeField] private UnitClass[] _classes;
@@ -36,7 +36,7 @@ namespace Battleground
                 new Unit(2,  _races[2], _classes[2]),
                 new Unit(3,  _races[3], _classes[3]),
             };
-            StateMachine = new PlayerStateMachine(this, UI, _cameraMover);
+            StateMachine = new PlayerStateMachine(this, UI, _cameraMode);
         }
 
         public void InstantiatePiece(Unit unit, RaycastHit hit)
