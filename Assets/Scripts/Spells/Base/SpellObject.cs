@@ -10,17 +10,13 @@ namespace Battleground
         [SerializeField] protected Collider _hitbox;
         [SerializeField] protected Renderer _renderer;
         protected Timeline _timeline;
-        protected Vector3 _startPos;
-        protected Vector3 _endPos;
         protected float _startTime;
         protected Piece _piece;
 
-        public virtual void Init(Piece piece, Vector3 startPos, Vector3 endPos, float startTime)
+        public virtual void Init(Piece piece, float startTime)
         {
             _piece = piece;
             _timeline = piece.Player.Timeline;
-            _startPos = startPos;
-            _endPos = endPos;
             _startTime = startTime;
             _timeline.OnTimeChanged += MoveByTimeline;
             MoveByTimeline(0);

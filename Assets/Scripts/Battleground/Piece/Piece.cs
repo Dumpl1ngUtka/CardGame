@@ -10,8 +10,9 @@ namespace Battleground
         //[SerializeField] private PieceUIRenderer _UIRenderer;
         private float _timeMaxTime => Player.Timeline.MaxTime;
 
-        public NavMeshAgent Agent;
         public Animator Animator;
+        public NavMeshAgent Agent { get; private set; }
+        public PieceClothesController Clothes { get; private set; }
         public PieceAttributes Attributes { get; private set; }
         public PieceHealth Health { get; private set; }
         public Unit Unit { get; private set; }
@@ -23,6 +24,11 @@ namespace Battleground
         public void Init(Unit unit, Player player)
         {
             Unit = unit;
+            Agent = GetComponent<NavMeshAgent>();
+
+            Clothes = GetComponent<PieceClothesController>();
+            Clothes.Init(unit.Inventory);
+
             Attributes = new(this);
             Health = new(Attributes);
             Health.Died += Died;

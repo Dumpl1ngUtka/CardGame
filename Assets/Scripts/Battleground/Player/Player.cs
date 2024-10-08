@@ -2,6 +2,7 @@ using Battleground.UI;
 using System;
 using System.Collections.Generic;
 using Units;
+using Units.Items;
 using UnityEngine;
 
 namespace Battleground
@@ -15,6 +16,8 @@ namespace Battleground
 
         [SerializeField] private UnitRace[] _races;
         [SerializeField] private UnitClass[] _classes;
+        [SerializeField] private HeadArmor[] _hats;
+        [SerializeField] private BodyArmor[] _armors;
 
         public Timeline Timeline;
         public List<Unit> Units;
@@ -36,6 +39,11 @@ namespace Battleground
                 new Unit(2,  _races[2], _classes[2]),
                 new Unit(3,  _races[3], _classes[3]),
             };
+            for (int i = 0; i < Units.Count; i++)
+            {
+                Units[i].Inventory.SetArmor(_hats[i]);
+                Units[i].Inventory.SetArmor(_armors[i]);
+            }
             StateMachine = new PlayerStateMachine(this, UI, _cameraMode);
         }
 

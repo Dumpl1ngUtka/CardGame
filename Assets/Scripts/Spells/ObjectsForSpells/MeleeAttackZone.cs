@@ -1,25 +1,21 @@
 using System.Collections.Generic;
+using Units;
 using UnityEngine;
 
 namespace Battleground
 {
     public class MeleeAttackZone : SpellObject
     {
-        [SerializeField, Min(0)] private float _offset;
-        [SerializeField] private float _sizeMultiply = 1;
         private List<IDamageable> _collidedObjects;
-
-        public float Offset => _offset;
-        public float SizeMultiply => _sizeMultiply;
         public GameObject HitboxForm => _hitbox.gameObject;
 
-        public override void Init(Piece piece, Vector3 startPos,Vector3 direction,float startTime)
+        public void Init(Piece piece, MeleeAttackSpell spell,Vector3 direction,float startTime)
         {
-            base.Init(piece, startPos, startPos, startTime);
-            transform.position = _startPos;
-            HitboxForm.transform.localScale *= _sizeMultiply;
-            HitboxForm.transform.localPosition = new Vector3(0, 0, Offset);
-            transform.rotation = Quaternion.Euler(GetHitBoxRotation(startPos,direction));
+            base.Init(piece, startTime);
+            transform.position = piece.transform.position;
+            HitboxForm.transform.localScale *= _piece.Attributes.MeleeAttackRangePercent / 100;
+            HitboxForm.transform.localPosition = new Vector3(0, 0, spell.Offset);
+            transform.rotation = Quaternion.Euler(GetHitBoxRotation(transform.position, direction));
             _collidedObjects = new List<IDamageable>();
         }
 

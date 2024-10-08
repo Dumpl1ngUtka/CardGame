@@ -10,14 +10,15 @@ namespace Units
     {
         public Weapon MainWeapon { get; private set; }
         public Weapon SecondWeapon { get; private set; }
-        public Armor Armor { get; private set; }
+        public HeadArmor HeadArmor { get; private set; }
+        public BodyArmor Armor { get; private set; }
         public Accessories[] Accessories { get; private set; } = new Accessories[3];
         public Item[] InBagItems { get; private set; } = new Item[6];
         public Item[] EquippedItems
         {
             get
             {
-                Item[] items = new Item[] {MainWeapon, SecondWeapon,  Armor }.Concat(Accessories).ToArray();
+                Item[] items = new Item[] {MainWeapon, SecondWeapon, HeadArmor, Armor  }.Concat(Accessories).ToArray();
                 return items;
             }
         }
@@ -59,6 +60,18 @@ namespace Units
 
         public void AddItem(Item item)
         {
+            InventoryChanged?.Invoke();
+        }
+
+        public void SetArmor(HeadArmor armor)
+        {
+            HeadArmor = armor;
+            InventoryChanged?.Invoke();
+        }
+
+        public void SetArmor(BodyArmor armor)
+        {
+            Armor = armor;
             InventoryChanged?.Invoke();
         }
     }

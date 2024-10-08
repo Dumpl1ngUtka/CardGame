@@ -64,7 +64,6 @@
     <Compile Include="Assets\Scripts\Battleground\BattleManager.cs" />
     <Compile Include="Assets\Scripts\Guild\UI\GuildUnitCard.cs" />
     <Compile Include="Assets\Scripts\Spells\Base\SpellTypes.cs" />
-    <Compile Include="Assets\Scripts\Spells\TestSpell.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\States\WaitOtherPlayer.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceUIRenderer.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Armor\Armor.cs" />
@@ -109,6 +108,8 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\Guild\UI\GuildUI.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\State.cs" />
+    <Compile Include="Assets\Scripts\Units\Items\Armor\Head Armor\HeadArmor.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\AdditionalPieceAttributes.cs" />
     <Compile Include="Assets\Scripts\Battleground\StateMachines\StateMachine.cs" />
     <Compile Include="Assets\Scripts\Spells\ZoneSpell.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\IPlayerUI.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Assets\Scripts\Timeline\Timeline.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\States\ReleasingUnitCard.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\Scripts\Units\Items\Armor\Body Armor\BodyArmor.cs" />
     <Compile Include="Assets\Scripts\Battleground\InfoForInfoRenderer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\States\Default.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Assets\Scripts\Battleground\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Spells\ObjectsForSpells\SimpleZone.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\PieceClothesController.cs" />
     <Compile Include="Assets\Scripts\Units\Attributes.cs" />
     <Compile Include="Assets\AnimationTest.cs" />
     <Compile Include="Assets\Scripts\UI\CellsProgressBar.cs" />

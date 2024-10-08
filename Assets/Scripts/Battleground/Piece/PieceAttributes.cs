@@ -61,6 +61,13 @@ namespace Battleground
                 return _unitInventory.GetItemsWeight();
             }
         }
+        public float MeleeAttackRangePercent
+        {
+            get
+            {
+                return 100 + _additionalPieceAttributes.MeleeAttackRagngeAdditionPercent;
+            }
+        }
 
 
         public PieceAttributes(Piece piece)
@@ -73,35 +80,6 @@ namespace Battleground
         public void InventoryChanged()
         {
             _additionalPieceAttributes = _unitInventory.GetAdditionalAttributes();
-        }
-    }
-
-    [Serializable]
-    public struct AdditionalPieceAttributes
-    {
-        [Header("Health Attributes")]
-        public float Health;
-        public float HealthPercent;
-        [Space, Header("Weapon Attributes")]
-        public float AccuracyPercent;
-        [Space, Header("Protection Attributes")]
-        public float DodgeChancePercent;
-        public float BlockChancePercent;
-        [Space, Header("Other")]
-        public float MaxWeight;
-
-        public static AdditionalPieceAttributes operator +(AdditionalPieceAttributes a, AdditionalPieceAttributes b)
-        {
-            var newAttributes = new AdditionalPieceAttributes
-            {
-                Health = a.Health + b.Health,
-                HealthPercent = a.HealthPercent + b.HealthPercent,
-                AccuracyPercent = a.AccuracyPercent + b.AccuracyPercent,
-                DodgeChancePercent = a.DodgeChancePercent + b.DodgeChancePercent,
-                BlockChancePercent = a.BlockChancePercent + b.BlockChancePercent,
-                MaxWeight = a.MaxWeight + b.MaxWeight
-            };
-            return newAttributes;
         }
     }
 }

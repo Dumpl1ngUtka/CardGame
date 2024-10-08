@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75f86b3cfcecc5a47814e30c9efe0d00, type: 3}
+  m_Name: Default Wizard Hat
+  m_EditorClassIdentifier: 
+  Name: Wizard Hat
+  Icon: {fileID: 21300000, guid: f4b6756ab7f1b18469d3644e306c4970, type: 3}
+  Weight: 3
+  Spells: []
+  Attributes:
+    Health: 0
+    HealthPercent: 0
+    AccuracyPercent: 0
+    MeleeAttackRagngeAdditionPercent: 0
+    DodgeChancePercent: 0
+    BlockChancePercent: 0
+    MaxWeight: 0
+  HatModel: {fileID: 4941217323123008382, guid: 15b720af8754b894b8e429ffc6aba4f6,
+    type: 3}
+  IsHairVisible: 1
+  IsEarsVisible: 0
+  IsMoustacheVisible: 1

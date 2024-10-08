@@ -8,11 +8,12 @@ namespace Units
 
     public class ZoneSpell : Spell
     {
+        [SerializeField] private float _maxDistance;
+        [SerializeField] private float _radius;
         [SerializeField] private SimpleZone _zonePrefab;
 
         private Vector3 _targetPosition;
-        private Vector3 _startPosition;
-        private SpellObject _zone;
+        private SimpleZone _zone;
 
         private ZoneMarker _marker;
 
@@ -23,7 +24,7 @@ namespace Units
             if (Piece.AddActivity(this))
             {
                 _zone = Instantiate(_zonePrefab);
-                _zone.Init(Piece, _startPosition, _targetPosition, ActionTime * 0.7f + StartTime);
+                _zone.Init(Piece, _targetPosition, ActionTime * 0.7f + StartTime);
                 IsSpellFinished = true;
             }
             else
@@ -51,7 +52,6 @@ namespace Units
 
         public override void StartRelease()
         {
-            _startPosition = Piece.transform.position;
             _marker = Instantiate(MarkerPrefab) as ZoneMarker;
             _marker.Init(Mask, _zonePrefab);
         }

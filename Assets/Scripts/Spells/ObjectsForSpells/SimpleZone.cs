@@ -9,9 +9,9 @@ namespace Battleground
         private List<IDamageable> _objectsInZone;
         private int damageCount;
 
-        public override void Init(Piece piece, Vector3 startPos, Vector3 endPos, float startTime)
+        public void Init(Piece piece, Vector3 endPos, float startTime)
         {
-            base.Init(piece, startPos, endPos, startTime);
+            base.Init(piece, startTime);
             transform.position = endPos;
         }
 

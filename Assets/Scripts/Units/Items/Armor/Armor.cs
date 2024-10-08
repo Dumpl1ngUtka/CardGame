@@ -4,9 +4,7 @@ using UnityEngine;
 
 namespace Units.Items
 {
-    [CreateAssetMenu(menuName = ("Config/Armor"))]
-    public class Armor : Item
+    public abstract class Armor : Item
     {
-        
     }
 }

@@ -12050,6 +12050,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eca485d27b5a2ab4680820a122fa4dc8, type: 2}
   - {fileID: 11400000, guid: 385be9a46b3a3ad47821ebd200512d43, type: 2}
   - {fileID: 11400000, guid: eca485d27b5a2ab4680820a122fa4dc8, type: 2}
+  _hats:
+  - {fileID: 11400000, guid: e10501f8667815c45ba376464f4c23b4, type: 2}
+  - {fileID: 11400000, guid: 96b5c6f605b87334c823c3fb853cbfec, type: 2}
+  - {fileID: 11400000, guid: f45f745848e898948ae4da67d2e43c72, type: 2}
+  - {fileID: 11400000, guid: f45f745848e898948ae4da67d2e43c72, type: 2}
+  _armors:
+  - {fileID: 11400000, guid: 629c6b95e25192f4e9602e75213a73eb, type: 2}
+  - {fileID: 11400000, guid: 4ba5dac4305f9ce46861be8e8f57f95f, type: 2}
+  - {fileID: 11400000, guid: 8303a163ff7d8a644b7c99a8620045dd, type: 2}
+  - {fileID: 11400000, guid: 4ba5dac4305f9ce46861be8e8f57f95f, type: 2}
   Timeline: {fileID: 244474159}
 --- !u!1 &1479892715
 GameObject:

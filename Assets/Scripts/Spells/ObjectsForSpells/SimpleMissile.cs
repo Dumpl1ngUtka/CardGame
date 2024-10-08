@@ -9,12 +9,17 @@ namespace Battleground
         [SerializeField] private float _arcSize;
         [SerializeField] private AnimationCurve _positionCurve;
         private List<IDamageable> _collidedObjects;
+        private Vector3 _startPos;
+        private Vector3 _endPos;
+
         public Vector3 PivotPosition => transform.position;
         public Transform PivotTransform => transform;
 
-        public override void Init(Piece piece, Vector3 startPos, Vector3 endPos, float startTime)
+        public void Init(Piece piece, Vector3 startPos, Vector3 endPos, float startTime)
         {
-            base.Init(piece, startPos, endPos, startTime);
+            base.Init(piece, startTime);
+            _startPos = startPos;
+            _endPos = endPos;
             _collidedObjects = new List<IDamageable>();
             var newActiveTime = (_startPos - _endPos).magnitude / _distanceBySecond;
             _activeTime = Mathf.Min(newActiveTime, _activeTime);

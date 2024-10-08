@@ -8,6 +8,7 @@ namespace Units
 
     public class MeleeAttackSpell : Spell
     {
+        [Min(0)] public float Offset;
         [SerializeField] private MeleeAttackZone _meleeZonePrefab;
 
         private Vector3 _direction;
@@ -23,7 +24,7 @@ namespace Units
             if (Piece.AddActivity(this))
             {
                 _hitbox = Instantiate(_meleeZonePrefab);
-                _hitbox.Init(Piece, _startPosition, _direction, ActionTime * 0.8f + StartTime);
+                _hitbox.Init(Piece, this, _direction, ActionTime * 0.8f + StartTime);
                 IsSpellFinished = true;
             }
             else
@@ -53,12 +54,13 @@ namespace Units
         {
             _startPosition = Piece.transform.position;
             _marker = Instantiate(MarkerPrefab) as MeleeMarker;
-            _marker.Init(Mask, _meleeZonePrefab, _startPosition);
+            _marker.Init(Piece, Mask, _meleeZonePrefab, _startPosition);
         }
 
         public override void EndRelease()
         {
             Destroy(_marker.gameObject);
+
         }
     }
 }
