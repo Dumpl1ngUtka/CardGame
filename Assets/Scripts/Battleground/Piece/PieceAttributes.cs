@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace Battleground
 {
@@ -65,10 +64,26 @@ namespace Battleground
         {
             get
             {
-                return 100 + _additionalPieceAttributes.MeleeAttackRagngeAdditionPercent;
+                return 100 + _additionalPieceAttributes.MeleeAttackRangeAdditionPercent;
             }
         }
 
+        #region Distance Attack
+        public float DistanceAttackRangePercent
+        {
+            get
+            {
+                return 100 + _additionalPieceAttributes.DistanceAttackRangeAdditionPercent;
+            }
+        }        
+        public float DistanceAttackDistancePercent
+        {
+            get
+            {
+                return 100 + _additionalPieceAttributes.DistanceAttackDistanceAdditionPercent;
+            }
+        }
+        #endregion
 
         public PieceAttributes(Piece piece)
         {

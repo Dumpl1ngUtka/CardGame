@@ -1,4 +1,5 @@
 using Battleground;
+using Units;
 using UnityEngine;
 
 namespace UI.Marker
@@ -6,7 +7,6 @@ namespace UI.Marker
     public class MeleeMarker : Marker
     {
         [SerializeField] private GameObject _targetObject;
-        [SerializeField] private float Mult;        
 
         private MeleeAttackZone _hitBox;
         private Vector3 _startPos;
@@ -21,8 +21,8 @@ namespace UI.Marker
             transform.position = startPos;
             _startPos = startPos;
             _targetObject.GetComponent<MeshFilter>().sharedMesh = _hitBox.HitboxForm.GetComponent<MeshFilter>().sharedMesh;
-            _targetObject.transform.localPosition = new Vector3(0, 0, 0);
-            _targetObject.transform.localScale *= piece.Attributes.MeleeAttackRangePercent / 100;
+            _targetObject.transform.localPosition = new Vector3(0, 0, _hitBox.Offset);
+            _targetObject.transform.localScale = Vector3.one * _hitBox.HitboxSize;
         }
 
         protected override void Render(RaycastHit point)

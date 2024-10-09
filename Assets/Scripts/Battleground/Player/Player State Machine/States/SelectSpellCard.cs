@@ -33,7 +33,6 @@ namespace Battleground
         {
             base.Exit();
             StateMachine.UI.CloseOpenTab();
-            StateMachine.CameraMode.SetDefaultPivot();
         }
 
         protected override void LeftMouseButtonDown(RaycastHit hit)

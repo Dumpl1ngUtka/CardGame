@@ -22,5 +22,6 @@ MonoBehaviour:
   ActionTime: 2
   MarkerPrefab: {fileID: 2656710548582920811, guid: 82911fbf99a7b9040be4fcb87a6d0531,
     type: 3}
+  Offset: 10
   _meleeZonePrefab: {fileID: 6046752674755205703, guid: ec539751afa0a8b4d87b46266c6a42bd,
     type: 3}

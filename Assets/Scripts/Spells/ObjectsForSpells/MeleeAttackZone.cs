@@ -6,15 +6,20 @@ namespace Battleground
 {
     public class MeleeAttackZone : SpellObject
     {
+        [SerializeField, Min(0)] private float _offset;
+        [SerializeField, Min(0)] private float _hitboxSize = 1;
         private List<IDamageable> _collidedObjects;
+
+        public float Offset => _offset;
+        public float HitboxSize => _hitboxSize * _piece.Attributes.MeleeAttackRangePercent / 100;
         public GameObject HitboxForm => _hitbox.gameObject;
 
         public void Init(Piece piece, MeleeAttackSpell spell,Vector3 direction,float startTime)
         {
             base.Init(piece, startTime);
             transform.position = piece.transform.position;
-            HitboxForm.transform.localScale *= _piece.Attributes.MeleeAttackRangePercent / 100;
-            HitboxForm.transform.localPosition = new Vector3(0, 0, spell.Offset);
+            HitboxForm.transform.localScale = Vector3.one * HitboxSize;
+            HitboxForm.transform.localPosition = new Vector3(0, 0, Offset);
             transform.rotation = Quaternion.Euler(GetHitBoxRotation(transform.position, direction));
             _collidedObjects = new List<IDamageable>();
         }

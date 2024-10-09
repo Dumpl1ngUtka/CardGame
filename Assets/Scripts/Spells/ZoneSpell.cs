@@ -8,8 +8,6 @@ namespace Units
 
     public class ZoneSpell : Spell
     {
-        [SerializeField] private float _maxDistance;
-        [SerializeField] private float _radius;
         [SerializeField] private SimpleZone _zonePrefab;
 
         private Vector3 _targetPosition;
@@ -52,8 +50,9 @@ namespace Units
 
         public override void StartRelease()
         {
+            _zonePrefab.Init(Piece, StartTime);
             _marker = Instantiate(MarkerPrefab) as ZoneMarker;
-            _marker.Init(Mask, _zonePrefab);
+            _marker.Init(Piece, Mask, _zonePrefab);
         }
 
         public override void EndRelease()

@@ -8,7 +8,6 @@ namespace Units
 
     public class MeleeAttackSpell : Spell
     {
-        [Min(0)] public float Offset;
         [SerializeField] private MeleeAttackZone _meleeZonePrefab;
 
         private Vector3 _direction;
@@ -52,6 +51,7 @@ namespace Units
 
         public override void StartRelease()
         {
+            _meleeZonePrefab.Init(Piece, StartTime);
             _startPosition = Piece.transform.position;
             _marker = Instantiate(MarkerPrefab) as MeleeMarker;
             _marker.Init(Piece, Mask, _meleeZonePrefab, _startPosition);

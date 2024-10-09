@@ -11,7 +11,9 @@ namespace Battleground
         public float HealthPercent;
         [Space, Header("Weapon Attributes")]
         public float AccuracyPercent;
-        public float MeleeAttackRagngeAdditionPercent;
+        public float MeleeAttackRangeAdditionPercent;
+        public float DistanceAttackRangeAdditionPercent;
+        public float DistanceAttackDistanceAdditionPercent;
         [Space, Header("Protection Attributes")]
         public float DodgeChancePercent;
         public float BlockChancePercent;
@@ -27,7 +29,7 @@ namespace Battleground
                 AccuracyPercent = a.AccuracyPercent + b.AccuracyPercent,
                 DodgeChancePercent = a.DodgeChancePercent + b.DodgeChancePercent,
                 BlockChancePercent = a.BlockChancePercent + b.BlockChancePercent,
-                MeleeAttackRagngeAdditionPercent = a.MeleeAttackRagngeAdditionPercent + b.MeleeAttackRagngeAdditionPercent,
+                MeleeAttackRangeAdditionPercent = a.MeleeAttackRangeAdditionPercent + b.MeleeAttackRangeAdditionPercent,
                 MaxWeight = a.MaxWeight + b.MaxWeight
             };
             return newAttributes;

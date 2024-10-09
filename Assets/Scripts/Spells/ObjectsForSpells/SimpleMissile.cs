@@ -8,6 +8,7 @@ namespace Battleground
         [SerializeField] private float _distanceBySecond;
         [SerializeField] private float _arcSize;
         [SerializeField] private AnimationCurve _positionCurve;
+        [SerializeField] private float _damageValue;
         private List<IDamageable> _collidedObjects;
         private Vector3 _startPos;
         private Vector3 _endPos;
