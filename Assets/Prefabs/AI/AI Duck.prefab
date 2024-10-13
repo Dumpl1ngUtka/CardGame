@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 1173893125894523772}
   - component: {fileID: 1088727271505153368}
   - component: {fileID: 6142535457499411874}
-  - component: {fileID: 8745884645672102978}
+  - component: {fileID: 4960975886880331870}
   m_Layer: 8
   m_Name: AI Duck
   m_TagString: Untagged
@@ -135,7 +135,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8745884645672102978
+--- !u!114 &4960975886880331870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,10 +144,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1173893125894523747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a24431fd44ce1948a010d77c8984360, type: 3}
+  m_Script: {fileID: 11500000, guid: 8609d15382f47b842b6145f6ae657af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _agent: {fileID: 1088727271505153368}
+  _dangerWeight: 5
+  _healingNeededWeight: 0
+  _teamID: 1
 --- !u!1 &1632680451251601363
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ namespace AI
     {
         public Vector3 Position { get; }
         public float DangerWeight { get; }
+        public float TeamID { get; }
     }
 }
 
