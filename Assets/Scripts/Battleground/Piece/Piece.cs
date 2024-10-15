@@ -1,3 +1,4 @@
+using Battleground.Grid;
 using System.Collections.Generic;
 using Units;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace Battleground
         public List<Spell> Activities { get; private set; }
         public Vector3 PivotPosition => transform.position;
         public Transform PivotTransform => transform;
+        public Vector3 GridPosition => CurrentGridCell != null? CurrentGridCell.GridPosition : Vector3.one * -1;
+        public GridCell CurrentGridCell;
 
         public void Init(Unit unit, Player player)
         {
@@ -38,6 +41,10 @@ namespace Battleground
             NextMove();
         }
 
+        public void SetPosition(GridCell gridCell)
+        {
+            CurrentGridCell = gridCell;
+        }
 
         private void Died()
         {

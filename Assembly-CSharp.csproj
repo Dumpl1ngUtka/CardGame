@@ -102,6 +102,7 @@
     <Compile Include="Assets\Scripts\Spells\Base\SpellObject.cs" />
     <Compile Include="Assets\Scripts\UI\Marker\MoveMarker.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\StateMachine.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Grid\GridCell.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Weapons\WeaponTypes.cs" />
     <Compile Include="Assets\Test.cs" />
     <Compile Include="Assets\Scripts\Battleground\Damage\IDamageable.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceHealth.cs" />
     <Compile Include="Assets\Scripts\Guild\GuildCardAnimator.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Cards\CardRenderer.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Grid\GridMap.cs" />
     <Compile Include="Assets\Scripts\Guild\UI\GuildUnitCardRenderer.cs" />
     <Compile Include="Assets\Scripts\Guild\Genetators\PokerCardsGenerator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />

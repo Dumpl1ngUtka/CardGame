@@ -1,5 +1,6 @@
 using Battleground;
-using Units;
+using Battleground.Grid;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UI.Marker
@@ -9,25 +10,29 @@ namespace UI.Marker
         [SerializeField] private GameObject _targetObject;
 
         private MeleeAttackZone _hitBox;
-        private Vector3 _startPos;
+        private GridCell _markerPos;
+        private List<GridCell> _availableCells;
         private LayerMask _layerMask;
 
         protected override LayerMask Mask => _layerMask;
 
-        public void Init(Piece piece, LayerMask layerMask, MeleeAttackZone obj, Vector3 startPos)
+        public void Init(Piece piece, LayerMask layerMask, MeleeAttackZone obj, List<GridCell> availableCells)
         {
             _layerMask = layerMask;
             _hitBox = obj;
-            transform.position = startPos;
-            _startPos = startPos;
-            _targetObject.GetComponent<MeshFilter>().sharedMesh = _hitBox.HitboxForm.GetComponent<MeshFilter>().sharedMesh;
-            _targetObject.transform.localPosition = new Vector3(0, 0, _hitBox.Offset);
-            _targetObject.transform.localScale = Vector3.one * _hitBox.HitboxSize;
+            _availableCells = availableCells;
         }
+
+        public GridCell MarkerPos() => _markerPos;
 
         protected override void Render(RaycastHit point)
         {
-            transform.rotation = Quaternion.Euler(_hitBox.GetHitBoxRotation(_startPos, point.point));
+            var cell = point.collider.GetComponent<GridCell>();
+            if (cell != _markerPos && _availableCells.Contains(cell))
+            {
+                transform.position = cell.SpawnPosition;
+                _markerPos = cell;
+            }
         }
     }
 }

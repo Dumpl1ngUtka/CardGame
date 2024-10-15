@@ -1,4 +1,5 @@
 using Battleground;
+using Battleground.Grid;
 using UI.Marker;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace Units
 
         public override void LeftMouseClick(RaycastHit hit)
         {
-            _targetPosition = hit.point;
+            _targetPosition = hit.collider.GetComponent<GridCell>().SpawnPosition;
             StartTime = Piece.Player.Timeline.GetTime;
             if (Piece.AddActivity(this))
             {

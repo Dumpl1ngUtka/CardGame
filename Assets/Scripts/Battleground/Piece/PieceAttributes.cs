@@ -60,27 +60,27 @@ namespace Battleground
                 return _unitInventory.GetItemsWeight();
             }
         }
-        public float MeleeAttackRangePercent
+        public int MeleeAttackRangeBonus
         {
             get
             {
-                return 100 + _additionalPieceAttributes.MeleeAttackRangeAdditionPercent;
+                return _additionalPieceAttributes.MeleeAttackRangeAdditionBonus;
             }
         }
 
         #region Distance Attack
-        public float DistanceAttackRangePercent
+        public int DistanceAttackRangePercent
         {
             get
             {
-                return 100 + _additionalPieceAttributes.DistanceAttackRangeAdditionPercent;
+                return _additionalPieceAttributes.DistanceAttackRangeAdditionBonus;
             }
         }        
-        public float DistanceAttackDistancePercent
+        public int DistanceAttackDistancePercent
         {
             get
             {
-                return 100 + _additionalPieceAttributes.DistanceAttackDistanceAdditionPercent;
+                return _additionalPieceAttributes.DistanceAttackDistanceAdditionBonus;
             }
         }
         #endregion

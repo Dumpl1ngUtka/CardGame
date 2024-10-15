@@ -10,20 +10,17 @@ namespace Units
     {
         [SerializeField] private MeleeAttackZone _meleeZonePrefab;
 
-        private Vector3 _direction;
-        private Vector3 _startPosition;
         private MeleeAttackZone _hitbox;
 
         private MeleeMarker _marker;
 
         public override void LeftMouseClick(RaycastHit hit)
         {
-            _direction = hit.point;
             StartTime = Piece.Player.Timeline.GetTime;
             if (Piece.AddActivity(this))
             {
                 _hitbox = Instantiate(_meleeZonePrefab);
-                _hitbox.Init(Piece, this, _direction, ActionTime * 0.8f + StartTime);
+                _hitbox.Init(Piece, this, _marker.MarkerPos(), ActionTime * 0.8f + StartTime);
                 IsSpellFinished = true;
             }
             else
@@ -52,15 +49,16 @@ namespace Units
         public override void StartRelease()
         {
             _meleeZonePrefab.Init(Piece, StartTime);
-            _startPosition = Piece.transform.position;
             _marker = Instantiate(MarkerPrefab) as MeleeMarker;
-            _marker.Init(Piece, Mask, _meleeZonePrefab, _startPosition);
+            var range = Piece.CurrentGridCell.Neighbors;
+            _marker.Init(Piece, Mask, _meleeZonePrefab, range);
+            Piece.Player.Map.SetSelectedGrid(range);
         }
 
         public override void EndRelease()
         {
             Destroy(_marker.gameObject);
-
+            Piece.Player.Map.RemoveSelectedGrid();
         }
     }
 }

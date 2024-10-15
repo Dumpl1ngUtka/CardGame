@@ -1,4 +1,5 @@
 using Battleground;
+using Battleground.Grid;
 using UnityEngine;
 
 namespace UI.Marker
@@ -25,7 +26,8 @@ namespace UI.Marker
         {
             for (int i = 0; i < StepCount; i++)
             {
-                _lineRenderer.SetPosition(i, _obj.GetPositionByProgress(_startPos, point.point, (float)i / StepCount));
+                var pointPos = point.collider.GetComponent<GridCell>().SpawnPosition;
+                _lineRenderer.SetPosition(i, _obj.GetPositionByProgress(_startPos, pointPos, (float)i / StepCount));
             }
         }
     }

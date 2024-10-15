@@ -18,7 +18,6 @@ namespace Units
         public Piece Piece { get; protected set; }
         public float StartTime { get; protected set; }
         public float EndTime => StartTime + ActionTime;
-
         public bool IsSpellFinished { get; protected set; }
 
         public virtual void Init(Piece piece) 

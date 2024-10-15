@@ -1,3 +1,4 @@
+using Battleground.Grid;
 using Battleground.UI;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Battleground
         [SerializeField] private HeadArmor[] _hats;
         [SerializeField] private BodyArmor[] _armors;
 
+        public GridMap Map;
         public Timeline Timeline;
         public List<Unit> Units;
         public PlayerStateMachine StateMachine;
@@ -50,8 +52,10 @@ namespace Battleground
         public void InstantiatePiece(Unit unit, RaycastHit hit)
         {
             Units.Remove(unit);
-            var piece = Instantiate(_piecePrefab, hit.point, _piecePrefab.transform.rotation, _pieceConteiner);
+            var cell = hit.collider.GetComponent<GridCell>();
+            var piece = Instantiate(_piecePrefab, cell.SpawnPosition, _piecePrefab.transform.rotation, _pieceConteiner);
             piece.Init(unit, this);
+            piece.SetPosition(cell);
         }
 
         public int PlayablePieceCount()

@@ -19,12 +19,11 @@ namespace Units
         private Vector3 _endRotate;
         private float _rotationTime;
         private float _rotationSpeed = 90;
-        private NavMeshAgent _agent; 
         private MoveMarker _marker;
         private float[] _pathTimeArray;
         private Vector3[] _finalPath;
 
-        public Vector3[] Path => _agent.path.corners; 
+        public Vector3[] Path; 
 
         public override void RemoveFromTimeline()
         {
@@ -69,11 +68,6 @@ namespace Units
             timeArray[path.Length - 1] = distance / _distancePerSecond;
         }
 
-        //private Vector3 SmoothPath(Vector3[] originPath)
-        //{
-        //    BezierCurve 
-        //}
-
         public override void RightMouseClick(RaycastHit hit)
         {
             
@@ -81,10 +75,6 @@ namespace Units
 
         public override void Release(float time)
         {
-            //if (time <= _rotationTime)
-            //    Piece.transform.forward = Vector3.Lerp(_startRotate, _endRotate, time / _rotationTime);
-
-
             Piece.Animator.Play("Walk");
             Piece.Animator.SetFloat("Progress", time);
             for (int i = 1; i < _pathTimeArray.Length; i++)
@@ -92,7 +82,6 @@ namespace Units
                 if (_pathTimeArray[i] >= time)
                 {
                     var progress = (time - _pathTimeArray[i-1])/(_pathTimeArray[i] - _pathTimeArray[i-1]);
-                    //Debug.Log("time =" + time + " V1 = " + _pathTimeArray[i - 1] + " V2 = " + _pathTimeArray[i] + "Pr =" +progress);
                     Piece.transform.position = Vector3.Lerp(_finalPath[i - 1], _finalPath[i], progress);
                     break;
                 }
@@ -104,24 +93,21 @@ namespace Units
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 100))
             {
-                if (_agent.enabled)
-                    _agent.destination = hit.point;
+                //if (_agent.enabled)
+                //    _agent.destination = hit.point;
             }
         }
 
         public override void StartRelease()
         {
-            _startPosition = Piece.transform.position;
+            _startPosition = Piece.GridPosition;
             _marker = Instantiate(MarkerPrefab) as MoveMarker;
             _marker.Init(this);
-            _agent = Piece.Agent;
-            _agent.enabled = true;
         }
 
         public override void EndRelease()
         {
             Destroy(_marker.gameObject);
-            _agent.enabled = false;
         }
     }
 }
