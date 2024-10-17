@@ -12,5 +12,6 @@ namespace Units
         public List<PassiveEffect> PassiveEffects;
         public Attributes MinLevels;
         public Spell[] Spells;
+        public Sprite Icon;
     }
 }

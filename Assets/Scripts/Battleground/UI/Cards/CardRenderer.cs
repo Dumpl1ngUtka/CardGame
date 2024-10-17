@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Units;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,8 @@ namespace Battleground.UI
 
         public void Render(Unit unit)
         {
+            _specializationIcon.sprite = unit.Class.Icon;
+            _mainIcon.sprite = unit.Race.FaceSprite;
             _name.text = unit.Name;
             _actionTime.text = "-";
             _consumptions.text = "-";

@@ -44,3 +44,4 @@ MonoBehaviour:
   - Will
   - Leo
   - Don
+  FaceSprite: {fileID: 21300000, guid: cecdb4f18c0b6f84b92daa5809becf89, type: 3}

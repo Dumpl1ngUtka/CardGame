@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: Default Thief Hat
   m_EditorClassIdentifier: 
   Name: Thief Hat
-  Icon: {fileID: 21300000, guid: f4b6756ab7f1b18469d3644e306c4970, type: 3}
+  Icon: {fileID: -14627774, guid: 171591c0411715d408a9dea861776bc5, type: 3}
   Weight: 3
   Spells: []
   Attributes:
     Health: 0
     HealthPercent: 0
     AccuracyPercent: 0
-    MeleeAttackRagngeAdditionPercent: 0
+    MeleeAttackRangeAdditionBonus: 0
+    DistanceAttackRangeAdditionBonus: 0
+    DistanceAttackDistanceAdditionBonus: 0
     DodgeChancePercent: 0
     BlockChancePercent: 0
     MaxWeight: 0
@@ -29,3 +31,4 @@ MonoBehaviour:
   IsHairVisible: 0
   IsEarsVisible: 0
   IsMoustacheVisible: 1
+  FrontImage: {fileID: -1218915394, guid: 171591c0411715d408a9dea861776bc5, type: 3}

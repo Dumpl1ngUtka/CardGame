@@ -10,5 +10,8 @@ namespace Units.Items
         public bool IsHairVisible;
         public bool IsEarsVisible;
         public bool IsMoustacheVisible;
+
+        [Header("Other")]
+        public Sprite FrontImage;
     }
 }

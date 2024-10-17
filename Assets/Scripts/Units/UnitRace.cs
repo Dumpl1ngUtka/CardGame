@@ -15,6 +15,7 @@ namespace Units
         public Attributes MinLevels;
         public Spell[] Spells;
         public string[] AvailableNames;
+        public Sprite FaceSprite;
 
         public string GetRandomName()
         {

@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: Default Warrior Hat
   m_EditorClassIdentifier: 
   Name: Warrior Hat
-  Icon: {fileID: 21300000, guid: f4b6756ab7f1b18469d3644e306c4970, type: 3}
+  Icon: {fileID: -1143625854, guid: 84b0a9904ff69f34da2758c593ed21a3, type: 3}
   Weight: 3
   Spells: []
   Attributes:
     Health: 0
     HealthPercent: 0
     AccuracyPercent: 0
-    MeleeAttackRagngeAdditionPercent: 0
+    MeleeAttackRangeAdditionBonus: 0
+    DistanceAttackRangeAdditionBonus: 0
+    DistanceAttackDistanceAdditionBonus: 0
     DodgeChancePercent: 0
     BlockChancePercent: 0
     MaxWeight: 0
@@ -29,3 +31,4 @@ MonoBehaviour:
   IsHairVisible: 0
   IsEarsVisible: 0
   IsMoustacheVisible: 1
+  FrontImage: {fileID: 1324460760, guid: 84b0a9904ff69f34da2758c593ed21a3, type: 3}

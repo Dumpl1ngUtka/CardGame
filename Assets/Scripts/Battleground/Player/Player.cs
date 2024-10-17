@@ -39,7 +39,6 @@ namespace Battleground
                 new Unit(3,  _races[0], _classes[0]),
                 new Unit(1,  _races[1], _classes[1]),
                 new Unit(2,  _races[2], _classes[2]),
-                new Unit(3,  _races[3], _classes[3]),
             };
             for (int i = 0; i < Units.Count; i++)
             {
