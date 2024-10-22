@@ -13,6 +13,7 @@ namespace Battleground
         [SerializeField] private Piece _piecePrefab;
         [SerializeField] private BattleSceneUI UI;
         [SerializeField] private CameraModeChanger _cameraMode;
+        [SerializeField] private int _teamID;
 
         [SerializeField] private UnitRace[] _races;
         [SerializeField] private UnitClass[] _classes;
@@ -20,12 +21,10 @@ namespace Battleground
         [SerializeField] private BodyArmor[] _armors;
 
         public Timeline Timeline;
+        public BattlegroundMap Map;
         public List<Unit> Units;
         public PlayerStateMachine StateMachine;
-        public event Action MoveFinished;
-        public bool IsMoveFinished { get; private set; }
-
-
+        public int TeamID => _teamID;
         public bool HasPlayablePiece => PlayablePieceCount() > 0;
         public bool IsUnitsListEmpty => Units.Count == 0;
 
@@ -72,24 +71,6 @@ namespace Battleground
             {
                 ObjectsForCardRenderers = Units.ToArray()
             };
-        }
-
-        public void StartNewMove(float minTime, float maxTime)
-        {
-            Timeline.SetTimeBounds(minTime, maxTime);
-            foreach (Transform child in _pieceConteiner)
-            {
-                var piece = child.GetComponent<Piece>();
-                piece.NextMove();
-            }
-            IsMoveFinished = false;
-            StateMachine.ChangeState(new SelectUnitCard(StateMachine));
-        }
-
-        public void MoveFinishedTrigger()
-        {
-            MoveFinished?.Invoke();
-            IsMoveFinished = true;
         }
     }
 }

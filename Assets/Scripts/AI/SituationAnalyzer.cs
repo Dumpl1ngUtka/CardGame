@@ -1,53 +1,57 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AI
 {
     public class SituationAnalyzer
     {
-        private AIStateMachine _AIStateMachine;
+        private IAIWeightPoint _selfWeight;
+
         #region Matrix Parameters
         private const float _checkSphereRadius = 10;
         private const int _levelCount = 3;
         private const int _sectorCount = 8;
         #endregion
+
         #region Matrices
         private WorldSituationMatrix _dangerMatrix = new(_checkSphereRadius, _levelCount, _sectorCount);
+        private WorldSituationMatrix _DPSMatrix = new(_checkSphereRadius, _levelCount, _sectorCount);
+        private WorldSituationMatrix _healthMatrix = new(_checkSphereRadius, _levelCount, _sectorCount);
         private WorldSituationMatrix _enemyMatrix = new(_checkSphereRadius, _levelCount, _sectorCount);
         private WorldSituationMatrix _alliesMatrix = new(_checkSphereRadius, _levelCount, _sectorCount);
         private WorldSituationMatrix _rewardMatrix = new(_checkSphereRadius, _levelCount, _sectorCount);
+
+        public WorldSituationMatrix DangerMatrix => _dangerMatrix;
+        public WorldSituationMatrix DPSMatrix => _DPSMatrix;
+        public WorldSituationMatrix HealthMatrix => _healthMatrix;
+        public WorldSituationMatrix EnemyMatrix => _enemyMatrix;
+        public WorldSituationMatrix AlliesMatrix => _alliesMatrix;
+        public WorldSituationMatrix RewardMatrix => _rewardMatrix;
         #endregion
 
-        private void Awake()
-        {
-            UpdateMatrices();
-        }
 
-        public WorldSituationMatrix GetDangerMatrix()
+        public SituationAnalyzer(IAIWeightPoint piece)
         {
-            var matrix = new WorldSituationMatrix(_checkSphereRadius, _levelCount, _sectorCount);
-            foreach (var collider in Physics.OverlapSphere(_AIStateMachine.Position, _checkSphereRadius))
-            {
-                if (collider.TryGetComponent<IAIWeightPoint>(out var weightPoint))
-                {
-                    var distance = (int)Vector3.Distance(_AIStateMachine.Position, weightPoint.Position);
-                    var angle = GetAngle360To(weightPoint.Position);
-                    matrix[distance, angle] += weightPoint.DangerWeight;
-                }
-            }
-            return matrix;
+            _selfWeight = piece;
+            UpdateMatrices();
         }
 
         public void UpdateMatrices()
         {
             ClearMatrices();
-            foreach (var collider in Physics.OverlapSphere(_AIStateMachine.Position, _checkSphereRadius))
+            foreach (var collider in Physics.OverlapSphere(_selfWeight.Position, _checkSphereRadius - 1))
             {
                 if (collider.TryGetComponent<IAIWeightPoint>(out var weightPoint))
                 {
-                    var distance = (int)Vector3.Distance(_AIStateMachine.Position, weightPoint.Position);
+                    if (weightPoint == _selfWeight)
+                        continue;
+                    var distance = (int)Vector3.Distance(_selfWeight.Position, weightPoint.Position);
                     var angle = GetAngle360To(weightPoint.Position);
-                    _dangerMatrix[distance, angle] += weightPoint.DangerWeight;
-                    //_alliesMatrix[distance, angle] += weightPoint.TeamID == weightPoint.;
+                    var isTeammate = weightPoint.TeamID == _selfWeight.TeamID;
+                    _dangerMatrix[distance, angle] += isTeammate ? -weightPoint.DangerWeight : weightPoint.DangerWeight;
+                    _DPSMatrix[distance, angle] += isTeammate ? -weightPoint.DamagePerMinute: weightPoint.DamagePerMinute;
+                    _alliesMatrix[distance, angle] += isTeammate ? 1 : 0;
+                    _enemyMatrix[distance, angle] += isTeammate ? 0 : 1;
                 }
             }
         }
@@ -62,9 +66,9 @@ namespace AI
 
         private int GetAngle360To(Vector3 target)
         {
-            var direction = target - _AIStateMachine.Position;
+            var direction = target - _selfWeight.Position;
             direction.y = 0;
-            var angle = Vector3.SignedAngle(_AIStateMachine.transform.forward, direction, Vector3.up);
+            var angle = Vector3.SignedAngle(_selfWeight.Transform.forward, direction, Vector3.up);
             if (angle < 0)
                 angle += 360;
             return (int)angle;
@@ -79,14 +83,22 @@ namespace AI
         private readonly float _oneLevelDistance;
         private WorldSituationMatrixCell[] _cells;
 
+        public bool IsEmpty { get; private set; }
+
         public float this[int distance, int degree]
         {
-            get => _cells[(int)(distance / _oneLevelDistance) * SectorCount + (degree / _oneSectorDegree)].Value;
-            set => _cells[(int)(distance / _oneLevelDistance) * SectorCount + (degree / _oneSectorDegree)].Value = value;
+            get => _cells[Mathf.FloorToInt(distance / _oneLevelDistance) * SectorCount + (degree / _oneSectorDegree)].Value;
+            set
+            {
+                if (value != 0)
+                    IsEmpty = false;
+                _cells[Mathf.FloorToInt(distance / _oneLevelDistance) * SectorCount + (degree / _oneSectorDegree)].Value = value;
+            }
         }
 
         public WorldSituationMatrix(float maxDistance, int levelCount, int sectorCount)
         {
+            IsEmpty = true;
             LevelCount = levelCount;
             SectorCount = sectorCount;
             _oneSectorDegree = 360 / SectorCount;
@@ -100,9 +112,26 @@ namespace AI
                 }
             }
         }
+
+        public Dictionary<float,float> GetSectorAmounts()
+        {
+            var amounts = new Dictionary<float, float>();
+            for (int j = 0; j < SectorCount; j++)
+            {
+                var degree = j * _oneSectorDegree;
+                var sum = 0f;
+                for (int i = 0; i < LevelCount; i++)
+                {
+                    sum += _cells[i * SectorCount + j].Value;
+                }
+                amounts.Add(degree, sum);
+            }
+            return amounts;
+        }
         
         public void Clear()
         {
+            IsEmpty = true;
             for (int i = 0; i < LevelCount; i++)
             {
                 for (int j = 0; j < SectorCount; j++)
@@ -116,6 +145,8 @@ namespace AI
         {
             foreach (var cell in _cells)
                 Debug.Log(cell.Distance + " " + cell.SectorDegrees + " " + cell.Value);
+
+            Debug.Log("IsEmpty: " + IsEmpty);
         }
     }
 

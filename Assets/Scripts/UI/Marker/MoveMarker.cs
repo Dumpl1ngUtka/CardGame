@@ -9,7 +9,7 @@ namespace UI.Marker
         [SerializeField] private LineRenderer _lineRenderer;
         private MoveSpell _moveSpell;
 
-        protected override LayerMask Mask { get => _moveSpell.Mask; }
+        protected override LayerMask Mask => ~0; 
 
         public void Init(MoveSpell moveSpell)
         {

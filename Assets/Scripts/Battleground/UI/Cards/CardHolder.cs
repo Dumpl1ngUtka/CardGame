@@ -85,11 +85,11 @@ namespace Battleground.UI
             for (int i = 0; i < _cards.Count; i++)
             {
                 var spell = _cards[i].Spell;
-                if (spell != null && !_filter[spell.Type])
-                {
-                    _cards[i].SetPosition(new Vector2(0, -1000));
-                    continue;
-                }
+                //if (spell != null && !_filter[spell.Type])
+                //{
+                //    _cards[i].SetPosition(new Vector2(0, -1000));
+                //    continue;
+                //}
                 visableCards.Add(_cards[i]);
                 
                 if (_cards[i].IsSelected)

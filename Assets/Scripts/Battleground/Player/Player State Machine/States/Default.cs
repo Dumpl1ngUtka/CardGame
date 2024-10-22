@@ -12,16 +12,16 @@ namespace Battleground
 
         public override void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-                StateMachine.ChangeState(new PauseMenu(StateMachine));
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //    StateMachine.ChangeState(new PauseMenu(StateMachine));
 
             base.Update();
         }
 
         protected override void LeftMouseButtonDown(RaycastHit hit)
         {
-            if (hit.collider.TryGetComponent<Piece>(out var piece))
-                StateMachine.ChangeState(new SelectSpellCard(StateMachine, piece));
+            //if (hit.collider.TryGetComponent<Piece>(out var piece))
+            //    StateMachine.ChangeState(new SelectSpellCard(StateMachine, piece));
             if (hit.collider.TryGetComponent(out ICameraPivot pivot))
                 StateMachine.CameraMode.SetPivot(pivot);
         }

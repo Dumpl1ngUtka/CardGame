@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceCondition.cs" />
     <Compile Include="Assets\Scripts\Battleground\BattleManager.cs" />
     <Compile Include="Assets\Scripts\Guild\UI\GuildUnitCard.cs" />
+    <Compile Include="Assets\Scripts\Battleground\BattlegroundMap.cs" />
     <Compile Include="Assets\Scripts\Spells\Base\SpellTypes.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\States\WaitOtherPlayer.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceUIRenderer.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Assets\Scripts\Battleground\UI\Menus\PauseMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Menus\UIMenu.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\WalkAlone.cs" />
     <Compile Include="Assets\Scripts\UI\ProgressBar.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\Piece.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceState.cs" />
@@ -190,6 +192,7 @@
     <Compile Include="Assets\Scripts\Units\Items\Accessories\Accessories.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceAttributes.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\FollowToEnemy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

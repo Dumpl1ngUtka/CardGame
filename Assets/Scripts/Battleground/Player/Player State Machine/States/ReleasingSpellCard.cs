@@ -14,7 +14,7 @@ namespace Battleground
             _spell = Object.Instantiate(spell);
         }
 
-        public override LayerMask LayerMask => _spell.Mask;
+        public override LayerMask LayerMask => ~0;
 
         public override void Enter()
         {
@@ -26,7 +26,7 @@ namespace Battleground
 
         public override void Update()
         {
-            if (Input.GetKey(KeyCode.Escape) || _spell.IsSpellFinished)
+            if (Input.GetKey(KeyCode.Escape) || _spell.IsSpellReady)
                 StateMachine.ChangeState(new SelectSpellCard(StateMachine, _piece));
 
             _spell.Update();
@@ -41,12 +41,12 @@ namespace Battleground
 
         protected override void LeftMouseButtonDown(RaycastHit hit)
         {
-            _spell.LeftMouseClick(hit);
+            //_spell.LeftMouseClick(hit);
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)
         {
-            _spell.RightMouseClick(hit);
+            //_spell.RightMouseClick(hit);
         }
     }
 

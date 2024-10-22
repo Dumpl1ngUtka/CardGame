@@ -1,5 +1,4 @@
 using Battleground;
-using UI.Marker;
 using UnityEngine;
 
 
@@ -7,47 +6,66 @@ namespace Units
 {
     public abstract class Spell : ScriptableObject, IObjectForInfoRenderer
     {
+        [Header("Visual")]
         public string Name;
-        public LayerMask Mask;
-        public SpellTypes Type;
         public Sprite MainBackground;
-        public int Ñonsumption;
+        [Header("Time Values")]
         public float ActionTime;
-        public Marker MarkerPrefab;
-
+        public float Cooldown;
+        [Header("Other")]
+        private float _currentCooldownTime;
         public Piece Piece { get; protected set; }
-        public float StartTime { get; protected set; }
-        public float EndTime => StartTime + ActionTime;
-
-        public bool IsSpellFinished { get; protected set; }
+        public bool IsSpellReady => CurrentCooldownTime < 0;
+        public float CurrentCooldownTime => _currentCooldownTime;
 
         public virtual void Init(Piece piece) 
         {
-            IsSpellFinished = false;
             Piece = piece;
         }
 
-        public abstract void RemoveFromTimeline();
+        public virtual void Update()
+        {
+            if (!IsSpellReady)
+                _currentCooldownTime -= Time.deltaTime;
+        }
 
-        public abstract void LeftMouseClick(RaycastHit hit);
+        public virtual void StartRelease()
+        {
 
-        public abstract void RightMouseClick(RaycastHit hit);
+        }
 
-        public abstract void Release(float time = 0);
-
-        public abstract void Update();
-
-        public abstract void StartRelease();
-        public abstract void EndRelease();
+        public virtual void EndRelease()
+        {
+            _currentCooldownTime = Cooldown;
+        }
 
         public InfoForInfoRenderer GetInfo()
         {
             return new InfoForInfoRenderer
             {
                 Title = Name,
-                UnderTitle = Ñonsumption.ToString(),
             };
         }
+    }
+
+    public interface IAttackSpell
+    {
+        public float Damage { get; }
+    }
+
+    public interface IHealSpell
+    {
+        public float Heal { get; }
+    }
+
+    public interface IDefenceSpell
+    {
+        
+    }
+
+    public interface IMoveSpell
+    {
+
     }
 }
 

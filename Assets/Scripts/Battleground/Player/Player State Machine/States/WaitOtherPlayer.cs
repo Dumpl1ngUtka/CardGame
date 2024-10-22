@@ -13,7 +13,6 @@ namespace Battleground
         public override void Enter()
         {
             base.Enter();
-            StateMachine.Player.MoveFinishedTrigger();
         }
 
         protected override void LeftMouseButtonDown(RaycastHit hit)

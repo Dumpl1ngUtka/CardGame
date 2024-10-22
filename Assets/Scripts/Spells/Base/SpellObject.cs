@@ -9,16 +9,13 @@ namespace Battleground
         [SerializeField] protected float _activeTime;
         [SerializeField] protected Collider _hitbox;
         [SerializeField] protected Renderer _renderer;
-        protected Timeline _timeline;
         protected float _startTime;
         protected Piece _piece;
 
         public virtual void Init(Piece piece, float startTime)
         {
             _piece = piece;
-            _timeline = piece.Player.Timeline;
             _startTime = startTime;
-            _timeline.OnTimeChanged += MoveByTimeline;
             MoveByTimeline(0);
         }
 
@@ -51,7 +48,6 @@ namespace Battleground
 
         private void OnDisable()
         {
-            _timeline.OnTimeChanged -= MoveByTimeline;
         }
 
         public virtual void NextMove()

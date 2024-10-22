@@ -17,11 +17,10 @@ namespace Battleground.UI
 
         public void Render(Spell spell)
         {
-            _specializationIcon.sprite = Resources.Load<Sprite>("Sprites/SpellTypes/" + spell.Type.ToString());
+            //_specializationIcon.sprite = Resources.Load<Sprite>("Sprites/SpellTypes/" + spell.Type.ToString());
             _mainIcon.sprite = spell.MainBackground;
             _name.text = spell.Name;
             _actionTime.text = spell.ActionTime.ToString();
-            _consumptions.text = spell.Ñonsumption.ToString();
         }
 
         public void Render(Unit unit)
