@@ -109,6 +109,7 @@
     <Compile Include="Assets\Test.cs" />
     <Compile Include="Assets\Scripts\Battleground\Damage\IDamageable.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\FollowToEnemy.cs" />
     <Compile Include="Assets\Scripts\Guild\UI\GuildUI.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\State.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Armor\Head Armor\HeadArmor.cs" />
@@ -192,7 +193,8 @@
     <Compile Include="Assets\Scripts\Units\Items\Accessories\Accessories.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceAttributes.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
-    <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\FollowToEnemy.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\RunAway.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\PieceMover.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Linq;
 using UnityEngine;
 
 namespace AI
@@ -6,6 +9,8 @@ namespace AI
     public class SituationAnalyzer
     {
         private IAIWeightPoint _selfWeight;
+        private List<IAIWeightPoint> _weightPoints;
+        private List<IAIWeightPoint> _groupedWeightPoints;
 
         #region Matrix Parameters
         private const float _checkSphereRadius = 10;
@@ -29,11 +34,82 @@ namespace AI
         public WorldSituationMatrix RewardMatrix => _rewardMatrix;
         #endregion
 
+        public List<IAIWeightPoint> WeightPoints => _weightPoints;
+        public List<IAIWeightPoint> GroupedWeightPoints => _groupedWeightPoints;
 
         public SituationAnalyzer(IAIWeightPoint piece)
         {
             _selfWeight = piece;
-            UpdateMatrices();
+        }
+
+        public void Update()
+        {
+            _weightPoints = GetWeightPoints();
+            //_groupedWeightPoints = GetWeightGrouped(WeightPoints);
+        }
+
+        public List<IAIWeightPoint> GetAlliesPoints()
+        {
+            var allies = new List<IAIWeightPoint>();
+            foreach (var collider in Physics.OverlapSphere(_selfWeight.Position, _checkSphereRadius - 1))
+            {
+                if (collider.TryGetComponent<IAIWeightPoint>(out var weightPoint))
+                {
+                    if (weightPoint != _selfWeight && weightPoint.TeamID == _selfWeight.TeamID) 
+                        allies.Add(weightPoint);
+                }
+            }
+            return allies;
+        }
+
+        public List<IAIWeightPoint> GetWeightPoints()
+        {
+            var weightPoints = new List<IAIWeightPoint>();
+            foreach (var collider in Physics.OverlapSphere(_selfWeight.Position, _checkSphereRadius - 1))
+            {
+                if (collider.TryGetComponent<IAIWeightPoint>(out var weightPoint))
+                {
+                    if (weightPoint == _selfWeight)
+                        continue;
+                    weightPoints.Add(weightPoint);
+                }
+            }
+            return weightPoints;
+        }
+
+        public List<IAIWeightPoint> GetWeightGrouped(List<IAIWeightPoint> points)
+        {
+            var groupIndexes = new List<int>(points.Count);
+            var groupCount = 0;
+            for (int i = 0; i < points.Count; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (points[j] == points[i])
+                        continue;
+
+                    if (Vector3.Distance(points[j].Position, points[i].Position) < 5f)
+                    {
+                        groupIndexes[i] = groupIndexes[j];
+                        break;  
+                    }
+                }
+                if (groupIndexes[i] == 0)
+                    groupIndexes[i] = ++groupCount;
+            }
+            var groupedPoints = new List<AIWeightPoint>();
+            for (int i = 0; i < points.Count; i++)
+            {
+                groupedPoints.Add(new AIWeightPoint(points[i]));
+                for (int j = 0; j < groupIndexes.Count; j++)
+                {
+                    if (groupIndexes[j] == groupIndexes[i])
+                    {
+                        groupedPoints[i].Add(points[j]);
+                    }
+                }
+            }
+            return groupedPoints.Select(x => x as IAIWeightPoint).ToList();
         }
 
         public void UpdateMatrices()
@@ -161,6 +237,64 @@ namespace AI
             Distance = distance;
             SectorDegrees = setorDegrees;
             Value = 0;
+        }
+    }
+
+    public struct AIWeightPoint : IAIWeightPoint
+    {
+        private Transform _transform;
+
+        private Vector3 _position;
+
+        private int _teamID;
+
+        private float _dangerWeight;
+
+        private float _chargedSkillsDamage;
+
+        private float _damagePerMinute;
+
+        private float _missingHealth;
+
+        private float _currentHealth;
+
+        public Transform Transform => _transform;
+
+        public Vector3 Position => _position;
+
+        public int TeamID => _teamID;
+
+        public float DangerWeight => _dangerWeight;
+
+        public float ChargedSkillsDamage => _chargedSkillsDamage;
+
+        public float DamagePerMinute => _damagePerMinute;
+
+        public float MissingHealth => _missingHealth;
+
+        public float CurrentHealth => _currentHealth;
+
+        public AIWeightPoint(IAIWeightPoint baseWeightPoint)
+        {
+            _transform = baseWeightPoint.Transform;
+            _position = baseWeightPoint.Position;
+            _teamID = baseWeightPoint.TeamID;
+
+            _dangerWeight = baseWeightPoint.DangerWeight;
+            _chargedSkillsDamage = baseWeightPoint.ChargedSkillsDamage;
+            _damagePerMinute = baseWeightPoint.DamagePerMinute;
+            _missingHealth = baseWeightPoint.MissingHealth;
+            _currentHealth = baseWeightPoint.CurrentHealth;
+        }
+
+
+        public void Add(IAIWeightPoint weightPoint)
+        {
+            _dangerWeight += weightPoint.DangerWeight;
+            _chargedSkillsDamage += weightPoint.ChargedSkillsDamage;
+            _damagePerMinute += weightPoint.DamagePerMinute;
+            _missingHealth += weightPoint.MissingHealth;
+            _currentHealth += weightPoint.CurrentHealth;
         }
     }
 }

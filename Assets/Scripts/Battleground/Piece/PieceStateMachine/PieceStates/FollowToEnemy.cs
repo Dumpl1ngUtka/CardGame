@@ -1,3 +1,4 @@
+using AI;
 using UnityEngine;
 
 namespace Battleground
@@ -7,10 +8,12 @@ namespace Battleground
         private Vector3 _direction;
         private float _updateTime = 0.5f;
         private float _timer;
+        private IAIWeightPoint _target;
 
-        public FollowToEnemy(PieceStateMachine pieceStateMachine) : base(pieceStateMachine)
+        public FollowToEnemy(PieceStateMachine pieceStateMachine, IAIWeightPoint target) : base(pieceStateMachine)
         {
             Piece.Stop();
+            _target = target;
         }
 
         public override void Update()
@@ -23,21 +26,28 @@ namespace Battleground
             else
             {
                 _timer = 0f;
-                foreach (var sector in StateMachine.SituationAnalyzer.DPSMatrix.GetSectorAmounts())
-                {
-                    if (sector.Value < SelfWeight.DamagePerMinute)
-                    {
-                        var vector = Quaternion.Euler(0, sector.Key, 0) * Piece.Transform.forward;
-                        Debug.Log(vector);
-                        Piece.MoveTo(vector.normalized * 10);
-                        break;
-                    }
-                }
+                _direction = (_target.Position - SelfWeight.Position).normalized;
+                Piece.MoveTo(_target.Position);
             }
         }
 
         protected override PieceState CheckTransitionConditions()
         {
+            if (StateMachine.SituationAnalyzer.WeightPoints.Count == 0)
+            {
+                return new WalkAlone(StateMachine);
+            }
+            foreach (var weightPoint in StateMachine.SituationAnalyzer.WeightPoints)
+            {
+                if (SelfWeight.DamagePerMinute > weightPoint.DamagePerMinute)
+                {
+                    return new FollowToEnemy(StateMachine, weightPoint);
+                }
+                else
+                {
+                    return new RunAway(StateMachine);
+                }
+            }
             return null;
         }
     }

@@ -56,12 +56,15 @@ namespace Battleground
 
         protected override PieceState CheckTransitionConditions()
         {
-            if (!StateMachine.SituationAnalyzer.DPSMatrix.IsEmpty)
+            foreach (var weightPoint in StateMachine.SituationAnalyzer.WeightPoints)
             {
-                foreach (var sectorDPS in StateMachine.SituationAnalyzer.DPSMatrix.GetSectorAmounts())
+                if (SelfWeight.DamagePerMinute > weightPoint.DamagePerMinute)
                 {
-                    if (sectorDPS.Value < SelfWeight.DamagePerMinute)
-                        return new FollowToEnemy(StateMachine);
+                    return new FollowToEnemy(StateMachine, weightPoint);
+                }
+                else
+                {
+                    return new RunAway(StateMachine);
                 }
             }
             return null;

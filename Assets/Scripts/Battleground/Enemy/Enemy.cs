@@ -1,4 +1,5 @@
 using AI;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Battleground
@@ -12,7 +13,7 @@ namespace Battleground
 
         public Vector3 Position => transform.position;
 
-        public float TeamID => 1;
+        public int TeamID => 1;
 
         public float DangerWeight => _dangerWeight;
 
@@ -23,5 +24,7 @@ namespace Battleground
         public float MissingHealth => 111;
 
         public float CurrentHealth => 46;
+
+        public List<IAIWeightPoint> Group => throw new System.NotImplementedException();
     }
 }

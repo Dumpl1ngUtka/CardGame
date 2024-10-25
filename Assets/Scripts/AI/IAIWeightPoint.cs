@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AI
@@ -7,7 +9,7 @@ namespace AI
         #region Base
         public Transform Transform { get; }
         public Vector3 Position { get; }
-        public float TeamID { get; }
+        public int TeamID { get; }
         #endregion
 
         #region Damage
@@ -19,7 +21,6 @@ namespace AI
         #region HealAndHealth
         public float MissingHealth { get; }
         public float CurrentHealth { get; }
-
         #endregion
     }
 }

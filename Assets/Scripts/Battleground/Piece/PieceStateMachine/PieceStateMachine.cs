@@ -20,7 +20,7 @@ namespace Battleground
         public void Update()
         {
             _currentState.Update();
-            SituationAnalyzer.UpdateMatrices();
+            SituationAnalyzer.Update();
         }
 
         public void ChangeState(PieceState state)

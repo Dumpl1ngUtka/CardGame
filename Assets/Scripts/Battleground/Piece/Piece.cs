@@ -17,6 +17,7 @@ namespace Battleground
         public Player Player { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
         public PieceStateMachine StateMachine { get; private set; }
+        public CharacterController CharacterController { get; private set; }
 
         #region Spells
         private List<Spell> MoveSpells;
@@ -35,11 +36,8 @@ namespace Battleground
 
         public Transform Transform => transform;
         public Vector3 Position => transform.position;
-
-        public float TeamID => Player.TeamID;
-
+        public int TeamID => Player.TeamID;
         public float DangerWeight => 0;
-
         public float ChargedSkillsDamage
         {
             get
@@ -54,7 +52,6 @@ namespace Battleground
                 return damage;
             }
         }
-
         public float DamagePerMinute
         {
             get
@@ -68,10 +65,9 @@ namespace Battleground
                 return maxDPS;
             }
         }
-
         public float MissingHealth => Health.MaxHealth - Health.CurrentHealth;
-
         public float CurrentHealth => Health.CurrentHealth;
+        public List<IAIWeightPoint> Group => StateMachine.SituationAnalyzer.GetAlliesPoints();
         #endregion
 
         public void Init(Unit unit, Player player)
@@ -90,6 +86,7 @@ namespace Battleground
             Player = player;
             Rigidbody = GetComponent<Rigidbody>();
 
+            CharacterController = GetComponent<CharacterController>();
             StateMachine = new PieceStateMachine(this);
         }
 
@@ -144,12 +141,22 @@ namespace Battleground
             var direction = (target - transform.position).normalized;
             var velocity = 100 * Time.deltaTime * direction;
             //velocity.y -= 9.81f;
-            Rigidbody.velocity = velocity;
+            CharacterController.Move(direction * 10f * Time.deltaTime);
+        }
+
+        private void Move()
+        {
+
+        }
+
+        private void Rotate()
+        {
+
         }
 
         public void Stop()
         {
-            Rigidbody.velocity = Vector3.zero;
+            //Rigidbody.velocity = Vector3.zero;
         }
     }
  }
