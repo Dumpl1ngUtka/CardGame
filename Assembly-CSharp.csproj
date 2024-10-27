@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Battleground\IObjectForInfoRenderer.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\States\MainMenuState.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\RunAway.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceCondition.cs" />
     <Compile Include="Assets\Scripts\Battleground\BattleManager.cs" />
     <Compile Include="Assets\Scripts\Guild\UI\GuildUnitCard.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\States\ReleasingSpellCard.cs" />
     <Compile Include="Assets\Scripts\MainMenu\UI\MainMenuUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\PieceMover.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\PlayerInput.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStateMachine.cs" />
@@ -193,8 +195,6 @@
     <Compile Include="Assets\Scripts\Units\Items\Accessories\Accessories.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceAttributes.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
-    <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\RunAway.cs" />
-    <Compile Include="Assets\Scripts\Battleground\Piece\PieceMover.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

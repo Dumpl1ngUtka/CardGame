@@ -17,7 +17,7 @@ namespace Battleground
         public Player Player { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
         public PieceStateMachine StateMachine { get; private set; }
-        public CharacterController CharacterController { get; private set; }
+        public PieceMover PieceMover { get; private set; }
 
         #region Spells
         private List<Spell> MoveSpells;
@@ -86,7 +86,7 @@ namespace Battleground
             Player = player;
             Rigidbody = GetComponent<Rigidbody>();
 
-            CharacterController = GetComponent<CharacterController>();
+            PieceMover = GetComponent<PieceMover>();
             StateMachine = new PieceStateMachine(this);
         }
 
@@ -136,28 +136,7 @@ namespace Battleground
             Health.ApplyDamage(damage.Value);
         }
 
-        public void MoveTo(Vector3 target)
-        {
-            var direction = (target - transform.position).normalized;
-            var velocity = 100 * Time.deltaTime * direction;
-            //velocity.y -= 9.81f;
-            CharacterController.Move(direction * 10f * Time.deltaTime);
-        }
-
-        private void Move()
-        {
-
-        }
-
-        private void Rotate()
-        {
-
-        }
-
-        public void Stop()
-        {
-            //Rigidbody.velocity = Vector3.zero;
-        }
+        public void MoveTo(Vector3 target) => PieceMover.SetMoveTarget(target);
     }
  }
 

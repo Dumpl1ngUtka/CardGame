@@ -12,7 +12,6 @@ namespace Battleground
 
         public FollowToEnemy(PieceStateMachine pieceStateMachine, IAIWeightPoint target) : base(pieceStateMachine)
         {
-            Piece.Stop();
             _target = target;
         }
 

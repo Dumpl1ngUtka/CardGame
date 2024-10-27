@@ -67,6 +67,14 @@ namespace Battleground
                 return 100 + _additionalPieceAttributes.MeleeAttackRangeAdditionPercent;
             }
         }
+        public float MoveSpeed
+        {
+            get
+            {
+                return 5 + _additionalPieceAttributes.MoveSpeed;
+            }
+        }
+
 
         #region Distance Attack
         public float DistanceAttackRangePercent

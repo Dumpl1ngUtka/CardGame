@@ -19,6 +19,7 @@ namespace Battleground
         public float BlockChancePercent;
         [Space, Header("Other")]
         public float MaxWeight;
+        public float MoveSpeed;
 
         public static AdditionalPieceAttributes operator +(AdditionalPieceAttributes a, AdditionalPieceAttributes b)
         {
@@ -30,7 +31,8 @@ namespace Battleground
                 DodgeChancePercent = a.DodgeChancePercent + b.DodgeChancePercent,
                 BlockChancePercent = a.BlockChancePercent + b.BlockChancePercent,
                 MeleeAttackRangeAdditionPercent = a.MeleeAttackRangeAdditionPercent + b.MeleeAttackRangeAdditionPercent,
-                MaxWeight = a.MaxWeight + b.MaxWeight
+                MaxWeight = a.MaxWeight + b.MaxWeight,
+                MoveSpeed = a.MoveSpeed + b.MoveSpeed,
             };
             return newAttributes;
         }
