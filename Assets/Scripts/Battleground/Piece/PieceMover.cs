@@ -12,8 +12,9 @@ namespace Battleground
         private float _currentMaxSpeed = 0f;
         public float _acceleration = 1f;
         private Vector3 _targetPosititon;
-        private float _maxRotationSpeed = 0f;
+        private float _maxRotationSpeed = 60f;
         private float _maxSpeed => _piece.Attributes.MoveSpeed;
+        public Rigidbody Rigidbody => _rigidbody;
 
         public void SetMoveTarget(Vector3 targetPostition)
         {

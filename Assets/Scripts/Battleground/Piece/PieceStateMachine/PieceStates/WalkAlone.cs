@@ -1,3 +1,4 @@
+using AI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,13 +15,20 @@ namespace Battleground
         private int _currentMapAnchor;
         private Transform[] _anchors;
 
-        public WalkAlone(PieceStateMachine pieceStateMachine) : base(pieceStateMachine)
+        protected override float MinStateTime => 0;
+
+        public override void Enter()
         {
-            _anchors = Piece.Player.Map.Anchors;
+            base.Enter();
             _currentMapAnchor = 0;
             SetNewPath();
         }
 
+        public WalkAlone(PieceStateMachine pieceStateMachine) : base(pieceStateMachine)
+        {
+            _anchors = Piece.Player.Map.Anchors;
+        }
+      
         public override void Update()
         {
             base.Update();
@@ -54,20 +62,9 @@ namespace Battleground
                 _pathCornerIndex++;
         }
 
-        protected override PieceState CheckTransitionConditions()
+        public override float GetMetric(SituationAnalyzer situationAnalyzer)
         {
-            foreach (var weightPoint in StateMachine.SituationAnalyzer.WeightPoints)
-            {
-                if (SelfWeight.DamagePerMinute > weightPoint.DamagePerMinute)
-                {
-                    return new FollowToEnemy(StateMachine, weightPoint);
-                }
-                else
-                {
-                    return new RunAway(StateMachine);
-                }
-            }
-            return null;
+            return situationAnalyzer.WeightPoints.Count == 0 ? 2 : 0.1f;
         }
     }
 }

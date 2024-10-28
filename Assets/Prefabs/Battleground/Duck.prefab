@@ -446,7 +446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _piece: {fileID: 3901264051773717414}
   _rigidbody: {fileID: 6990726479382209781}
-  _acceleration: 0
+  _acceleration: 1
 --- !u!1 &4177819204644584682
 GameObject:
   m_ObjectHideFlags: 0

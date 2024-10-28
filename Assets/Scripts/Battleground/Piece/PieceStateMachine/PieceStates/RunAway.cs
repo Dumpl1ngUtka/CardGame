@@ -1,3 +1,4 @@
+using AI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,15 @@ namespace Battleground
 {
     public class RunAway : PieceState
     {
+        protected override float MinStateTime => 3;
+        
         public RunAway(PieceStateMachine pieceStateMachine) : base(pieceStateMachine)
         {
         }
 
-        protected override PieceState CheckTransitionConditions()
+        public override float GetMetric(SituationAnalyzer situationAnalyzer)
         {
-            throw new System.NotImplementedException();
+            return -0.1f;
         }
     }
 }

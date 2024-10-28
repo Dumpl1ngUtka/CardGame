@@ -5,14 +5,40 @@ namespace Battleground
 {
     public class FollowToEnemy : PieceState
     {
-        private Vector3 _direction;
-        private float _updateTime = 0.5f;
+        private const float _updateTime = 0.5f;
         private float _timer;
         private IAIWeightPoint _target;
+        
+        protected override float MinStateTime => 3;
 
-        public FollowToEnemy(PieceStateMachine pieceStateMachine, IAIWeightPoint target) : base(pieceStateMachine)
+        public FollowToEnemy(PieceStateMachine pieceStateMachine) : base(pieceStateMachine)
         {
-            _target = target;
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            foreach (var weightPoint in StateMachine.SituationAnalyzer.WeightPoints)
+            {
+                if (SelfWeight.DamagePerMinute > weightPoint.DamagePerMinute)
+                {
+                    _target = weightPoint;
+                    return;
+                }
+            }
+        }
+
+        public override float GetMetric(SituationAnalyzer situationAnalyzer)
+        {
+            foreach (var weightPoint in StateMachine.SituationAnalyzer.WeightPoints)
+            {
+                Debug.Log(weightPoint);
+                if (SelfWeight.DamagePerMinute > weightPoint.DamagePerMinute)
+                {
+                    return 1;
+                }
+            }
+            return 0;
         }
 
         public override void Update()
@@ -25,29 +51,8 @@ namespace Battleground
             else
             {
                 _timer = 0f;
-                _direction = (_target.Position - SelfWeight.Position).normalized;
                 Piece.MoveTo(_target.Position);
             }
-        }
-
-        protected override PieceState CheckTransitionConditions()
-        {
-            if (StateMachine.SituationAnalyzer.WeightPoints.Count == 0)
-            {
-                return new WalkAlone(StateMachine);
-            }
-            foreach (var weightPoint in StateMachine.SituationAnalyzer.WeightPoints)
-            {
-                if (SelfWeight.DamagePerMinute > weightPoint.DamagePerMinute)
-                {
-                    return new FollowToEnemy(StateMachine, weightPoint);
-                }
-                else
-                {
-                    return new RunAway(StateMachine);
-                }
-            }
-            return null;
         }
     }
 }
