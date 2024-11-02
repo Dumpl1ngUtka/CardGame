@@ -15,15 +15,14 @@ namespace Battleground
         public PieceHealth Health { get; private set; }
         public Unit Unit { get; private set; }
         public Player Player { get; private set; }
-        public Rigidbody Rigidbody { get; private set; }
         public PieceStateMachine StateMachine { get; private set; }
         public PieceMover PieceMover { get; private set; }
 
-        #region Spells
-        private List<Spell> MoveSpells;
-        private List<Spell> AttackSpells;
-        private List<Spell> HealSpells;
-        private List<Spell> DefenceSpells;
+        #region Abilites
+        private List<PieceAbility> MoveAbilites;
+        private List<PieceAbility> DamageAbilites;
+        private List<PieceAbility> HealAbilites;
+        private List<PieceAbility> BuffAbilites;
 
         #endregion
 
@@ -43,10 +42,10 @@ namespace Battleground
             get
             {
                 var damage = 0f;
-                foreach (var spell in AttackSpells)
+                foreach (var spell in DamageAbilites)
                 {
                     var attackSpell = spell as IAttackSpell;
-                    if (spell.IsSpellReady)
+                    if (spell.IsReadyToUse)
                         damage += attackSpell.Damage;
                 }
                 return damage;
@@ -57,10 +56,10 @@ namespace Battleground
             get
             {
                 var maxDPS = 0f;
-                foreach (var spell in AttackSpells)
+                foreach (var spell in DamageAbilites)
                 {
-                    var attackSpell = spell as IAttackSpell;
-                    maxDPS += attackSpell.Damage / (spell.ActionTime + spell.Cooldown);
+                    var attackSpell = spell as IDamageAbility;
+                    maxDPS += attackSpell.DPM;
                 }
                 return maxDPS;
             }
@@ -84,7 +83,6 @@ namespace Battleground
             Health = new(Attributes);
             Health.Died += Died;
             Player = player;
-            Rigidbody = GetComponent<Rigidbody>();
 
             PieceMover = GetComponent<PieceMover>();
             StateMachine = new PieceStateMachine(this);
@@ -97,20 +95,20 @@ namespace Battleground
 
         private void SetAvailableSkills()
         {
-            MoveSpells = new List<Spell>();
-            AttackSpells = new List<Spell>();
-            HealSpells = new List<Spell>();
-            DefenceSpells = new List<Spell>();
-            foreach (var spell in Unit.Inventory.GetSpells())
+            MoveAbilites = new List<PieceAbility>();
+            DamageAbilites = new List<PieceAbility>();
+            HealAbilites = new List<PieceAbility>();
+            BuffAbilites = new List<PieceAbility>();
+            foreach (var ability in Unit.Inventory.GetAbilites())
             {
-                if (spell is IMoveSpell)
-                    MoveSpells.Add(spell);
-                if (spell is IAttackSpell)
-                    AttackSpells.Add(spell);
-                if (spell is IHealSpell)
-                    HealSpells.Add(spell);
-                if (spell is IDefenceSpell)
-                    DefenceSpells.Add(spell);
+                if (ability is IMoveAbility)
+                    MoveAbilites.Add(ability);
+                if (ability is IDamageAbility)
+                    DamageAbilites.Add(ability);
+                if (ability is IHealAbility)
+                    HealAbilites.Add(ability);
+                if (ability is IBuffAbility)
+                    BuffAbilites.Add(ability);
             }
         }
 

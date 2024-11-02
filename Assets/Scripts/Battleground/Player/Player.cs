@@ -20,6 +20,8 @@ namespace Battleground
         [SerializeField] private HeadArmor[] _hats;
         [SerializeField] private BodyArmor[] _armors;
 
+        [SerializeField] private bool _isTestPlayer = false;
+
         public Timeline Timeline;
         public BattlegroundMap Map;
         public List<Unit> Units;
@@ -43,13 +45,21 @@ namespace Battleground
                 Units[i].Inventory.SetArmor(_hats[i]);
                 Units[i].Inventory.SetArmor(_armors[i]);
             }
-            StateMachine = new PlayerStateMachine(this, UI, _cameraMode);
+            if (!_isTestPlayer)
+                StateMachine = new PlayerStateMachine(this, UI, _cameraMode);
         }
 
         public void InstantiatePiece(Unit unit, RaycastHit hit)
         {
             Units.Remove(unit);
             var piece = Instantiate(_piecePrefab, hit.point, _piecePrefab.transform.rotation, _pieceConteiner);
+            piece.Init(unit, this);
+        }
+
+        public void InstantiatePiece(Unit unit, Vector3 position)
+        {
+            Units.Remove(unit);
+            var piece = Instantiate(_piecePrefab, position, _piecePrefab.transform.rotation, _pieceConteiner);
             piece.Init(unit, this);
         }
 

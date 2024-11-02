@@ -1,6 +1,7 @@
 using Units.Items;
 using System.Collections.Generic;
 using UnityEngine;
+using Battleground;
 
 namespace Units
 {
@@ -11,6 +12,6 @@ namespace Units
         public List<WeaponTypes> AwailableWeaponsTypes;
         public List<PassiveEffect> PassiveEffects;
         public Attributes MinLevels;
-        public Spell[] Spells;
+        public PieceAbility[] Spells;
     }
 }

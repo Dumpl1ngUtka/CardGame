@@ -1,3 +1,4 @@
+using Battleground;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Units
         public List<UnitClass> AvailableClasses;
         public UnitResists Resists;
         public Attributes MinLevels;
-        public Spell[] Spells;
+        public PieceAbility[] Spells;
         public string[] AvailableNames;
 
         public string GetRandomName()

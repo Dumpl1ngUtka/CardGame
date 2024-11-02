@@ -1,21 +1,25 @@
 using AI;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Battleground
 {
     public class WalkAlone : PieceState
     {
         #region Const
-        private const float _minDistanceToCorner = 0.5f;
+        private const float _minDistanceToCorner = 2f;
         #endregion
 
         private List<Vector3> _path;
         private int _pathCornerIndex;
         private int _currentMapAnchor;
         private Transform[] _anchors;
+        private List<PieceAbility> _availableAbilityList = new List<PieceAbility>();
 
         protected override float MinStateTime => 0;
+
+        protected override List<PieceAbility> AvailableAbilityList => _availableAbilityList;
 
         public override void Enter()
         {
@@ -48,9 +52,11 @@ namespace Battleground
             if (_currentMapAnchor >= _anchors.Length)
                 _currentMapAnchor -= _anchors.Length;
 
-            var targetPoint = _anchors[_currentMapAnchor];
-            Piece.Agent.destination = targetPoint.position;
-            _path.AddRange(Piece.Agent.path.corners);
+            var targetPoint = _anchors[_currentMapAnchor]; 
+            var navMeshPath = new NavMeshPath();
+            NavMesh.CalculatePath(Piece.Position, targetPoint.position, ~0, navMeshPath);
+            //Piece.Agent.destination = targetPoint.position;
+            _path.AddRange(navMeshPath.corners);
             _path.Add(targetPoint.position);
         }
 

@@ -17,7 +17,7 @@ namespace Units
         public Attributes Attributes { get; private set; }
         public UnitInventory Inventory { get; private set; }
 
-        public Spell[] Spells => GetSpellArray();
+        public PieceAbility[] Abilites => GetAbilityArray();
 
         public Unit(int starCount, UnitRace unitRace, UnitClass unitClass)
         {
@@ -41,20 +41,24 @@ namespace Units
             Attributes = new Attributes(_defaultSkillPoints + StarCount * _additionalLevelsForStars, minSkillLevels);
         }
 
-        public Spell[] GetSpellArray()
+        public PieceAbility[] GetAbilityArray()
         {
-            var spells = new List<Spell>();
+            var spells = new List<PieceAbility>();
             spells.AddRange(Class.Spells);
             spells.AddRange(Race.Spells);
-            spells.AddRange(Inventory.GetSpells());
+            spells.AddRange(Inventory.GetAbilites());
             //spells.AddRange(Class.Spells);
             //spells.AddRange(Race.Spells);
             //spells.AddRange(Inventory.GetSpells());
             //spells.AddRange(Class.Spells);
             //spells.AddRange(Race.Spells);
             //spells.AddRange(Inventory.GetSpells());
-            spells = spells.GroupBy(x => x.Name).Select(x => x.First()).ToList();
-            return spells.ToArray();
+            if (spells.Count > 0)
+            {
+                spells = spells.GroupBy(x => x.Name).Select(x => x.First()).ToList();
+                return spells.ToArray();
+            }
+            return null;
         }
 
         public InfoForInfoRenderer GetInfo()
@@ -63,7 +67,7 @@ namespace Units
             {
                 Title = Name,
                 UnderTitle = Race.Name + " | " + Class.Name,
-                ObjectsForCardRenderers = Spells
+                ObjectsForCardRenderers = Abilites
             };
         }
     }

@@ -1,4 +1,5 @@
 using AI;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Battleground
@@ -8,11 +9,14 @@ namespace Battleground
         private const float _updateTime = 0.5f;
         private float _timer;
         private IAIWeightPoint _target;
-        
+        private List<PieceAbility> _pieceAbilities;
+
         protected override float MinStateTime => 3;
+        protected override List<PieceAbility> AvailableAbilityList => _pieceAbilities;
 
         public FollowToEnemy(PieceStateMachine pieceStateMachine) : base(pieceStateMachine)
         {
+            
         }
 
         public override void Enter()
@@ -26,13 +30,18 @@ namespace Battleground
                     return;
                 }
             }
+            var allAbilites = Piece.Unit.GetAbilityArray();
+            foreach (var ability in allAbilites)
+            {
+                if (ability as IDamageAbility != null)
+                    _pieceAbilities.Add(ability);
+            }
         }
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)
         {
             foreach (var weightPoint in StateMachine.SituationAnalyzer.WeightPoints)
             {
-                Debug.Log(weightPoint);
                 if (SelfWeight.DamagePerMinute > weightPoint.DamagePerMinute)
                 {
                     return 1;

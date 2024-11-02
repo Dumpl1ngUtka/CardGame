@@ -1,12 +1,13 @@
 using System;
+using Units;
 
 namespace Battleground
 {
     [Serializable]
     public class PieceAttributes
     {
-        private Units.Attributes _unitAttributes;
-        private Units.UnitInventory _unitInventory;
+        private Attributes _unitAttributes;
+        private UnitInventory _unitInventory;
         private AdditionalPieceAttributes _additionalPieceAttributes;
 
         public float MaxHealth

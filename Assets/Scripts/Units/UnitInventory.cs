@@ -22,18 +22,19 @@ namespace Units
                 return items;
             }
         }
+
         public Action InventoryChanged;
 
 
-        public Spell[] GetSpells()
+        public PieceAbility[] GetAbilites()
         {
-            var spells = new List<Spell>();
+            var abilites = new List<PieceAbility>();
 
             foreach (var item in EquippedItems)
-                if (item != null && item.Spells.Count > 0)
-                    item.Spells.AddRange(spells);
+                if (item != null && item.Abilites.Count > 0)
+                    item.Abilites.AddRange(abilites);
 
-            return spells.ToArray();
+            return abilites.ToArray();
         }
 
         public AdditionalPieceAttributes GetAdditionalAttributes()

@@ -9,7 +9,7 @@ namespace Units.Items
         public string Name;
         public Sprite Icon;
         [Min(0)] public float Weight;
-        public List<Spell> Spells;
+        public List<PieceAbility> Abilites;
         public AdditionalPieceAttributes Attributes;
     }
 }

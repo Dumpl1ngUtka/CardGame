@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace AI
@@ -7,25 +8,61 @@ namespace AI
     public class SituationAnalyzer
     {
         private IAIWeightPoint _selfWeight;
-        private List<IAIWeightPoint> _weightPoints;
-        private List<IAIWeightPoint> _groupedWeightPoints;
+        private List<IAIWeightPoint> _weightPoints = new List<IAIWeightPoint>();
+        private List<IAIWeightPoint> _alliesPoints = new List<IAIWeightPoint>();
+        private List<IAIWeightPoint> _groupedWeightPoints = new List<IAIWeightPoint>();
         private IAIWeightPoint _strongestEnemy;
         private IAIWeightPoint _weakestEnemy;
+        private IAIWeightPoint _closestEnemy;
         private const float _checkSphereRadius = 20;
 
+        public IAIWeightPoint SelfWeight => _selfWeight;
         public List<IAIWeightPoint> WeightPoints => _weightPoints;
+        public List<IAIWeightPoint> AlliesPoints => _alliesPoints;
         public List<IAIWeightPoint> GroupedWeightPoints => _groupedWeightPoints;
+        public IAIWeightPoint ClosestEnemy => _closestEnemy;
 
         public SituationAnalyzer(IAIWeightPoint piece)
         {
             _selfWeight = piece;
-            _weightPoints = GetWeightPoints();
+            UpdateLists();
         }
 
         public void Update()
         {
-            _weightPoints = GetWeightPoints();
-            //_groupedWeightPoints = GetWeightGrouped(WeightPoints);
+            UpdateLists();
+        }
+
+        private void UpdateLists()
+        {
+            _weightPoints.Clear();
+            _alliesPoints.Clear();
+            var minDistance = 0f;
+            foreach (var collider in Physics.OverlapSphere(_selfWeight.Position, _checkSphereRadius))
+            {
+                if (collider.TryGetComponent<IAIWeightPoint>(out var weightPoint))
+                {
+                    if (weightPoint == _selfWeight)
+                        continue;
+
+                    if (weightPoint.TeamID == _selfWeight.TeamID)
+                    {
+                        
+                        _alliesPoints.Add(weightPoint);
+                    }
+                    else
+                    {
+                        _weightPoints.Add(weightPoint);
+
+                        var distance = Vector3.Distance(weightPoint.Position, _selfWeight.Position);
+                        if (distance < minDistance)
+                        {
+                            minDistance = distance;
+                            _closestEnemy = _selfWeight;
+                        }
+                    }
+                }
+            }
         }
 
         public List<IAIWeightPoint> GetAlliesPoints()

@@ -8,7 +8,9 @@ namespace Battleground
     public class RunAway : PieceState
     {
         protected override float MinStateTime => 3;
-        
+
+        protected override List<PieceAbility> AvailableAbilityList => throw new System.NotImplementedException();
+
         public RunAway(PieceStateMachine pieceStateMachine) : base(pieceStateMachine)
         {
         }
