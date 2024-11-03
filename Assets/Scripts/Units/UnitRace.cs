@@ -14,7 +14,7 @@ namespace Units
         public List<UnitClass> AvailableClasses;
         public UnitResists Resists;
         public Attributes MinLevels;
-        public PieceAbility[] Spells;
+        public PieceAbility[] Abilites;
         public string[] AvailableNames;
 
         public string GetRandomName()

@@ -30,14 +30,20 @@ namespace Battleground
 
         private void FixedUpdate()
         {
-            Move();
-            WakeUp();
+            if (Vector3.Distance(_targetPosititon, transform.position) > 0.1f)
+            {
+                Move();
+            }
+            //WakeUp();
         }
 
         private void Update()
         {
-            SetSpeed();
-            Rotate();
+            if (Vector3.Distance(_targetPosititon, transform.position) > 0.1f)
+            {
+                SetSpeed();
+                Rotate();
+            }
         }
 
         private void SetSpeed()
@@ -55,12 +61,15 @@ namespace Battleground
         {
             if (IsOnGround())
             {
-                if (_currentMaxSpeed - _rigidbody.velocity.magnitude > 1)
-                    _rigidbody.AddForce(transform.forward * _acceleration, ForceMode.VelocityChange);
+                //if (_currentMaxSpeed - _rigidbody.velocity.magnitude > 1)
+                //    _rigidbody.AddForce(transform.forward * _acceleration, ForceMode.VelocityChange);
+                //var moveVec = transform.forward * _speed;
+                //moveVec.y = _rigidbody.velocity.y;
+                //_rigidbody.velocity = moveVec;
             }
-            //var moveVec = transform.forward * _speed;
-            //moveVec.y = _rigidbody.velocity.y;
-            //_rigidbody.velocity = moveVec;
+            var moveVec = transform.forward * _speed;
+            moveVec.y = _rigidbody.velocity.y;
+            _rigidbody.velocity = moveVec;
         }
 
         public void Rotate()

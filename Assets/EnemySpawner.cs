@@ -14,7 +14,7 @@ namespace Battleground
 
         private void Start()
         {
-            var units = player.Units;
+
             var ind = 0;
             player.InstantiatePiece(player.Units[0], SpawnPoints[ind++].position);
             player.InstantiatePiece(player.Units[0], SpawnPoints[ind++].position);

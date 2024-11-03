@@ -37,7 +37,7 @@ namespace AI
         {
             _weightPoints.Clear();
             _alliesPoints.Clear();
-            var minDistance = 0f;
+            var minDistance = _checkSphereRadius;
             foreach (var collider in Physics.OverlapSphere(_selfWeight.Position, _checkSphereRadius))
             {
                 if (collider.TryGetComponent<IAIWeightPoint>(out var weightPoint))
@@ -58,7 +58,7 @@ namespace AI
                         if (distance < minDistance)
                         {
                             minDistance = distance;
-                            _closestEnemy = _selfWeight;
+                            _closestEnemy = weightPoint;
                         }
                     }
                 }

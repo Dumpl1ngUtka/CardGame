@@ -11,8 +11,8 @@ namespace Battleground
 
         protected SituationAnalyzer SituationAnalyzer;
         protected PieceStateMachine StateMachine;
-        protected IAIWeightPoint SelfWeight;
 
+        protected IAIWeightPoint SelfWeight => Piece;
         protected Piece Piece => StateMachine.Piece;
         protected List<PieceState> TransitionStates => StateMachine.TransitionStates;
         protected bool IsStateCanBeChanged => (_timer >= MinStateTime) && !IsAbilityUsed;
@@ -24,7 +24,6 @@ namespace Battleground
         {
             StateMachine = pieceStateMachine;
             SituationAnalyzer = pieceStateMachine.SituationAnalyzer;
-            SelfWeight = pieceStateMachine.Piece;
         }
 
         public virtual void Update()
@@ -70,6 +69,7 @@ namespace Battleground
             foreach (var state in TransitionStates)
             {
                 var metrix = state.GetMetric(SituationAnalyzer);
+                //Debug.Log("Piece: " + Piece + "; State: " + state + "; Metrix: " + metrix);
                 if (metrix > topMetrix)
                 {
                     nextState = state;
@@ -81,11 +81,15 @@ namespace Battleground
 
         private PieceAbility CheckAbilityTransition()
         {
+            if (AvailableAbilityList == null || AvailableAbilityList.Count == 0)
+                return null;
+
             PieceAbility nextAbility = null;
-            var topMetrix = 1f;
+            var topMetrix = 0.5f;
             foreach (var ability in AvailableAbilityList)
             {
                 var metrix = ability.GetMetric(SituationAnalyzer);
+                Debug.Log("Piece: " + Piece + "; ability: " + ability + "; Metrix: " + metrix);
                 if (metrix > topMetrix)
                 {
                     nextAbility = ability;
@@ -107,6 +111,7 @@ namespace Battleground
         private void StartUseAbility(PieceAbility ability)
         {
             _currentAbility = ability;
+            ability.StartRelease();
         }
     }
 }

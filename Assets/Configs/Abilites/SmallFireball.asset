@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d388ff086fd1949b2baafd5dc4dab8, type: 3}
+  m_Name: SmallFireball
+  m_EditorClassIdentifier: 
+  _name: Small fireball
+  _description: Small fireball
+  _icon: {fileID: 21300000, guid: 8a68092bc2a243446aff0725e1c01847, type: 3}
+  _releaseTime: 3
+  _cooldown: 10
+  _isCanMoveWhileUse: 1
+  _attackDistance: 15
+  _damage: 7

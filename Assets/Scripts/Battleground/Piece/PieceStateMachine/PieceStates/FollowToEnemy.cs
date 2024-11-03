@@ -9,10 +9,10 @@ namespace Battleground
         private const float _updateTime = 0.5f;
         private float _timer;
         private IAIWeightPoint _target;
-        private List<PieceAbility> _pieceAbilities;
+        private List<PieceAbility> _availableAbilities;
 
         protected override float MinStateTime => 3;
-        protected override List<PieceAbility> AvailableAbilityList => _pieceAbilities;
+        protected override List<PieceAbility> AvailableAbilityList => _availableAbilities;
 
         public FollowToEnemy(PieceStateMachine pieceStateMachine) : base(pieceStateMachine)
         {
@@ -27,15 +27,11 @@ namespace Battleground
                 if (SelfWeight.DamagePerMinute > weightPoint.DamagePerMinute)
                 {
                     _target = weightPoint;
-                    return;
+                    break;
                 }
             }
-            var allAbilites = Piece.Unit.GetAbilityArray();
-            foreach (var ability in allAbilites)
-            {
-                if (ability as IDamageAbility != null)
-                    _pieceAbilities.Add(ability);
-            }
+            _availableAbilities = Piece.DamageAbilites;
+            Debug.Log(_availableAbilities);
         }
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)

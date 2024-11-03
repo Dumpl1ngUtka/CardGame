@@ -33,7 +33,7 @@ namespace Battleground
 
         public void ChangeState(PieceState state)
         {
-            //Debug.Log(state);
+            // Debug.Log(state);
             state?.Exit();
             _currentState = state;
             state?.Enter();

@@ -44,8 +44,8 @@ namespace Units
         public PieceAbility[] GetAbilityArray()
         {
             var spells = new List<PieceAbility>();
-            spells.AddRange(Class.Spells);
-            spells.AddRange(Race.Spells);
+            spells.AddRange(Class.Abilites);
+            spells.AddRange(Race.Abilites);
             spells.AddRange(Inventory.GetAbilites());
             //spells.AddRange(Class.Spells);
             //spells.AddRange(Race.Spells);

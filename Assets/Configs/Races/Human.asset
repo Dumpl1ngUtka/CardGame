@@ -33,7 +33,8 @@ MonoBehaviour:
     _strength: 0
     _intelligence: 0
     _capacity: 0
-  Spells: []
+  Abilites:
+  - {fileID: 11400000, guid: cddadc77f27d21e4c93f4caa96cd7b09, type: 2}
   AvailableNames:
   - Bob
   - Tom

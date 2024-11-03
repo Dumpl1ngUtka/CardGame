@@ -19,10 +19,10 @@ namespace Battleground
         public PieceMover PieceMover { get; private set; }
 
         #region Abilites
-        private List<PieceAbility> MoveAbilites;
-        private List<PieceAbility> DamageAbilites;
-        private List<PieceAbility> HealAbilites;
-        private List<PieceAbility> BuffAbilites;
+        public List<PieceAbility> MoveAbilites;
+        public List<PieceAbility> DamageAbilites;
+        public List<PieceAbility> HealAbilites;
+        public List<PieceAbility> BuffAbilites;
 
         #endregion
 
@@ -56,9 +56,9 @@ namespace Battleground
             get
             {
                 var maxDPS = 0f;
-                foreach (var spell in DamageAbilites)
+                foreach (var ability in DamageAbilites)
                 {
-                    var attackSpell = spell as IDamageAbility;
+                    var attackSpell = ability as IDamageAbility;
                     maxDPS += attackSpell.DPM;
                 }
                 return maxDPS;
@@ -72,6 +72,7 @@ namespace Battleground
         public void Init(Unit unit, Player player)
         {
             Unit = unit;
+            Player = player;
             Unit.Inventory.InventoryChanged += SetAvailableSkills;
             SetAvailableSkills();
             Agent = GetComponent<NavMeshAgent>();
@@ -82,7 +83,6 @@ namespace Battleground
             Attributes = new(this);
             Health = new(Attributes);
             Health.Died += Died;
-            Player = player;
 
             PieceMover = GetComponent<PieceMover>();
             StateMachine = new PieceStateMachine(this);
@@ -99,7 +99,7 @@ namespace Battleground
             DamageAbilites = new List<PieceAbility>();
             HealAbilites = new List<PieceAbility>();
             BuffAbilites = new List<PieceAbility>();
-            foreach (var ability in Unit.Inventory.GetAbilites())
+            foreach (var ability in Unit.GetAbilityArray())
             {
                 if (ability is IMoveAbility)
                     MoveAbilites.Add(ability);

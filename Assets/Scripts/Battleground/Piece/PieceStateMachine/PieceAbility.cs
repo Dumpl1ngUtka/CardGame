@@ -6,19 +6,29 @@ namespace Battleground
 {
     public abstract class PieceAbility : ScriptableObject, IObjectForInfoRenderer
     {
+        #region Main Fields
+        [SerializeField] private string _name;
+        [SerializeField] private string _description;
+        [SerializeField] private Sprite _icon;
+        [SerializeField] private float _releaseTime;
+        [SerializeField] private float _cooldown;
+        [SerializeField] private bool _isCanMoveWhileUse;
+        #endregion
+
         private float _releaseTimer;
         private float _cooldownTimer = 0f;
 
-        #region Main Settings
-        public string Name;
-        public string Description;
-        public Sprite Icon;
-        #endregion
-        public abstract float ReleaseTime { get; }
-        public abstract float Cooldown{ get; }
-        public abstract bool IsCanMoveWhileUse { get; }
+        #region Properties
+        public string Name => _name;
+        public string Description => _description;
+        public Sprite Icon => _icon;
+        public float ReleaseTime => _releaseTime;
+        public float Cooldown => _cooldown;
+        public bool IsCanMoveWhileUse => _isCanMoveWhileUse;
         public bool IsReadyToUse => _cooldownTimer <= 0f && !IsUsed;
         public bool IsUsed => _releaseTimer > 0f;
+
+        #endregion
 
         public InfoForInfoRenderer GetInfo()
         {
@@ -36,6 +46,7 @@ namespace Battleground
         public void StartRelease()
         {
             _releaseTimer = ReleaseTime;
+            Debug.Log("START USE " + Name);
         }
 
         public void Update()
@@ -56,6 +67,7 @@ namespace Battleground
 
         public void EndRelease()
         {
+            Debug.Log("END USE " + Name);
             _cooldownTimer = Cooldown;
         }
     }

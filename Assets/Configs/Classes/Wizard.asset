@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wizard
   m_EditorClassIdentifier: 
   Name: Wizard
-  AwailableWeaponsTypes: 01000000
+  AvailableWeaponsTypes: 
   MinLevels:
     _health: 0
     _energy: 4
@@ -21,4 +21,6 @@ MonoBehaviour:
     _strength: 0
     _intelligence: 0
     _capacity: 0
-  Spells: []
+  Abilites:
+  - {fileID: 11400000, guid: 4c2bd1dcbbf71274989dabcffbc99983, type: 2}
+  - {fileID: 11400000, guid: a1d5a4e7ae99cc143b35117ace1b3d81, type: 2}

@@ -1,6 +1,8 @@
+using AI;
 using Battleground;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Units.Items;
 
@@ -25,7 +27,6 @@ namespace Units
 
         public Action InventoryChanged;
 
-
         public PieceAbility[] GetAbilites()
         {
             var abilites = new List<PieceAbility>();
@@ -33,7 +34,6 @@ namespace Units
             foreach (var item in EquippedItems)
                 if (item != null && item.Abilites.Count > 0)
                     item.Abilites.AddRange(abilites);
-
             return abilites.ToArray();
         }
 

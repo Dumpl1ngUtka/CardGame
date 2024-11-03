@@ -8,16 +8,16 @@ namespace Battleground
     public class SwordAttack : PieceAbility, IDamageAbility
     {
         [SerializeField] private float _attackDistance = 3f;
-        public override float ReleaseTime => 2;
-        public override float Cooldown => 5;
-        public override bool IsCanMoveWhileUse => false;
-        public float Damage => 5f;
+        [SerializeField] private float _damage = 5f;
+        public float Damage => _damage;
         public float DPM => Damage * (60/(Cooldown + ReleaseTime));
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)
         {
             if (!IsReadyToUse)
-                return 0;
+                return 0f;
+            if (situationAnalyzer.ClosestEnemy == null)
+                return 0f;
             if (Vector3.Distance(situationAnalyzer.ClosestEnemy.Position, situationAnalyzer.SelfWeight.Position) < _attackDistance)
             {
                 return 1f;
@@ -27,7 +27,7 @@ namespace Battleground
 
         protected override void Release()
         {
-            Debug.Log("");
+            Debug.Log("attack");
         }
     }
 }
