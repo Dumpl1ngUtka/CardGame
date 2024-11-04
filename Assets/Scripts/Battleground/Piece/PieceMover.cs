@@ -16,11 +16,14 @@ namespace Battleground
         private Vector3 _targetPosititon;
         private float _maxRotationSpeed = 60f;
         private float _maxSpeed => _piece.Attributes.MoveSpeed;
+        private bool _isNeedToMove => Vector3.Distance(_targetPosititon, transform.position) > 0.1f;
         public Rigidbody Rigidbody => _rigidbody;
+
 
         private void Awake()
         {
             _rigidbody.centerOfMass = _centerOfMass.position;
+            _targetPosititon = transform.position;
         }
 
         public void SetMoveTarget(Vector3 targetPostition)
@@ -30,24 +33,22 @@ namespace Battleground
 
         private void FixedUpdate()
         {
-            if (Vector3.Distance(_targetPosititon, transform.position) > 0.1f)
-            {
+            if (_isNeedToMove)
                 Move();
-            }
-            //WakeUp();
         }
 
         private void Update()
         {
-            if (Vector3.Distance(_targetPosititon, transform.position) > 0.1f)
-            {
-                SetSpeed();
+            if (_isNeedToMove)
                 Rotate();
-            }
+            SetSpeed();
         }
 
         private void SetSpeed()
         {
+            if (!_isNeedToMove)
+                _currentMaxSpeed = 0f;
+
             var delta = Vector3.Angle(transform.forward, _targetPosititon - transform.position);
             if (delta < 25)
                 _currentMaxSpeed = _maxSpeed;
@@ -63,13 +64,10 @@ namespace Battleground
             {
                 //if (_currentMaxSpeed - _rigidbody.velocity.magnitude > 1)
                 //    _rigidbody.AddForce(transform.forward * _acceleration, ForceMode.VelocityChange);
-                //var moveVec = transform.forward * _speed;
-                //moveVec.y = _rigidbody.velocity.y;
-                //_rigidbody.velocity = moveVec;
+                var moveVec = transform.forward * _speed;
+                moveVec.y = _rigidbody.velocity.y;
+                _rigidbody.velocity = moveVec;
             }
-            var moveVec = transform.forward * _speed;
-            moveVec.y = _rigidbody.velocity.y;
-            _rigidbody.velocity = moveVec;
         }
 
         public void Rotate()
@@ -82,6 +80,11 @@ namespace Battleground
                 transform.rotation = Quaternion.Euler(newPivotRotation);
             }
 
+        }
+
+        public void Stop()
+        {
+            _targetPosititon = transform.position;
         }
 
         private void WakeUp()

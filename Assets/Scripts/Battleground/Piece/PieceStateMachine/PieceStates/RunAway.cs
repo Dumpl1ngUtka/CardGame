@@ -11,6 +11,8 @@ namespace Battleground
 
         protected override List<PieceAbility> AvailableAbilityList => throw new System.NotImplementedException();
 
+        public override Transform Target => throw new System.NotImplementedException();
+
         public RunAway(PieceStateMachine pieceStateMachine) : base(pieceStateMachine)
         {
         }

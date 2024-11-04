@@ -12,6 +12,7 @@ namespace Battleground
         public NavMeshAgent Agent { get; private set; }
         public PieceClothesController Clothes { get; private set; }
         public PieceAttributes Attributes { get; private set; }
+        public PieceUIRenderer UI { get; private set; }
         public PieceHealth Health { get; private set; }
         public Unit Unit { get; private set; }
         public Player Player { get; private set; }
@@ -19,10 +20,10 @@ namespace Battleground
         public PieceMover PieceMover { get; private set; }
 
         #region Abilites
-        public List<PieceAbility> MoveAbilites;
-        public List<PieceAbility> DamageAbilites;
-        public List<PieceAbility> HealAbilites;
-        public List<PieceAbility> BuffAbilites;
+        public List<PieceAbility> MoveAbilites { get; private set; }
+        public List<PieceAbility> DamageAbilites { get; private set; }
+        public List<PieceAbility> HealAbilites { get; private set; }
+        public List<PieceAbility> BuffAbilites { get; private set; }
 
         #endregion
 
@@ -76,6 +77,7 @@ namespace Battleground
             Unit.Inventory.InventoryChanged += SetAvailableSkills;
             SetAvailableSkills();
             Agent = GetComponent<NavMeshAgent>();
+            UI = GetComponent<PieceUIRenderer>();
 
             Clothes = GetComponent<PieceClothesController>();
             Clothes.Init(unit.Inventory);

@@ -1,5 +1,4 @@
 using AI;
-using System.Xml.Serialization;
 using UnityEngine;
 
 namespace Battleground
@@ -15,7 +14,7 @@ namespace Battleground
         [SerializeField] private bool _isCanMoveWhileUse;
         #endregion
 
-        private float _releaseTimer;
+        private float _releaseTimer = 0f;
         private float _cooldownTimer = 0f;
 
         #region Properties
@@ -25,10 +24,13 @@ namespace Battleground
         public float ReleaseTime => _releaseTime;
         public float Cooldown => _cooldown;
         public bool IsCanMoveWhileUse => _isCanMoveWhileUse;
-        public bool IsReadyToUse => _cooldownTimer <= 0f && !IsUsed;
-        public bool IsUsed => _releaseTimer > 0f;
+        public bool IsReadyToUse => _cooldownTimer <= 0f && !IsUsedRightNow;
+       
+        public bool IsUsedRightNow => _releaseTimer > 0f;
 
         #endregion
+
+        protected PieceState CallingState;
 
         public InfoForInfoRenderer GetInfo()
         {
@@ -43,13 +45,13 @@ namespace Battleground
 
         public abstract float GetMetric(SituationAnalyzer situationAnalyzer);
 
-        public void StartRelease()
+        public virtual void StartRelease(PieceState pieceState)
         {
+            CallingState = pieceState;
             _releaseTimer = ReleaseTime;
-            Debug.Log("START USE " + Name);
         }
 
-        public void Update()
+        public virtual void Update()
         {
             if (_releaseTimer > 0f)
             {
@@ -65,9 +67,8 @@ namespace Battleground
 
         protected abstract void Release();
 
-        public void EndRelease()
+        public virtual void EndRelease()
         {
-            Debug.Log("END USE " + Name);
             _cooldownTimer = Cooldown;
         }
     }

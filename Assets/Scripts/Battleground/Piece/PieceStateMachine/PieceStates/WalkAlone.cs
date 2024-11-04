@@ -18,14 +18,15 @@ namespace Battleground
         private List<PieceAbility> _availableAbilityList = new List<PieceAbility>();
 
         protected override float MinStateTime => 0;
-
         protected override List<PieceAbility> AvailableAbilityList => _availableAbilityList;
+        public override Transform Target => null;
 
         public override void Enter()
         {
             base.Enter();
             _currentMapAnchor = 0;
             SetNewPath();
+            Piece.UI.ChangeGroundIndicator(Color.white);
         }
 
         public WalkAlone(PieceStateMachine pieceStateMachine) : base(pieceStateMachine)

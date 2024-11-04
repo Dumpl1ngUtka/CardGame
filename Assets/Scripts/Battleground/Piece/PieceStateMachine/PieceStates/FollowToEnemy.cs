@@ -1,5 +1,6 @@
 using AI;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Battleground
@@ -13,6 +14,7 @@ namespace Battleground
 
         protected override float MinStateTime => 3;
         protected override List<PieceAbility> AvailableAbilityList => _availableAbilities;
+        public override Transform Target => _target.Transform;
 
         public FollowToEnemy(PieceStateMachine pieceStateMachine) : base(pieceStateMachine)
         {
@@ -22,6 +24,14 @@ namespace Battleground
         public override void Enter()
         {
             base.Enter();
+            SetTarget();
+            _availableAbilities = Piece.DamageAbilites;
+            Piece.UI.ChangeGroundIndicator(Color.red);
+            //Debug.Log(_availableAbilities);
+        }
+
+        private void SetTarget()
+        {
             foreach (var weightPoint in StateMachine.SituationAnalyzer.WeightPoints)
             {
                 if (SelfWeight.DamagePerMinute > weightPoint.DamagePerMinute)
@@ -30,8 +40,6 @@ namespace Battleground
                     break;
                 }
             }
-            _availableAbilities = Piece.DamageAbilites;
-            Debug.Log(_availableAbilities);
         }
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)
@@ -56,6 +64,7 @@ namespace Battleground
             else
             {
                 _timer = 0f;
+                SetTarget();
                 Piece.MoveTo(_target.Position);
             }
         }

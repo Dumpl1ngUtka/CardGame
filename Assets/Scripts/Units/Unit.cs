@@ -43,22 +43,29 @@ namespace Units
 
         public PieceAbility[] GetAbilityArray()
         {
-            var spells = new List<PieceAbility>();
-            spells.AddRange(Class.Abilites);
-            spells.AddRange(Race.Abilites);
-            spells.AddRange(Inventory.GetAbilites());
+            var abilites = new List<PieceAbility>();
+            abilites.AddRange(Class.Abilites);
+            abilites.AddRange(Race.Abilites);
+            abilites.AddRange(Inventory.GetAbilites());
             //spells.AddRange(Class.Spells);
             //spells.AddRange(Race.Spells);
             //spells.AddRange(Inventory.GetSpells());
             //spells.AddRange(Class.Spells);
             //spells.AddRange(Race.Spells);
             //spells.AddRange(Inventory.GetSpells());
-            if (spells.Count > 0)
+            if (abilites.Count > 0)
             {
-                spells = spells.GroupBy(x => x.Name).Select(x => x.First()).ToList();
-                return spells.ToArray();
+                abilites = abilites.GroupBy(x => x.Name).Select(x => x.First()).ToList();
             }
-            return null;
+            if (abilites.Count == 0)
+                return null;
+
+            var returnAbilites = new PieceAbility[abilites.Count];
+            for (int i = 0; i < abilites.Count; i++)
+            {
+                returnAbilites[i] = Object.Instantiate(abilites[i]);
+            }
+            return returnAbilites;
         }
 
         public InfoForInfoRenderer GetInfo()

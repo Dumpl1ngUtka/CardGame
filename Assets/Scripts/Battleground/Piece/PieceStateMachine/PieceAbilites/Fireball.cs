@@ -11,6 +11,7 @@ namespace Battleground
         [SerializeField] private float _damage = 7f;
         public float Damage => _damage;
         public float DPM => Damage * (60 / (Cooldown + ReleaseTime));
+        public Transform Target => CallingState.Target;
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)
         {
@@ -24,6 +25,12 @@ namespace Battleground
                 return Mathf.Lerp(0.5f, 1.5f, distanceToTarget/ _attackDistance);
             }
             return 0f;
+        }
+
+        public override void StartRelease(PieceState pieceState)
+        {
+            base.StartRelease(pieceState);
+            CallingState.Piece.Animator.Play("MagicSpell");
         }
 
         protected override void Release()

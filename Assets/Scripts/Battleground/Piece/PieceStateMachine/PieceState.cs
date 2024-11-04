@@ -13,12 +13,13 @@ namespace Battleground
         protected PieceStateMachine StateMachine;
 
         protected IAIWeightPoint SelfWeight => Piece;
-        protected Piece Piece => StateMachine.Piece;
         protected List<PieceState> TransitionStates => StateMachine.TransitionStates;
         protected bool IsStateCanBeChanged => (_timer >= MinStateTime) && !IsAbilityUsed;
         protected bool IsAbilityUsed => _currentAbility != null;
         protected abstract float MinStateTime { get; }
         protected abstract List<PieceAbility> AvailableAbilityList { get; }
+        public abstract Transform Target { get; }
+        public Piece Piece => StateMachine.Piece;
 
         public PieceState(PieceStateMachine pieceStateMachine)
         {
@@ -41,12 +42,12 @@ namespace Battleground
                     return;
                 }
             }
-            if (IsAbilityUsed && _currentAbility.IsUsed)
+            if (IsAbilityUsed && _currentAbility.IsUsedRightNow)
             {
                 _currentAbility.Update();
                 return;
             }
-            else if (IsAbilityUsed && !_currentAbility.IsUsed)
+            else if (IsAbilityUsed && !_currentAbility.IsUsedRightNow)
             {
                 _currentAbility.EndRelease();
                 _currentAbility = null;
@@ -111,7 +112,8 @@ namespace Battleground
         private void StartUseAbility(PieceAbility ability)
         {
             _currentAbility = ability;
-            ability.StartRelease();
+            ability.StartRelease(this);
+            Debug.Log(";");
         }
     }
 }
