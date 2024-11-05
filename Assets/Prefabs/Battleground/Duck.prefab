@@ -331,6 +331,7 @@ GameObject:
   - component: {fileID: 6990726479382209781}
   - component: {fileID: -490595188588529801}
   - component: {fileID: 7779618269921289950}
+  - component: {fileID: 6611565704014343018}
   m_Layer: 8
   m_Name: Duck
   m_TagString: Untagged
@@ -470,6 +471,18 @@ MonoBehaviour:
   _healthValue: {fileID: 0}
   _powerBar: {fileID: 0}
   _groundIndicator: {fileID: 5224837410461856172}
+--- !u!114 &6611565704014343018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901264051773717432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3797b568ca3ff44902893821c9275f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4177819204644584682
 GameObject:
   m_ObjectHideFlags: 0

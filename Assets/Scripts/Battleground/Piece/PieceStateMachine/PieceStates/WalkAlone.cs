@@ -55,7 +55,7 @@ namespace Battleground
 
             var targetPoint = _anchors[_currentMapAnchor]; 
             var navMeshPath = new NavMeshPath();
-            NavMesh.CalculatePath(Piece.Position, targetPoint.position, ~0, navMeshPath);
+            NavMesh.CalculatePath(StateMachine.Position, targetPoint.position, ~0, navMeshPath);
             //Piece.Agent.destination = targetPoint.position;
             _path.AddRange(navMeshPath.corners);
             _path.Add(targetPoint.position);
@@ -63,7 +63,7 @@ namespace Battleground
 
         private void MoveByPath()
         {
-            if (Vector3.Distance(_path[_pathCornerIndex], Piece.Position) > _minDistanceToCorner)
+            if (Vector3.Distance(_path[_pathCornerIndex], StateMachine.Position) > _minDistanceToCorner)
                 Piece.MoveTo(_path[_pathCornerIndex]);
             else
                 _pathCornerIndex++;

@@ -7,6 +7,7 @@ namespace Battleground
     {
         public float Damage { get; }
         public float DPM { get; }
+        public PieceAbility Ability { get; }
         public Transform Target { get; }
     }
 

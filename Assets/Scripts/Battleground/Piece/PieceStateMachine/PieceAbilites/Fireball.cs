@@ -12,6 +12,7 @@ namespace Battleground
         public float Damage => _damage;
         public float DPM => Damage * (60 / (Cooldown + ReleaseTime));
         public Transform Target => CallingState.Target;
+        public PieceAbility Ability => this;
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)
         {

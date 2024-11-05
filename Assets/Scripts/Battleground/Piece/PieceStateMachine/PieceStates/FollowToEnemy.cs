@@ -25,7 +25,7 @@ namespace Battleground
         {
             base.Enter();
             SetTarget();
-            _availableAbilities = Piece.DamageAbilites;
+            _availableAbilities = StateMachine.DamageAbilites;
             Piece.UI.ChangeGroundIndicator(Color.red);
             //Debug.Log(_availableAbilities);
         }

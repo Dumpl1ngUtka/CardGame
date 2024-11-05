@@ -47,7 +47,6 @@ namespace AI
 
                     if (weightPoint.TeamID == _selfWeight.TeamID)
                     {
-                        
                         _alliesPoints.Add(weightPoint);
                     }
                     else

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Battleground
 {
-    public class Piece : MonoBehaviour, IObjectForInfoRenderer, IDamageable, ICameraPivot, IAIWeightPoint
+    public class Piece : MonoBehaviour, IObjectForInfoRenderer, IDamageable, ICameraPivot
     {
         public Animator Animator;
         public NavMeshAgent Agent { get; private set; }
@@ -19,63 +19,15 @@ namespace Battleground
         public PieceStateMachine StateMachine { get; private set; }
         public PieceMover PieceMover { get; private set; }
 
-        #region Abilites
-        public List<PieceAbility> MoveAbilites { get; private set; }
-        public List<PieceAbility> DamageAbilites { get; private set; }
-        public List<PieceAbility> HealAbilites { get; private set; }
-        public List<PieceAbility> BuffAbilites { get; private set; }
-
-        #endregion
-
         #region CameraPivot
         public Vector3 PivotPosition => transform.position;
         public Transform PivotTransform => transform;
-        #endregion
-
-        #region WeightPoint
-
-        public Transform Transform => transform;
-        public Vector3 Position => transform.position;
-        public int TeamID => Player.TeamID;
-        public float DangerWeight => 0;
-        public float ChargedSkillsDamage
-        {
-            get
-            {
-                var damage = 0f;
-                foreach (var spell in DamageAbilites)
-                {
-                    var attackSpell = spell as IAttackSpell;
-                    if (spell.IsReadyToUse)
-                        damage += attackSpell.Damage;
-                }
-                return damage;
-            }
-        }
-        public float DamagePerMinute
-        {
-            get
-            {
-                var maxDPS = 0f;
-                foreach (var ability in DamageAbilites)
-                {
-                    var attackSpell = ability as IDamageAbility;
-                    maxDPS += attackSpell.DPM;
-                }
-                return maxDPS;
-            }
-        }
-        public float MissingHealth => Health.MaxHealth - Health.CurrentHealth;
-        public float CurrentHealth => Health.CurrentHealth;
-        public List<IAIWeightPoint> Group => StateMachine.SituationAnalyzer.GetAlliesPoints();
         #endregion
 
         public void Init(Unit unit, Player player)
         {
             Unit = unit;
             Player = player;
-            Unit.Inventory.InventoryChanged += SetAvailableSkills;
-            SetAvailableSkills();
             Agent = GetComponent<NavMeshAgent>();
             UI = GetComponent<PieceUIRenderer>();
 
@@ -87,32 +39,10 @@ namespace Battleground
             Health.Died += Died;
 
             PieceMover = GetComponent<PieceMover>();
-            StateMachine = new PieceStateMachine(this);
+            StateMachine = GetComponent<PieceStateMachine>();
+            StateMachine.Init(this);
         }
 
-        private void Update()
-        {
-            StateMachine.Update();
-        }
-
-        private void SetAvailableSkills()
-        {
-            MoveAbilites = new List<PieceAbility>();
-            DamageAbilites = new List<PieceAbility>();
-            HealAbilites = new List<PieceAbility>();
-            BuffAbilites = new List<PieceAbility>();
-            foreach (var ability in Unit.GetAbilityArray())
-            {
-                if (ability is IMoveAbility)
-                    MoveAbilites.Add(ability);
-                if (ability is IDamageAbility)
-                    DamageAbilites.Add(ability);
-                if (ability is IHealAbility)
-                    HealAbilites.Add(ability);
-                if (ability is IBuffAbility)
-                    BuffAbilites.Add(ability);
-            }
-        }
 
         private void Died()
         {
@@ -128,7 +58,6 @@ namespace Battleground
         private void OnDisable()
         {
             Health.Died -= Died;
-            Unit.Inventory.InventoryChanged -= SetAvailableSkills;
         }
 
         public void ApplyDamage(Damage damage)
