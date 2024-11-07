@@ -1,4 +1,6 @@
 using AI;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Battleground
@@ -15,7 +17,7 @@ namespace Battleground
         #endregion
 
         private float _releaseTimer = 0f;
-        private float _cooldownTimer = 0f;
+        private bool _isReadyToUse = true;
 
         #region Properties
         public string Name => _name;
@@ -24,11 +26,12 @@ namespace Battleground
         public float ReleaseTime => _releaseTime;
         public float Cooldown => _cooldown;
         public bool IsCanMoveWhileUse => _isCanMoveWhileUse;
-        public bool IsReadyToUse => _cooldownTimer <= 0f && !IsUsedRightNow;
-       
-        public bool IsUsedRightNow => _releaseTimer > 0f;
+        public bool IsReadyToUse => _isReadyToUse;
 
         #endregion
+
+        public Action ReleaseOver { get; set; }
+        public Action CooldownOver { get; set; }
 
         protected PieceState CallingState;
 
@@ -48,6 +51,7 @@ namespace Battleground
         public virtual void StartRelease(PieceState pieceState)
         {
             CallingState = pieceState;
+            _isReadyToUse = false;
             _releaseTimer = ReleaseTime;
         }
 
@@ -58,18 +62,24 @@ namespace Battleground
                 Release();
                 _releaseTimer -= Time.deltaTime;
             }
-
-            if (_cooldownTimer > 0f)
-            {
-                _cooldownTimer -= Time.deltaTime;
+            else
+            {    
+                EndRelease();
             }
+        }
+
+        public IEnumerator Charge()
+        {
+            yield return new WaitForSeconds(Cooldown);
+            _isReadyToUse = true;
+            CooldownOver?.Invoke();
         }
 
         protected abstract void Release();
 
         public virtual void EndRelease()
         {
-            _cooldownTimer = Cooldown;
+            ReleaseOver.Invoke();
         }
     }
 }

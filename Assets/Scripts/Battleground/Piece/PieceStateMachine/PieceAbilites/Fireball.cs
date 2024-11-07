@@ -31,12 +31,18 @@ namespace Battleground
         public override void StartRelease(PieceState pieceState)
         {
             base.StartRelease(pieceState);
-            CallingState.Piece.Animator.Play("MagicSpell");
+            pieceState.Piece.Animator.Play("MagicSpell");
         }
 
         protected override void Release()
         {
             Debug.Log("attack");
+        }
+
+        public override void EndRelease()
+        {
+            base.EndRelease();
+            CallingState.Piece.Animator.SetTrigger("Stop");
         }
     }
 }

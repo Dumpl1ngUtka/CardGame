@@ -1,5 +1,6 @@
 using AI;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ namespace Battleground
         {
             base.Enter();
             SetTarget();
-            _availableAbilities = StateMachine.DamageAbilites;
+            _availableAbilities = StateMachine.DamageAbilites.Cast<PieceAbility>().ToList();
             Piece.UI.ChangeGroundIndicator(Color.red);
             //Debug.Log(_availableAbilities);
         }
