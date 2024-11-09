@@ -16,14 +16,32 @@ namespace Battleground
         private Vector3 _targetPosititon;
         private float _maxRotationSpeed = 60f;
         private float _maxSpeed => _piece.Attributes.MoveSpeed;
-        private bool _isNeedToMove => Vector3.Distance(_targetPosititon, transform.position) > 0.1f;
+        private bool _isNeedToMove => Direction != Vector3.zero;
         public Rigidbody Rigidbody => _rigidbody;
 
+        #region Direction
+        private Vector3 _direction;
+        private float _directionTimer;
+        private Vector3 Direction
+        {
+            get { return _direction; }
+            set 
+            {
+                _directionTimer = 0.5f;
+                _direction = value; 
+            }
+        }
+        #endregion
 
         private void Awake()
         {
             _rigidbody.centerOfMass = _centerOfMass.position;
             _targetPosititon = transform.position;
+        }
+
+        public void SetMoveDirection(Vector3 directoion)
+        {
+            Direction = directoion;
         }
 
         public void SetMoveTarget(Vector3 targetPostition)
@@ -39,6 +57,11 @@ namespace Battleground
 
         private void Update()
         {
+            if (_directionTimer > 0f)
+                _directionTimer -= Time.deltaTime;
+            else
+                Direction = Vector3.zero;
+
             if (_isNeedToMove)
                 Rotate();
             SetSpeed();
@@ -49,7 +72,7 @@ namespace Battleground
             if (!_isNeedToMove)
                 _currentMaxSpeed = 0f;
 
-            var delta = Vector3.Angle(transform.forward, _targetPosititon - transform.position);
+            var delta = Vector3.Angle(transform.forward, Direction);
             if (delta < 25)
                 _currentMaxSpeed = _maxSpeed;
             else
@@ -62,37 +85,27 @@ namespace Battleground
         {
             if (IsOnGround())
             {
+                _piece.Animator.SetFloat("Speed", _speed / _maxSpeed);
                 //if (_currentMaxSpeed - _rigidbody.velocity.magnitude > 1)
                 //    _rigidbody.AddForce(transform.forward * _acceleration, ForceMode.VelocityChange);
                 var moveVec = transform.forward * _speed;
                 moveVec.y = _rigidbody.velocity.y;
                 _rigidbody.velocity = moveVec;
             }
+            //_piece.Animator.Pla
         }
 
         public void Rotate()
         {
             if (IsOnGround())
             {
-                var delta = Vector3.SignedAngle(transform.forward, _targetPosititon - transform.position, Vector3.up);
+                var delta = Vector3.SignedAngle(transform.forward, Direction, Vector3.up);
+                _piece.Animator.SetFloat("RotationSpeed", Mathf.Abs(delta / _maxRotationSpeed));
                 delta = Mathf.Clamp(delta, -_maxRotationSpeed, _maxRotationSpeed) * Time.deltaTime;
                 var newPivotRotation = transform.rotation.eulerAngles + new Vector3(0, delta, 0);
                 transform.rotation = Quaternion.Euler(newPivotRotation);
             }
 
-        }
-
-        public void Stop()
-        {
-            _targetPosititon = transform.position;
-
-        }
-
-        private void WakeUp()
-        {
-            //var newRot = -transform.localEulerAngles * Time.fixedDeltaTime;
-            //newRot.y = 0;
-            //_rigidbody.MoveRotation(Quaternion.Euler(newRot));
         }
 
         private bool IsOnGround()

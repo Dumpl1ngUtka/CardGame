@@ -24,7 +24,6 @@ namespace Battleground
             SetTarget();
             _availableAbilities = StateMachine.DamageAbilites.Cast<PieceAbility>().ToList();
             Piece.UI.ChangeGroundIndicator(Color.red);
-            //Debug.Log(_availableAbilities);
         }
 
         private void SetTarget()
@@ -62,7 +61,7 @@ namespace Battleground
             {
                 _timer = 0f;
                 SetTarget();
-                Piece.MoveTo(_target.Position);
+                Piece.MoveTo(_target.Position - SelfWeight.Position);
             }
         }
     }

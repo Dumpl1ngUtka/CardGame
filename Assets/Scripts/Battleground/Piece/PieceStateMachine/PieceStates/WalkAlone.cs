@@ -66,7 +66,7 @@ namespace Battleground
         private void MoveByPath()
         {
             if (Vector3.Distance(_path[_pathCornerIndex], StateMachine.Position) > _minDistanceToCorner)
-                Piece.MoveTo(_path[_pathCornerIndex]);
+                Piece.MoveTo(_path[_pathCornerIndex] - SelfWeight.Position);
             else
                 _pathCornerIndex++;
         }

@@ -65,7 +65,7 @@ namespace Battleground
             Health.ApplyDamage(damage.Value);
         }
 
-        public void MoveTo(Vector3 target) => PieceMover.SetMoveTarget(target);
+        public void MoveTo(Vector3 direction) => PieceMover.SetMoveDirection(direction);
     }
  }
 

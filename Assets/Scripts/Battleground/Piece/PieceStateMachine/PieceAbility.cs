@@ -56,9 +56,13 @@ namespace Battleground
 
         public IEnumerator Charge()
         {
-            Debug.Log(Name + "START CHARGE");
-            yield return new WaitForSeconds(Cooldown);
-            Debug.Log(Name + "END CHARGE");
+            var timer = Cooldown;
+            while (timer > 0f)
+            {
+                timer -= Time.deltaTime;
+                yield return null;
+                Debug.Log(Name + " cooldown " + timer);
+            }
             _isReadyToUse = true;
         }
 
