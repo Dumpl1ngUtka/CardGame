@@ -1,4 +1,5 @@
 using AI;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Units;
@@ -8,9 +9,7 @@ namespace Battleground
 {
     public class PieceStateMachine : MonoBehaviour, IAIWeightPoint
     {
-        [SerializeField] private PieceState[] _availableStates;
         private PieceState _currentState;
-        private PieceAbility _currentAbility;
         public List<PieceState> TransitionStates;
         public Piece Piece { get; private set; }
         public SituationAnalyzer SituationAnalyzer {get; private set;}
@@ -37,62 +36,53 @@ namespace Battleground
 
         #endregion
 
-        public bool IsAbilityUsed => _currentAbility != null;
-
         public void Init(Piece piece)
         {
             Piece = piece;
             SituationAnalyzer = new SituationAnalyzer(this);
-            TransitionStates = new List<PieceState>()
-            {
-                new WalkAlone(this),
-                new RunAway(this),
-                new FollowToEnemy(this),
-            };
-            ChangeState(TransitionStates[0]);
+            InitTransitionStates();
             Piece.Unit.Inventory.InventoryChanged += SetAvailableSkills;
             SetAvailableSkills();
         }
 
+        private void InitTransitionStates()
+        {
+            TransitionStates = new List<PieceState>()
+            {
+                ScriptableObject.CreateInstance<WalkAlone>(),
+                ScriptableObject.CreateInstance<RunAway>(),
+                ScriptableObject.CreateInstance<FollowToEnemy>(),
+            };
+            foreach (var state in TransitionStates)
+                state.Init(this);
+
+            ChangeState(TransitionStates[0]);
+        }
+
         public void Update()
         {
-            if (_currentAbility != null)
-                _currentAbility.Update();
-            else
-                _currentState.Update();
+            _currentState.Update();
             SituationAnalyzer.Update();
         }
 
         public void ChangeState(PieceState state)
         {
             //Debug.Log(state);
-            state?.Exit();
+            _currentState?.Exit();
+            state?.Enter(_currentState);
             _currentState = state;
-            state?.Enter();
         }
 
         private void SetAvailableSkills()
         {
             AllAbilites = Piece.Unit.GetAbilityArray().ToList();
+            foreach (var ability in AllAbilites)
+                ability.Init(this);
+
             MoveAbilites = AllAbilites.Where(AbilityType<IMoveAbility>).Cast<IMoveAbility>().ToList();
             DamageAbilites = AllAbilites.Where(AbilityType<IDamageAbility>).Cast<IDamageAbility>().ToList();
             HealAbilites = AllAbilites.Where(AbilityType<IHealAbility>).Cast<IHealAbility>().ToList();
             BuffAbilites = AllAbilites.Where(AbilityType<IBuffAbility>).Cast<IBuffAbility>().ToList();
-        }
-
-        public void UseAbility(PieceAbility usedAbility)
-        {
-            Debug.Log("USE " + usedAbility.Name);
-            _currentAbility = usedAbility;
-            _currentAbility.ReleaseOver += RemoveAbility;
-            _currentAbility.StartRelease(_currentState);
-        }
-
-        private void RemoveAbility()
-        {
-            _currentAbility.ReleaseOver -= RemoveAbility;
-            StartCoroutine(_currentAbility.Charge());
-            _currentAbility = null;
         }
 
         private bool AbilityType<T>(PieceAbility ability)
@@ -100,6 +90,11 @@ namespace Battleground
             if (ability is T)
                 return true;
             return false;
+        }
+
+        public void ChargeAbility(IEnumerator coroutine)
+        {
+            StartCoroutine(coroutine);
         }
     }
 }

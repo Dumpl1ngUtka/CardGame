@@ -85,6 +85,7 @@ namespace Battleground
         public void Stop()
         {
             _targetPosititon = transform.position;
+
         }
 
         private void WakeUp()

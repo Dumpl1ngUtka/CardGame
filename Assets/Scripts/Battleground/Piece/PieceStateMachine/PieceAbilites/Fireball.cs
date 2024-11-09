@@ -11,7 +11,7 @@ namespace Battleground
         [SerializeField] private float _damage = 7f;
         public float Damage => _damage;
         public float DPM => Damage * (60 / (Cooldown + ReleaseTime));
-        public Transform Target => CallingState.Target;
+        public override Transform Target => PriviousState.Target;
         public PieceAbility Ability => this;
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)
@@ -28,21 +28,23 @@ namespace Battleground
             return 0f;
         }
 
-        public override void StartRelease(PieceState pieceState)
+        public override void Enter(PieceState pieceState)
         {
-            base.StartRelease(pieceState);
-            pieceState.Piece.Animator.Play("MagicSpell");
+            base.Enter(pieceState);
+            Piece.Animator.Play("MagicSpell");
+            Piece.UI.ChangeGroundIndicator(Color.blue);
         }
 
-        protected override void Release()
+        public override void Update()
         {
+            base.Update();
             Debug.Log("attack");
         }
 
-        public override void EndRelease()
+        public override void Exit()
         {
-            base.EndRelease();
-            CallingState.Piece.Animator.SetTrigger("Stop");
+            base.Exit();
+            Piece.Animator.SetTrigger("Stop");
         }
     }
 }

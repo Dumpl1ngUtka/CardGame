@@ -5,16 +5,14 @@ using UnityEngine;
 namespace Battleground
 {
     [CreateAssetMenu(menuName = "Ability/SwordAttack")]
-    public class SwordAttack : PieceAbility, IDamageAbility, IMoveAbility
+    public class SwordAttack : PieceAbility, IDamageAbility
     {
         [SerializeField] private float _attackDistance = 3f;
         [SerializeField] private float _damage = 5f;
         public float Damage => _damage;
         public float DPM => Damage * (60/(Cooldown + ReleaseTime));
-        public Transform Target => CallingState.Target;
+        public override Transform Target => PriviousState.Target;
         public PieceAbility Ability => this;
-
-        public float DistancePerSecond => throw new System.NotImplementedException();
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)
         {
@@ -28,26 +26,28 @@ namespace Battleground
             }
             if (Vector3.Distance(situationAnalyzer.ClosestEnemy.Position, situationAnalyzer.SelfWeight.Position) < _attackDistance)
             {
-                return 1f;
+                return 3f;
             }
             return 0f;
         }
 
-        public override void StartRelease(PieceState pieceState)
+        public override void Enter(PieceState pieceState)
         {
-            base.StartRelease(pieceState);
-            pieceState.Piece.Animator.Play("SwordAttack");
+            base.Enter(pieceState);
+            Piece.Animator.Play("SwordAttack");
+            Piece.UI.ChangeGroundIndicator(Color.yellow);
         }
 
-        protected override void Release()
+        public override void Update()
         {
+            base.Update();
             Debug.Log("attack");
         }
 
-        public override void EndRelease()
+        public override void Exit()
         {
-            base.EndRelease();
-            CallingState.Piece.Animator.SetTrigger("Stop");
+            base.Exit();
+            Piece.Animator.SetTrigger("Stop");
         }
     }
 }

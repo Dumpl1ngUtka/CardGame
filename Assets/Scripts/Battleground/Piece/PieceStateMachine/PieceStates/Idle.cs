@@ -5,12 +5,8 @@ using UnityEngine.AI;
 
 namespace Battleground
 {
-    public class WalkAlone : PieceState
+    public class Idle : PieceState
     {
-        #region Const
-        private const float _minDistanceToCorner = 2f;
-        #endregion
-
         private List<Vector3> _path;
         private int _pathCornerIndex;
         private int _currentMapAnchor;
@@ -55,7 +51,7 @@ namespace Battleground
             if (_currentMapAnchor >= _anchors.Length)
                 _currentMapAnchor -= _anchors.Length;
 
-            var targetPoint = _anchors[_currentMapAnchor]; 
+            var targetPoint = _anchors[_currentMapAnchor];
             var navMeshPath = new NavMeshPath();
             NavMesh.CalculatePath(StateMachine.Position, targetPoint.position, ~0, navMeshPath);
             //Piece.Agent.destination = targetPoint.position;
@@ -65,15 +61,12 @@ namespace Battleground
 
         private void MoveByPath()
         {
-            if (Vector3.Distance(_path[_pathCornerIndex], StateMachine.Position) > _minDistanceToCorner)
-                Piece.MoveTo(_path[_pathCornerIndex]);
-            else
-                _pathCornerIndex++;
+
         }
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)
         {
-            return situationAnalyzer.WeightPoints.Count == 0 ? 2 : 0.1f;
+            return 0.1f;
         }
     }
 }

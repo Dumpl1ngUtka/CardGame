@@ -1,11 +1,12 @@
 using AI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Battleground
 {
-    public abstract class PieceAbility : ScriptableObject, IObjectForInfoRenderer
+    public abstract class PieceAbility : PieceState, IObjectForInfoRenderer
     {
         #region Main Fields
         [SerializeField] private string _name;
@@ -13,27 +14,28 @@ namespace Battleground
         [SerializeField] private Sprite _icon;
         [SerializeField] private float _releaseTime;
         [SerializeField] private float _cooldown;
-        [SerializeField] private bool _isCanMoveWhileUse;
         #endregion
 
-        private float _releaseTimer = 0f;
         private bool _isReadyToUse = true;
+        private readonly List<PieceAbility> _emptyList = new();
 
         #region Properties
+
         public string Name => _name;
         public string Description => _description;
         public Sprite Icon => _icon;
         public float ReleaseTime => _releaseTime;
         public float Cooldown => _cooldown;
-        public bool IsCanMoveWhileUse => _isCanMoveWhileUse;
         public bool IsReadyToUse => _isReadyToUse;
 
         #endregion
 
-        public Action ReleaseOver { get; set; }
-        public Action CooldownOver { get; set; }
+        protected override float MinStateTime => ReleaseTime;
+        protected override float MaxStateTime => ReleaseTime;
+        protected override List<PieceAbility> AvailableAbilityList => _emptyList;
+        public override Transform Target => throw new NotImplementedException();
 
-        protected PieceState CallingState;
+        protected PieceState PriviousState;
 
         public InfoForInfoRenderer GetInfo()
         {
@@ -46,40 +48,25 @@ namespace Battleground
             };
         }
 
-        public abstract float GetMetric(SituationAnalyzer situationAnalyzer);
-
-        public virtual void StartRelease(PieceState pieceState)
+        public override void Enter(PieceState pieceState)
         {
-            CallingState = pieceState;
-            _isReadyToUse = false;
-            _releaseTimer = ReleaseTime;
-        }
-
-        public virtual void Update()
-        {
-            if (_releaseTimer > 0f)
-            {
-                Release();
-                _releaseTimer -= Time.deltaTime;
-            }
-            else
-            {    
-                EndRelease();
-            }
+            base.Enter(pieceState);
+            PriviousState = pieceState;
         }
 
         public IEnumerator Charge()
         {
+            Debug.Log(Name + "START CHARGE");
             yield return new WaitForSeconds(Cooldown);
+            Debug.Log(Name + "END CHARGE");
             _isReadyToUse = true;
-            CooldownOver?.Invoke();
         }
 
-        protected abstract void Release();
-
-        public virtual void EndRelease()
+        public override void Exit()
         {
-            ReleaseOver.Invoke();
+            base.Exit();
+            _isReadyToUse = false;
+            StateMachine.ChargeAbility(Charge());
         }
     }
 }

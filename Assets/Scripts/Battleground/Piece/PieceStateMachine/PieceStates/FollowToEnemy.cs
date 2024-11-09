@@ -14,17 +14,13 @@ namespace Battleground
         private List<PieceAbility> _availableAbilities;
 
         protected override float MinStateTime => 3;
+        protected override float MaxStateTime => float.PositiveInfinity;
         protected override List<PieceAbility> AvailableAbilityList => _availableAbilities;
         public override Transform Target => _target.Transform;
 
-        public FollowToEnemy(PieceStateMachine pieceStateMachine) : base(pieceStateMachine)
+        public override void Enter(PieceState previousState)
         {
-            
-        }
-
-        public override void Enter()
-        {
-            base.Enter();
+            base.Enter(previousState);
             SetTarget();
             _availableAbilities = StateMachine.DamageAbilites.Cast<PieceAbility>().ToList();
             Piece.UI.ChangeGroundIndicator(Color.red);
