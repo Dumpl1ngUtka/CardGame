@@ -9,6 +9,7 @@ namespace Battleground
     {
         [SerializeField] private float _attackDistance = 3f;
         [SerializeField] private float _damage = 5f;
+        [SerializeField] private AnimationClip _animationClip;
         public float Damage => _damage;
         public float DPM => Damage * (60/(Cooldown + ReleaseTime));
         public override Transform Target => PriviousState.Target;
@@ -34,8 +35,8 @@ namespace Battleground
         public override void Enter(PieceState pieceState)
         {
             base.Enter(pieceState);
-            Piece.Animator.Play("SwordAttack");
             Piece.UI.ChangeGroundIndicator(Color.yellow);
+            Piece.Animator.PlayOneShotAnimation(_animationClip);
         }
 
         public override void Update()
@@ -47,7 +48,6 @@ namespace Battleground
         public override void Exit()
         {
             base.Exit();
-            Piece.Animator.SetTrigger("Stop");
         }
     }
 }

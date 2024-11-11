@@ -31,7 +31,6 @@ namespace Battleground
         public override void Enter(PieceState pieceState)
         {
             base.Enter(pieceState);
-            Piece.Animator.Play("MagicSpell");
             Piece.UI.ChangeGroundIndicator(Color.blue);
         }
 
@@ -44,7 +43,6 @@ namespace Battleground
         public override void Exit()
         {
             base.Exit();
-            Piece.Animator.SetTrigger("Stop");
         }
     }
 }

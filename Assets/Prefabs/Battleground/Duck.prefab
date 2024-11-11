@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: -490595188588529801}
   - component: {fileID: 7779618269921289950}
   - component: {fileID: 6611565704014343018}
+  - component: {fileID: 7878986087351639643}
   m_Layer: 8
   m_Name: Duck
   m_TagString: Untagged
@@ -483,6 +484,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f3797b568ca3ff44902893821c9275f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TransitionStates: []
+--- !u!114 &7878986087351639643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901264051773717432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb6b38d73090f3418372d5f3e351aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 2420239521035209843}
+  _pieceMover: {fileID: -490595188588529801}
+  _idleClip: {fileID: 7400000, guid: 5a350d5e8f8b7ee4b80dc182e45afdf5, type: 2}
+  _walkClip: {fileID: 7400000, guid: 5f327c9cae384df4db286d33f90bb6f0, type: 2}
+  _rotateClip: {fileID: 7400000, guid: 9984b20d76a7c5545939f7265435c56b, type: 2}
 --- !u!1 &4177819204644584682
 GameObject:
   m_ObjectHideFlags: 0

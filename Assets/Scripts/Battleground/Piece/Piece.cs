@@ -8,7 +8,7 @@ namespace Battleground
 {
     public class Piece : MonoBehaviour, IObjectForInfoRenderer, IDamageable, ICameraPivot
     {
-        public Animator Animator;
+        public PieceAnimator Animator { get; private set; }
         public NavMeshAgent Agent { get; private set; }
         public PieceClothesController Clothes { get; private set; }
         public PieceAttributes Attributes { get; private set; }
@@ -30,6 +30,8 @@ namespace Battleground
             Player = player;
             Agent = GetComponent<NavMeshAgent>();
             UI = GetComponent<PieceUIRenderer>();
+            Animator = GetComponent<PieceAnimator>();
+            Animator.Init();
 
             Clothes = GetComponent<PieceClothesController>();
             Clothes.Init(unit.Inventory);

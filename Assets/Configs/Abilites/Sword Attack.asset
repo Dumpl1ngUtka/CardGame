@@ -17,6 +17,6 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: 868247b82cf16804caee417ae6d91255, type: 3}
   _releaseTime: 2
   _cooldown: 5
-  _isCanMoveWhileUse: 0
   _attackDistance: 3
   _damage: 5
+  _animationClip: {fileID: 7400000, guid: 88e94ad2cb1200b489ee0a7353f41cce, type: 2}

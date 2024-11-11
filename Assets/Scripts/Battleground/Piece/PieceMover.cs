@@ -10,6 +10,7 @@ namespace Battleground
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Transform _centerOfMass;
         [SerializeField] private LayerMask _groundLayers;
+        private float _rotationFraction = 0f;
         private float _speed = 0f;
         private float _currentMaxSpeed = 0f;
         public float _acceleration = 1f;
@@ -32,6 +33,9 @@ namespace Battleground
             }
         }
         #endregion
+
+        public float SpeedFraction => _speed / _maxSpeed;
+        public float RotationFraction => _rotationFraction;
 
         private void Awake()
         {
@@ -85,7 +89,6 @@ namespace Battleground
         {
             if (IsOnGround())
             {
-                _piece.Animator.SetFloat("Speed", _speed / _maxSpeed);
                 //if (_currentMaxSpeed - _rigidbody.velocity.magnitude > 1)
                 //    _rigidbody.AddForce(transform.forward * _acceleration, ForceMode.VelocityChange);
                 var moveVec = transform.forward * _speed;
@@ -100,7 +103,7 @@ namespace Battleground
             if (IsOnGround())
             {
                 var delta = Vector3.SignedAngle(transform.forward, Direction, Vector3.up);
-                _piece.Animator.SetFloat("RotationSpeed", Mathf.Abs(delta / _maxRotationSpeed));
+                _rotationFraction = Mathf.Abs(delta / _maxRotationSpeed);
                 delta = Mathf.Clamp(delta, -_maxRotationSpeed, _maxRotationSpeed) * Time.deltaTime;
                 var newPivotRotation = transform.rotation.eulerAngles + new Vector3(0, delta, 0);
                 transform.rotation = Quaternion.Euler(newPivotRotation);
