@@ -178,6 +178,7 @@
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceClothesController.cs" />
     <Compile Include="Assets\Scripts\Units\Attributes.cs" />
     <Compile Include="Assets\AnimationTest.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\PieceAnimator.cs" />
     <Compile Include="Assets\Scripts\UI\CellsProgressBar.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraModeChanger.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -203,7 +204,6 @@
     <Compile Include="Assets\Scripts\Units\Items\Accessories\Accessories.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceAttributes.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
-    <Compile Include="Assets\Scripts\Battleground\Piece\PieceAnimator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -1115,6 +1115,14 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.PlayableGraphVisualizer.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.PlayableGraphVisualizer.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.PlayableGraphVisualizer">
+      <HintPath>Library\ScriptAssemblies\Unity.PlayableGraphVisualizer.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.2D.IK.Runtime">

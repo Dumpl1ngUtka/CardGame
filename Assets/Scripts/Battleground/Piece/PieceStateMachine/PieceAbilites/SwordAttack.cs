@@ -7,9 +7,9 @@ namespace Battleground
     [CreateAssetMenu(menuName = "Ability/SwordAttack")]
     public class SwordAttack : PieceAbility, IDamageAbility
     {
+        [Header("Sword Attack")]
         [SerializeField] private float _attackDistance = 3f;
         [SerializeField] private float _damage = 5f;
-        [SerializeField] private AnimationClip _animationClip;
         public float Damage => _damage;
         public float DPM => Damage * (60/(Cooldown + ReleaseTime));
         public override Transform Target => PriviousState.Target;
@@ -36,7 +36,6 @@ namespace Battleground
         {
             base.Enter(pieceState);
             Piece.UI.ChangeGroundIndicator(Color.yellow);
-            Piece.Animator.PlayOneShotAnimation(_animationClip);
         }
 
         public override void Update()

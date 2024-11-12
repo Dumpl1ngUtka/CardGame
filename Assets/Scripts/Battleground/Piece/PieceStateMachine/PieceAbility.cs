@@ -14,6 +14,7 @@ namespace Battleground
         [SerializeField] private Sprite _icon;
         [SerializeField] private float _releaseTime;
         [SerializeField] private float _cooldown;
+        [SerializeField] private AnimationClip _animationClip;
         #endregion
 
         private bool _isReadyToUse = true;
@@ -52,6 +53,7 @@ namespace Battleground
         {
             base.Enter(pieceState);
             PriviousState = pieceState;
+            Piece.Animator.PlayOneShotAnimation(_animationClip, ReleaseTime);
         }
 
         public IEnumerator Charge()
@@ -61,7 +63,7 @@ namespace Battleground
             {
                 timer -= Time.deltaTime;
                 yield return null;
-                Debug.Log(Name + " cooldown " + timer);
+                //Debug.Log(Name + " cooldown " + timer);
             }
             _isReadyToUse = true;
         }

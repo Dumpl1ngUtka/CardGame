@@ -103,9 +103,9 @@ namespace Battleground
             if (IsOnGround())
             {
                 var delta = Vector3.SignedAngle(transform.forward, Direction, Vector3.up);
+                delta = Mathf.Clamp(delta, -_maxRotationSpeed, _maxRotationSpeed);
                 _rotationFraction = Mathf.Abs(delta / _maxRotationSpeed);
-                delta = Mathf.Clamp(delta, -_maxRotationSpeed, _maxRotationSpeed) * Time.deltaTime;
-                var newPivotRotation = transform.rotation.eulerAngles + new Vector3(0, delta, 0);
+                var newPivotRotation = transform.rotation.eulerAngles + new Vector3(0, delta, 0) * Time.deltaTime;
                 transform.rotation = Quaternion.Euler(newPivotRotation);
             }
 

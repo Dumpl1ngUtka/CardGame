@@ -14,15 +14,18 @@ namespace Battleground
         [SerializeField] private AnimationClip _idleClip;
         [SerializeField] private AnimationClip _walkClip;
         [SerializeField] private AnimationClip _rotateClip;
+        [SerializeField] private AnimationCurve _blendCurve;
         private PlayableGraph _playableGraph;
         private AnimationMixerPlayable _locomotionMixer;
         private AnimationMixerPlayable _topLevelMixer;
 
         private AnimationClipPlayable _oneShotPlayable;
+        private float _oneShotTimer = 0f;
+        private float _oneShotAnimationTime;
 
         public void Init()
         {
-            _playableGraph = PlayableGraph.Create("AnimationSystem");
+            _playableGraph = PlayableGraph.Create("PieceAnimationSystem");
 
             AnimationPlayableOutput output = AnimationPlayableOutput.Create(_playableGraph, "Animation", _animator);
             _topLevelMixer = AnimationMixerPlayable.Create(_playableGraph, 2);
@@ -36,11 +39,6 @@ namespace Battleground
             AnimationClipPlayable walkPlayable = AnimationClipPlayable.Create(_playableGraph, _walkClip);
             AnimationClipPlayable rotatePlayable = AnimationClipPlayable.Create(_playableGraph, _rotateClip);
 
-            idlePlayable.GetAnimationClip().wrapMode = WrapMode.Loop;
-            walkPlayable.GetAnimationClip().wrapMode = WrapMode.Loop;
-            walkPlayable.SetSpeed(5);
-            rotatePlayable.GetAnimationClip().wrapMode = WrapMode.Loop;
-
             _locomotionMixer.ConnectInput(0, idlePlayable, 0);
             _locomotionMixer.ConnectInput(1, walkPlayable, 0);
             _locomotionMixer.ConnectInput(2, rotatePlayable, 0);
@@ -51,29 +49,45 @@ namespace Battleground
         private void Update()
         {
             UpdateLocomotion(_pieceMover.SpeedFraction, _pieceMover.RotationFraction);
-            if (_oneShotPlayable.IsValid() && _oneShotPlayable.IsDone())
+            if (_oneShotPlayable.IsValid())
             {
-                InterruptOneShot();
+                if (_oneShotTimer <= 0f)
+                    InterruptOneShot();
+                else
+                    _oneShotTimer -= Time.deltaTime;
+
+                BlendInputs();
             }
+        }
+
+        private void BlendInputs()
+        {
+            var oneShotWeight = _blendCurve.Evaluate(_oneShotTimer / _oneShotAnimationTime);
+            _topLevelMixer.SetInputWeight(0, 1 - oneShotWeight);
+            _topLevelMixer.SetInputWeight(1, oneShotWeight);
         }
 
         private void UpdateLocomotion(float speedFraction, float rotationFraction)
         {
-            _locomotionMixer.SetInputWeight(0, 1f - speedFraction - rotationFraction);
-            _locomotionMixer.SetInputWeight(1, speedFraction - rotationFraction);
-            _locomotionMixer.SetInputWeight(2, rotationFraction - speedFraction);
+            _locomotionMixer.GetInput(1).SetSpeed(speedFraction);
+            _locomotionMixer.GetInput(2).SetSpeed(rotationFraction);
+
+            _locomotionMixer.SetInputWeight(0, (1 - speedFraction) * (1 - rotationFraction));
+            _locomotionMixer.SetInputWeight(1, speedFraction);
+            _locomotionMixer.SetInputWeight(2, rotationFraction * (1 - speedFraction));
         }
 
-        public void PlayOneShotAnimation(AnimationClip animationClip)
+        public void PlayOneShotAnimation(AnimationClip animationClip, float animationTime)
         {
             if (_oneShotPlayable.IsValid() && _oneShotPlayable.GetAnimationClip() == animationClip)
                 return;
 
             InterruptOneShot();
+            _oneShotTimer = animationTime;
+            _oneShotAnimationTime = animationTime;
             _oneShotPlayable = AnimationClipPlayable.Create(_playableGraph, animationClip);
+            _oneShotPlayable.SetSpeed(animationClip.length / animationTime);
             _topLevelMixer.ConnectInput(1, _oneShotPlayable, 0);
-            _topLevelMixer.SetInputWeight(1, 1f);
-
         }
 
 
