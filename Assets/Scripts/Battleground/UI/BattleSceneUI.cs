@@ -8,8 +8,20 @@ namespace Battleground.UI
         [SerializeField] private InfoRenderer _infoRenderer;
         [SerializeField] private PauseMenu _pauseMenu;
         [SerializeField] private List<UIMenu> _activeTabsList = new();
-
+        [SerializeField] private CardHolder _cardHolder;
         public bool IsTabsListEmpty => _activeTabsList.Count == 0;
+        public PlayerInput InputActions { get; private set; }
+
+        private void Awake()
+        {
+            _cardHolder.Init(this);
+        }
+
+        private void OnEnable()
+        {
+            InputActions = new();
+            InputActions.Enable();
+        }
 
         public void CloseOpenTab()
         {
@@ -36,6 +48,11 @@ namespace Battleground.UI
         {
             _infoRenderer.Init(obj, callbackState);
             _infoRenderer.Open();
+        }
+
+        private void OnDisable()
+        {
+            InputActions.Disable();
         }
     }
 }

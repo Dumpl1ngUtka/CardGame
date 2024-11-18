@@ -44,6 +44,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ShowCards"",
+                    ""type"": ""Button"",
+                    ""id"": ""682a3772-d71c-4706-a1d0-d3ec5bd37972"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -167,6 +176,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""970a12dd-7e6b-49b0-aafd-885392cca4c6"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowCards"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -353,6 +373,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Back = m_UI.FindAction("Back", throwIfNotFound: true);
         m_UI_Move = m_UI.FindAction("Move", throwIfNotFound: true);
+        m_UI_ShowCards = m_UI.FindAction("ShowCards", throwIfNotFound: true);
         // Battle
         m_Battle = asset.FindActionMap("Battle", throwIfNotFound: true);
         m_Battle_CameraMove = m_Battle.FindAction("CameraMove", throwIfNotFound: true);
@@ -422,12 +443,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Back;
     private readonly InputAction m_UI_Move;
+    private readonly InputAction m_UI_ShowCards;
     public struct UIActions
     {
         private @PlayerInput m_Wrapper;
         public UIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Back => m_Wrapper.m_UI_Back;
         public InputAction @Move => m_Wrapper.m_UI_Move;
+        public InputAction @ShowCards => m_Wrapper.m_UI_ShowCards;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -443,6 +466,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @ShowCards.started += instance.OnShowCards;
+            @ShowCards.performed += instance.OnShowCards;
+            @ShowCards.canceled += instance.OnShowCards;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -453,6 +479,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @ShowCards.started -= instance.OnShowCards;
+            @ShowCards.performed -= instance.OnShowCards;
+            @ShowCards.canceled -= instance.OnShowCards;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -544,6 +573,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnBack(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnShowCards(InputAction.CallbackContext context);
     }
     public interface IBattleActions
     {

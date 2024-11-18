@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
-using Units;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Battleground.UI
@@ -9,15 +6,13 @@ namespace Battleground.UI
     public class CardHolder : MonoBehaviour
     {
         [SerializeField] private UICard _cardPrefab;
+        private BattleSceneUI _battleSceneUI;
         private Vector2 _screenSize;
-        private bool _isCardsSelected;
         private List<UICard> _cards = new List<UICard>();
-        private UICard _selectedCard;
         private IObjectForInfoRenderer[] _renderedObjects;
         private Vector2 _targetPosition;
         private RectTransform _rectTransform;
         private float _lerpSpeed = 10;
-        private PlayerState _callbackState;
         private Dictionary<SpellTypes, bool> _filter = new()
         {
             { SpellTypes.Attack, true },
@@ -32,29 +27,45 @@ namespace Battleground.UI
         private Vector3 _vel = Vector3.zero;
         #endregion
 
+        private PlayerInput _inputActions => _battleSceneUI.InputActions;
         public RectTransform Container;
 
-        private void Awake()
+        public void Init(BattleSceneUI battleSceneUI)
         {
+            _battleSceneUI = battleSceneUI;
             _rectTransform = GetComponent<RectTransform>();
             _screenSize = new Vector2(Screen.width, Screen.height);
             _targetPosition = _rectTransform.localPosition;
         }
 
+        private void OnEnable()
+        {
+        }
+
         private void Update()
         {
-            var verticalMouseScreenPosition = Input.mousePosition.y / _screenSize.y;
-            if (verticalMouseScreenPosition < 0.2f && !_isCardsSelected)
+            //var verticalMouseScreenPosition = Input.mousePosition.y / _screenSize.y;
+            //if (verticalMouseScreenPosition < 0.2f && !_isCardsSelected)
+            //{
+            //    _targetPosition = new Vector3(0, 200 - _screenSize.y / 2);
+            //    _isCardsSelected = true;
+            //}
+
+            //if (verticalMouseScreenPosition > 0.3f && _isCardsSelected)
+            //{
+            //    _targetPosition = new Vector3(0, -100 -_screenSize.y / 2);
+            //    _isCardsSelected = false;
+            //}
+
+            if (_inputActions.UI.ShowCards.IsPressed())
             {
                 _targetPosition = new Vector3(0, 200 - _screenSize.y / 2);
-                _isCardsSelected = true;
             }
-
-            if (verticalMouseScreenPosition > 0.3f && _isCardsSelected)
+            else
             {
                 _targetPosition = new Vector3(0, -100 -_screenSize.y / 2);
-                _isCardsSelected = false;
             }
+
             LerpMove(_targetPosition);
         }
 
@@ -64,7 +75,6 @@ namespace Battleground.UI
             if (objects == null)
                 return;
 
-            _callbackState = callbackState;
             _cards = new List<UICard>();
             _renderedObjects = objects;
             ClearContainer();
@@ -143,7 +153,6 @@ namespace Battleground.UI
         public void HideCards()
         {
             _targetPosition = new Vector3(0, -400 - _screenSize.y / 2);
-            _isCardsSelected = false;
         }
         private void LerpMove(Vector3 targetPosition)
         {
