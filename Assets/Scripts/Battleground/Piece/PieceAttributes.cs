@@ -16,7 +16,7 @@ namespace Battleground
             {
                 float value = 50 + _unitAttributes.Health * 10;
                 value += _additionalPieceAttributes.Health;
-                value *= _additionalPieceAttributes.HealthPercent / 100;
+                value += value * _additionalPieceAttributes.HealthPercent / 100;
                 return value;
             }
         }

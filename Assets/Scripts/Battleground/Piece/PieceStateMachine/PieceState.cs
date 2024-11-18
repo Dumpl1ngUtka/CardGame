@@ -15,10 +15,11 @@ namespace Battleground
         protected abstract float MinStateTime { get; }
         protected abstract float MaxStateTime { get; }
         protected abstract List<PieceAbility> AvailableAbilityList { get; }
-        public abstract Transform Target { get; }
+        public abstract IAIWeightPoint Target { get; }
 
         protected Piece Piece => StateMachine.Piece;
         protected IAIWeightPoint SelfWeight => StateMachine;
+        protected IAIWeightPoint SelfGroupWeight => SituationAnalyzer.SelfGroupWeight;
         protected List<PieceState> TransitionStates => StateMachine.TransitionStates;
         protected bool IsStateCanBeChanged => _timer >= MinStateTime;
         protected bool IsStateMustBeChanged => _timer >= MaxStateTime;

@@ -34,7 +34,7 @@ namespace Battleground
         protected override float MinStateTime => ReleaseTime;
         protected override float MaxStateTime => ReleaseTime;
         protected override List<PieceAbility> AvailableAbilityList => _emptyList;
-        public override Transform Target => throw new NotImplementedException();
+        public override IAIWeightPoint Target => PriviousState.Target;
 
         protected PieceState PriviousState;
 

@@ -13,41 +13,31 @@ namespace Battleground
         private IAIWeightPoint _target;
         private List<PieceAbility> _availableAbilities;
 
-        protected override float MinStateTime => 3;
+        protected override float MinStateTime => 0;
         protected override float MaxStateTime => float.PositiveInfinity;
         protected override List<PieceAbility> AvailableAbilityList => _availableAbilities;
-        public override Transform Target => _target.Transform;
+        public override IAIWeightPoint Target => GetTarget();
 
         public override void Enter(PieceState previousState)
         {
             base.Enter(previousState);
-            SetTarget();
             _availableAbilities = StateMachine.DamageAbilites.Cast<PieceAbility>().ToList();
             Piece.UI.ChangeGroundIndicator(Color.red);
         }
 
-        private void SetTarget()
+        private IAIWeightPoint GetTarget()
         {
-            foreach (var weightPoint in StateMachine.SituationAnalyzer.WeightPoints)
-            {
-                if (SelfWeight.DamagePerMinute > weightPoint.DamagePerMinute)
-                {
-                    _target = weightPoint;
-                    break;
-                }
-            }
+            return SituationAnalyzer.ClosestEnemy;
         }
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)
         {
-            foreach (var weightPoint in StateMachine.SituationAnalyzer.WeightPoints)
+            var metrix = 0f;
+            if (SituationAnalyzer.StrongestEnemy != null)
             {
-                if (SelfWeight.DamagePerMinute > weightPoint.DamagePerMinute)
-                {
-                    return 1;
-                }
+                metrix = SelfGroupWeight.DangerWeight / SituationAnalyzer.StrongestEnemy.DangerWeight;
             }
-            return 0;
+            return metrix;
         }
 
         public override void Update()
@@ -60,8 +50,7 @@ namespace Battleground
             else
             {
                 _timer = 0f;
-                SetTarget();
-                Piece.MoveTo(_target.Position - SelfWeight.Position);
+                Piece.MoveTo(Target.Position - SelfWeight.Position);
             }
         }
     }

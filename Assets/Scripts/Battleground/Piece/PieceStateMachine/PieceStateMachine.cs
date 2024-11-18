@@ -19,21 +19,31 @@ namespace Battleground
         public Transform Transform => Piece.transform;
         public Vector3 Position => Piece.transform.position;
         public int TeamID => Piece.Player.TeamID;
-        public float DangerWeight => 0;
+        public float DangerWeight
+        {
+            get 
+            {
+                var value = DamagePerMinute;
+                value *= Mathf.Sqrt(CurrentHealth / Piece.Health.MaxHealth);
+                value *= (ChargedSkillsDamage / DamagePerMinute) / 2 + 0.5f;
+                if (value == float.NaN)
+                    return 0;
+                return value;
+            } 
+        }
         public float ChargedSkillsDamage => DamageAbilites.Where(x => x.Ability.IsReadyToUse).Sum(x => x.Damage);
         public float DamagePerMinute => DamageAbilites.Sum(x => x.DPM);
         public float MissingHealth => Piece.Health.MaxHealth - Piece.Health.CurrentHealth;
         public float CurrentHealth => Piece.Health.CurrentHealth;
-        public List<IAIWeightPoint> Group => SituationAnalyzer.GetAlliesPoints();
         #endregion
 
         #region Abilites
-        public List<PieceAbility> AllAbilites { get; private set; }
-        public List<IMoveAbility> MoveAbilites { get; private set; }
-        public List<IDamageAbility> DamageAbilites { get; private set; }
-        public List<IHealAbility> HealAbilites { get; private set; }
-        public List<IBuffAbility> BuffAbilites { get; private set; }
-
+        public List<PieceAbility> AllAbilites { get; private set; } = new List<PieceAbility>();
+        public List<IMoveAbility> MoveAbilites { get; private set; } = new List<IMoveAbility>();
+        public List<IDamageAbility> DamageAbilites { get; private set; } = new List<IDamageAbility>();
+        public List<IHealAbility> HealAbilites { get; private set; } = new List<IHealAbility>();
+        public List<IBuffAbility> BuffAbilites { get; private set; } = new List<IBuffAbility>();
+        public float PerfectAttackDistance { get; private set; }
         #endregion
 
         public void Init(Piece piece)
@@ -83,6 +93,11 @@ namespace Battleground
             DamageAbilites = AllAbilites.Where(AbilityType<IDamageAbility>).Cast<IDamageAbility>().ToList();
             HealAbilites = AllAbilites.Where(AbilityType<IHealAbility>).Cast<IHealAbility>().ToList();
             BuffAbilites = AllAbilites.Where(AbilityType<IBuffAbility>).Cast<IBuffAbility>().ToList();
+
+            if (DamageAbilites.Count == 0)
+                PerfectAttackDistance = 0;
+            else 
+                PerfectAttackDistance = DamageAbilites.Sum(x => x.PerfectDistance) / DamageAbilites.Count;
         }
 
         private bool AbilityType<T>(PieceAbility ability)

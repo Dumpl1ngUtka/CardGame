@@ -11,8 +11,9 @@ namespace Battleground
         [SerializeField] private float _damage = 7f;
         public float Damage => _damage;
         public float DPM => Damage * (60 / (Cooldown + ReleaseTime));
-        public override Transform Target => PriviousState.Target;
+        public override IAIWeightPoint Target => PriviousState.Target;
         public PieceAbility Ability => this;
+        public float PerfectDistance => _attackDistance;
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)
         {
@@ -37,7 +38,7 @@ namespace Battleground
         public override void Update()
         {
             base.Update();
-            Debug.Log("attack");
+            Piece.LookTo(Target.Position - SelfWeight.Position);
         }
 
         public override void Exit()

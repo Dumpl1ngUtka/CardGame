@@ -20,7 +20,7 @@ namespace Battleground
         protected override float MinStateTime => 0;
         protected override float MaxStateTime => float.PositiveInfinity;
         protected override List<PieceAbility> AvailableAbilityList => _availableAbilityList;
-        public override Transform Target => null;
+        public override IAIWeightPoint Target => null;
 
         public override void Enter(PieceState previousState)
         {
@@ -73,7 +73,7 @@ namespace Battleground
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)
         {
-            return situationAnalyzer.WeightPoints.Count == 0 ? 2 : 0.1f;
+            return SituationAnalyzer.EnemyPoints.Count == 0 ? 2 : 0.1f;
         }
     }
 }

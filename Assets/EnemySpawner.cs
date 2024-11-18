@@ -8,7 +8,7 @@ namespace Battleground
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField] private int spawnCount = 0;
+        //[SerializeField] private int spawnCount = 0;
         [SerializeField] private List<Transform> SpawnPoints;
         [SerializeField] private Player player;
 

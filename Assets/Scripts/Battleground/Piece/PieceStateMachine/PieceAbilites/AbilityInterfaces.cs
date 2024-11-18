@@ -8,7 +8,8 @@ namespace Battleground
         public PieceAbility Ability { get; }
         public float Damage { get; }
         public float DPM { get; }
-        public Transform Target { get; }
+        public float PerfectDistance { get; }
+        public IAIWeightPoint Target { get; }
     }
 
     public interface IMoveAbility

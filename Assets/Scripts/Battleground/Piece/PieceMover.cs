@@ -18,6 +18,7 @@ namespace Battleground
         private float _maxRotationSpeed = 60f;
         private float _maxSpeed => _piece.Attributes.MoveSpeed;
         private bool _isNeedToMove => Direction != Vector3.zero;
+        private bool _isNeedToRotate => _isNeedToMove || RotationDirection != Vector3.zero;
         public Rigidbody Rigidbody => _rigidbody;
 
         #region Direction
@@ -32,6 +33,8 @@ namespace Battleground
                 _direction = value; 
             }
         }
+
+        private Vector3 RotationDirection;
         #endregion
 
         public float SpeedFraction => _speed / _maxSpeed;
@@ -46,6 +49,11 @@ namespace Battleground
         public void SetMoveDirection(Vector3 directoion)
         {
             Direction = directoion;
+        }
+
+        public void SetRotationDirection(Vector3 directoion)
+        {
+            RotationDirection = directoion;
         }
 
         public void SetMoveTarget(Vector3 targetPostition)
@@ -66,7 +74,7 @@ namespace Battleground
             else
                 Direction = Vector3.zero;
 
-            if (_isNeedToMove)
+            if (_isNeedToRotate)
                 Rotate();
             SetSpeed();
         }
@@ -98,7 +106,7 @@ namespace Battleground
             //_piece.Animator.Pla
         }
 
-        public void Rotate()
+        private void Rotate()
         {
             if (IsOnGround())
             {
@@ -108,7 +116,6 @@ namespace Battleground
                 var newPivotRotation = transform.rotation.eulerAngles + new Vector3(0, delta, 0) * Time.deltaTime;
                 transform.rotation = Quaternion.Euler(newPivotRotation);
             }
-
         }
 
         private bool IsOnGround()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -8,19 +9,25 @@ namespace AI
     public class SituationAnalyzer
     {
         private IAIWeightPoint _selfWeight;
-        private List<IAIWeightPoint> _weightPoints = new List<IAIWeightPoint>();
+        private IAIWeightPoint _selfGroupWeight;
+        private List<IAIWeightPoint> _enemyPoints = new List<IAIWeightPoint>();
         private List<IAIWeightPoint> _alliesPoints = new List<IAIWeightPoint>();
-        private List<IAIWeightPoint> _groupedWeightPoints = new List<IAIWeightPoint>();
+        private List<IAIWeightPoint> _groupedEnemyPoints = new List<IAIWeightPoint>();
         private IAIWeightPoint _strongestEnemy;
         private IAIWeightPoint _weakestEnemy;
         private IAIWeightPoint _closestEnemy;
         private const float _checkSphereRadius = 20;
+        private const float _groupMaxInfluenceDistance = 5f;
+        private const float _groupNoInfluenceDistance = 10f;
 
         public IAIWeightPoint SelfWeight => _selfWeight;
-        public List<IAIWeightPoint> WeightPoints => _weightPoints;
+        public IAIWeightPoint SelfGroupWeight => _selfGroupWeight;
+        public List<IAIWeightPoint> EnemyPoints => _enemyPoints;
         public List<IAIWeightPoint> AlliesPoints => _alliesPoints;
-        public List<IAIWeightPoint> GroupedWeightPoints => _groupedWeightPoints;
+        public List<IAIWeightPoint> GroupedEnemyPoints => _groupedEnemyPoints;
         public IAIWeightPoint ClosestEnemy => _closestEnemy;
+        public IAIWeightPoint StrongestEnemy => _strongestEnemy;
+        public IAIWeightPoint WeakestEnemy => _weakestEnemy;
 
         public SituationAnalyzer(IAIWeightPoint piece)
         {
@@ -35,9 +42,12 @@ namespace AI
 
         private void UpdateLists()
         {
-            _weightPoints.Clear();
+            _enemyPoints.Clear();
             _alliesPoints.Clear();
+            _groupedEnemyPoints.Clear();
             var minDistance = _checkSphereRadius;
+            var maxDanger = 0f;
+            var minDanger = float.MaxValue;
             foreach (var collider in Physics.OverlapSphere(_selfWeight.Position, _checkSphereRadius))
             {
                 if (collider.TryGetComponent<IAIWeightPoint>(out var weightPoint))
@@ -51,7 +61,7 @@ namespace AI
                     }
                     else
                     {
-                        _weightPoints.Add(weightPoint);
+                        _enemyPoints.Add(weightPoint);
 
                         var distance = Vector3.Distance(weightPoint.Position, _selfWeight.Position);
                         if (distance < minDistance)
@@ -59,9 +69,24 @@ namespace AI
                             minDistance = distance;
                             _closestEnemy = weightPoint;
                         }
+
+                        if (weightPoint.DangerWeight > maxDanger)
+                        {
+                            maxDanger = weightPoint.DangerWeight;
+                            _strongestEnemy = weightPoint;
+                        }
+
+                        if (weightPoint.DangerWeight < minDanger)
+                        {
+                            minDanger = weightPoint.DangerWeight;
+                            _weakestEnemy = weightPoint;
+                        }
                     }
                 }
             }
+            _groupedEnemyPoints = GetWeightGrouped(_enemyPoints);
+            _selfGroupWeight = GetInfluenceOfGroupOnPoint(_selfWeight, _alliesPoints);
+            //Debug.Log("SelfDPM " + _selfWeight.DamagePerMinute + " GroupDPM " + _selfGroupWeight.DamagePerMinute);
         }
 
         public List<IAIWeightPoint> GetAlliesPoints()
@@ -78,54 +103,30 @@ namespace AI
             return allies;
         }
 
-        public List<IAIWeightPoint> GetWeightPoints()
-        {
-            var weightPoints = new List<IAIWeightPoint>();
-            foreach (var collider in Physics.OverlapSphere(_selfWeight.Position, _checkSphereRadius))
-            {
-                if (collider.TryGetComponent<IAIWeightPoint>(out var weightPoint))
-                {
-                    if (weightPoint == _selfWeight)
-                        continue;
-                    weightPoints.Add(weightPoint);
-                }
-            }
-            return weightPoints;
-        }
-
         public List<IAIWeightPoint> GetWeightGrouped(List<IAIWeightPoint> points)
         {
-            var groupIndexes = new List<int>(points.Count);
-            var groupCount = 0;
-            for (int i = 0; i < points.Count; i++)
-            {
-                for (int j = 0; j < i; j++)
-                {
-                    if (points[j] == points[i])
-                        continue;
+            var groupedPoints = new List<IAIWeightPoint>();
 
-                    if (Vector3.Distance(points[j].Position, points[i].Position) < 5f)
-                    {
-                        groupIndexes[i] = groupIndexes[j];
-                        break;  
-                    }
-                }
-                if (groupIndexes[i] == 0)
-                    groupIndexes[i] = ++groupCount;
-            }
-            var groupedPoints = new List<AIWeightPoint>();
-            for (int i = 0; i < points.Count; i++)
+            foreach (var point in points)
+                groupedPoints.Add(GetInfluenceOfGroupOnPoint(point, points));
+
+            return groupedPoints;
+        }
+
+        public IAIWeightPoint GetInfluenceOfGroupOnPoint(IAIWeightPoint point, List<IAIWeightPoint> group)
+        {
+            var groupedPoint = new AIWeightPoint(point);
+            foreach (var otherPoint in group)
             {
-                groupedPoints.Add(new AIWeightPoint(points[i]));
-                for (int j = 0; j < groupIndexes.Count; j++)
-                {
-                    if (groupIndexes[j] == groupIndexes[i])
-                    {
-                        groupedPoints[i].Add(points[j]);
-                    }
-                }
+                if (otherPoint == point)
+                    continue;
+
+                var distance = Vector3.Distance(point.Position, otherPoint.Position);
+                var influence = (_groupNoInfluenceDistance - distance) / (_groupNoInfluenceDistance - _groupMaxInfluenceDistance);
+                influence = Mathf.Clamp01(influence);
+                groupedPoint.Add(otherPoint, influence);
             }
-            return groupedPoints.Select(x => x as IAIWeightPoint).ToList();
+            return groupedPoint;
         }
     }
 
@@ -177,13 +178,13 @@ namespace AI
         }
 
 
-        public void Add(IAIWeightPoint weightPoint)
+        public void Add(IAIWeightPoint weightPoint, float influence = 1f)
         {
-            _dangerWeight += weightPoint.DangerWeight;
-            _chargedSkillsDamage += weightPoint.ChargedSkillsDamage;
-            _damagePerMinute += weightPoint.DamagePerMinute;
-            _missingHealth += weightPoint.MissingHealth;
-            _currentHealth += weightPoint.CurrentHealth;
+            _dangerWeight += weightPoint.DangerWeight * influence;
+            _chargedSkillsDamage += weightPoint.ChargedSkillsDamage * influence;
+            _damagePerMinute += weightPoint.DamagePerMinute * influence;
+            _missingHealth += weightPoint.MissingHealth * influence;
+            _currentHealth += weightPoint.CurrentHealth * influence;
         }
     }
 }
