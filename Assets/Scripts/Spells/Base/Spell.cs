@@ -11,32 +11,29 @@ namespace Units
         public Sprite MainBackground;
         [Header("Time Values")]
         public float ActionTime;
-        public float Cooldown;
-        [Header("Other")]
-        private float _currentCooldownTime;
+
+        public bool IsSpellReleased { get; protected set; }
         public Piece Piece { get; protected set; }
-        public bool IsSpellReady => CurrentCooldownTime < 0;
-        public float CurrentCooldownTime => _currentCooldownTime;
 
         public virtual void Init(Piece piece) 
         {
             Piece = piece;
-        }
-
-        public virtual void Update()
-        {
-            if (!IsSpellReady)
-                _currentCooldownTime -= Time.deltaTime;
+            IsSpellReleased = false;
         }
 
         public virtual void StartRelease()
+        {
+        }
+
+        public virtual void Update()
         {
 
         }
 
         public virtual void EndRelease()
         {
-            _currentCooldownTime = Cooldown;
+            if (IsSpellReleased)
+                Destroy(this);
         }
 
         public InfoForInfoRenderer GetInfo()

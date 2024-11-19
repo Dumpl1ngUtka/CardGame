@@ -24,7 +24,7 @@ namespace Battleground
         public override void Update()
         {
             if (Input.GetKey(KeyCode.Escape))
-                StateMachine.ChangeState(new SelectUnitCard(StateMachine));
+                StateMachine.ChangeState(new SelectCard(StateMachine));
 
             base.Update();
         }
@@ -34,7 +34,7 @@ namespace Battleground
             if (hit.collider.GetComponent<Piece>() == null)
             {
                 StateMachine.Player.InstantiatePiece(_unit,hit);
-                StateMachine.ChangeState(new SelectUnitCard(StateMachine));
+                StateMachine.ChangeState(new SelectCard(StateMachine));
             }
         }
 

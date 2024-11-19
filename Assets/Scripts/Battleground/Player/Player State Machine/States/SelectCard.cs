@@ -4,11 +4,11 @@ using UnityEngine.EventSystems;
 
 namespace Battleground
 {
-    public class SelectUnitCard : PlayerState
+    public class SelectCard : PlayerState
     {
         public override LayerMask LayerMask => LayerMask.GetMask(PlayerUnitLayer, EnemyUnitLayer, CardLayer,UILayer);
         
-        public SelectUnitCard(PlayerStateMachine stateMachine) : base(stateMachine)
+        public SelectCard(PlayerStateMachine stateMachine) : base(stateMachine)
         {
 
         }

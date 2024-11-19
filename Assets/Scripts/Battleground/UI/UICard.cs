@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 namespace Battleground.UI
 {
-    public class UICard : MonoBehaviour, IPlayerUI, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class UICard : MonoBehaviour, IPlayerUI, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IDragHandler
     {
         [SerializeField] private CardRenderer _renderer;
         private IObjectForInfoRenderer _containedObj;
@@ -63,8 +63,6 @@ namespace Battleground.UI
             _cardHolder.SelectCardEvent(true);
         }
 
-
-
         private void LerpSized(Vector3 targetSize)
         {
             _rectTransform.localScale = Vector3.Lerp(_rectTransform.localScale, targetSize, Time.deltaTime * _sizeChangeSpeed);
@@ -91,6 +89,7 @@ namespace Battleground.UI
             RectTransform.anchoredPosition =
                 Vector2.Lerp(_rectTransform.localPosition, targetPosition, Time.deltaTime * _lerpSpeed);
         }
+
         private void SpringMove(Vector2 targetPosition)
         {
             _vel += (targetPosition - RectTransform.anchoredPosition) * _spring;
@@ -106,6 +105,12 @@ namespace Battleground.UI
         public void SetSize(float size)
         {
             _targetSize = Vector3.one * size;
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            _targetPosition = eventData.position;
+            _targetPosition.x -= 1920 / 2;
         }
     }
 }

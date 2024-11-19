@@ -15,7 +15,7 @@ namespace Battleground
         {
             Player = player;
             UI = uI;
-            ChangeState(new SelectUnitCard(this));
+            ChangeState(new SelectCard(this));
             CameraMode = cameraMover;
         }
 
