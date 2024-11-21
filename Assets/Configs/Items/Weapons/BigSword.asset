@@ -13,15 +13,21 @@ MonoBehaviour:
   m_Name: BigSword
   m_EditorClassIdentifier: 
   Name: BigSword
-  Icon: {fileID: 21300000, guid: a1a31e25ed80c5e45ade7a8e14702886, type: 3}
+  Icon: {fileID: 21300000, guid: 868247b82cf16804caee417ae6d91255, type: 3}
   Weight: 4
-  Spells: []
+  Price: 0
+  Abilites: []
   Attributes:
-    Attributes:
-    - type: 0
-      value: 0
-    - type: 0
-      value: 0
+    Health: 0
+    HealthPercent: 0
+    AccuracyPercent: 0
+    MeleeAttackRangeAdditionPercent: 0
+    DistanceAttackRangeAdditionPercent: 0
+    DistanceAttackDistanceAdditionPercent: 0
+    DodgeChancePercent: 0
+    BlockChancePercent: 0
+    MaxWeight: 0
+    MoveSpeed: 0
   Damage: 3
   Accuracy: 0
   Model: {fileID: 919132149155446097, guid: 794e18ca5134a1848a6a441480ff4e7f, type: 3}

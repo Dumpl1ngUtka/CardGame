@@ -52,7 +52,7 @@ namespace Battleground
 
         public InfoForInfoRenderer GetInfo()
         {
-            var info = Unit.GetInfo();
+            var info = new InfoForInfoRenderer();
             info.HealthBarFill = Health.HealthFill;
             return info;
         }

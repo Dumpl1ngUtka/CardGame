@@ -9,6 +9,7 @@ namespace Units
     public class UnitClass : ScriptableObject
     {
         public string Name;
+        public Sprite Icon; 
         public List<WeaponTypes> AvailableWeaponsTypes;
         public List<PassiveEffect> PassiveEffects;
         public Attributes MinLevels;

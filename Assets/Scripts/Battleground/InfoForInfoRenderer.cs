@@ -14,6 +14,6 @@ namespace Battleground
         public string ContentLine3;
         public float HealthBarFill;
         public float StaminaBarFill;
-        public IObjectForInfoRenderer[] ObjectsForCardRenderers;
+        public List<IObjectForUICard> ObjectsForCardRenderers;
     }
 }

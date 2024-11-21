@@ -23,14 +23,18 @@ namespace Battleground
 
         [SerializeField] private bool _isTestPlayer = false;
 
-        public Timeline Timeline;
+        private CardHolder _cardHolder => UI.CardHolder;
+
         public BattlegroundMap Map;
         public List<Unit> Units;
+        public List<IObjectForUICard> Cards = new List<IObjectForUICard>();
         public PlayerStateMachine StateMachine;
+
+        public Transform PieceConteiner => _pieceConteiner;
         public int TeamID => _teamID;
         public bool HasPlayablePiece => PlayablePieceCount() > 0;
         public bool IsUnitsListEmpty => Units.Count == 0;
-
+        public Action CardsChanged;
 
         private void Awake()
         {
@@ -47,7 +51,10 @@ namespace Battleground
                 Units[i].Inventory.SetArmor(_armors[i]);
             }
             if (!_isTestPlayer)
+            {
                 StateMachine = new PlayerStateMachine(this, UI, _cameraMode);
+                UI.Init(this);
+            }
         }
 
         public void InstantiatePiece(Unit unit, RaycastHit hit)
@@ -76,11 +83,20 @@ namespace Battleground
             return count;
         }
 
+        public void AddCards(List<IObjectForUICard> cards)
+        {
+            Debug.Log("CARDS " + cards.Count);
+            Cards = Cards.Concat(cards).ToList();
+            Debug.Log("CARDS 2 " + Cards.Count);
+            CardsChanged?.Invoke();
+            _cardHolder.InstantiateCards(Cards);
+        }
+
         public InfoForInfoRenderer GetInfo()
         {
             return new InfoForInfoRenderer
             {
-                ObjectsForCardRenderers = Units.ToArray()
+                ObjectsForCardRenderers = Cards
             };
         }
     }

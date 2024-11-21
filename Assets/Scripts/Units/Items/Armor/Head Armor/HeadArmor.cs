@@ -10,5 +10,7 @@ namespace Units.Items
         public bool IsHairVisible;
         public bool IsEarsVisible;
         public bool IsMoustacheVisible;
+
+        public override Sprite TypeIcon => Resources.Load<Sprite>("Sprites/CardTypeIcons/Hat");
     }
 }

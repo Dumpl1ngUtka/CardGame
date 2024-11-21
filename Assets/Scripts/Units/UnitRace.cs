@@ -1,6 +1,7 @@
 using Battleground;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Units
 {
@@ -8,6 +9,7 @@ namespace Units
     public class UnitRace: ScriptableObject
     {
         public string Name;
+        public Sprite Icon;
         public bool IsCanUseWeapon = true;
         public bool IsCanUseArmor = true;
         public List<PassiveEffect> PassiveEffects;

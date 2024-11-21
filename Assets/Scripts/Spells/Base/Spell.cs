@@ -4,20 +4,26 @@ using UnityEngine;
 
 namespace Units
 {
-    public abstract class Spell : ScriptableObject, IObjectForInfoRenderer
+    public abstract class Spell : ScriptableObject, IObjectForUICard
     {
-        [Header("Visual")]
-        public string Name;
-        public Sprite MainBackground;
-        [Header("Time Values")]
-        public float ActionTime;
-
         public bool IsSpellReleased { get; protected set; }
-        public Piece Piece { get; protected set; }
+        public Player Player { get; protected set; }
 
-        public virtual void Init(Piece piece) 
+        #region CardUI
+        public abstract Sprite Image { get; }
+        public abstract Sprite TypeIcon { get; }
+        public abstract Sprite ParamIcon1 { get; }
+        public abstract Sprite ParamIcon2 { get; }
+        public abstract string Title { get; }
+        public abstract string ParamValue1 { get; }
+        public abstract string ParamValue2 { get; }
+        Spell IObjectForUICard.Spell => this;
+
+        #endregion
+
+        public virtual void Init(Player player) 
         {
-            Piece = piece;
+            Player = player;
             IsSpellReleased = false;
         }
 
@@ -32,16 +38,17 @@ namespace Units
 
         public virtual void EndRelease()
         {
-            if (IsSpellReleased)
-                Destroy(this);
+
         }
 
-        public InfoForInfoRenderer GetInfo()
+        public virtual void LeftMouseClick(RaycastHit hit)
         {
-            return new InfoForInfoRenderer
-            {
-                Title = Name,
-            };
+
+        }
+
+        public virtual void RightMouseClick(RaycastHit hit)
+        {
+
         }
     }
 

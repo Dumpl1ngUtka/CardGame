@@ -9,6 +9,8 @@ namespace Units.Items
         [Min(0)] public int Damage = 1;
         [Range(0, 1)] public float Accuracy = 0;
         public GameObject Model;
+
+        public override Sprite TypeIcon => Resources.Load<Sprite>("Sprites/SpellTypes/Attack");
     }
 }
 

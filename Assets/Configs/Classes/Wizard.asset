@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Wizard
   m_EditorClassIdentifier: 
   Name: Wizard
+  Icon: {fileID: 21300000, guid: cfd38baa8cf3e9344bdedfb623e9c8e6, type: 3}
   AvailableWeaponsTypes: 
   MinLevels:
     _health: 0

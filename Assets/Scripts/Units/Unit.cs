@@ -1,11 +1,12 @@
 using Battleground;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Units
 {
-    public class Unit : IObjectForInfoRenderer
+    public class Unit
     {
         private const int _additionalLevelsForStars = 2;
         private const int _defaultSkillPoints = 25;
@@ -18,6 +19,7 @@ namespace Units
         public UnitInventory Inventory { get; private set; }
 
         public PieceAbility[] Abilites => GetAbilityArray();
+
 
         public Unit(int starCount, UnitRace unitRace, UnitClass unitClass)
         {
@@ -66,16 +68,6 @@ namespace Units
                 returnAbilites[i] = Object.Instantiate(abilites[i]);
             }
             return returnAbilites;
-        }
-
-        public InfoForInfoRenderer GetInfo()
-        {
-            return new InfoForInfoRenderer
-            {
-                Title = Name,
-                UnderTitle = Race.Name + " | " + Class.Name,
-                ObjectsForCardRenderers = Abilites
-            };
         }
     }
 }

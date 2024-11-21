@@ -11,9 +11,12 @@ namespace Battleground.UI
         [SerializeField] private CardHolder _cardHolder;
         public bool IsTabsListEmpty => _activeTabsList.Count == 0;
         public PlayerInput InputActions { get; private set; }
+        public CardHolder CardHolder => _cardHolder;
+        public Player Player { get; private set; }
 
-        private void Awake()
+        public void Init(Player player)
         {
+            Player = player;
             _cardHolder.Init(this);
         }
 
@@ -36,17 +39,17 @@ namespace Battleground.UI
             _pauseMenu.Open();
         }
 
-        public void ShowInfo(IObjectForInfoRenderer obj, PlayerState callbackState = null)
+        public void ShowInfo(IObjectForInfoRenderer obj)
         {
             _activeTabsList.Add(_infoRenderer);
 
-            _infoRenderer.Init(obj, callbackState);
+            _infoRenderer.Init(obj);
             _infoRenderer.Open();
         }
 
-        public void UpdateUnitInfo(IObjectForInfoRenderer obj, PlayerState callbackState = null)
+        public void UpdateUnitInfo(IObjectForInfoRenderer obj)
         {
-            _infoRenderer.Init(obj, callbackState);
+            _infoRenderer.Init(obj);
             _infoRenderer.Open();
         }
 

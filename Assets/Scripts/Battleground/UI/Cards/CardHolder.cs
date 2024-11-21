@@ -9,7 +9,7 @@ namespace Battleground.UI
         private BattleSceneUI _battleSceneUI;
         private Vector2 _screenSize;
         private List<UICard> _cards = new List<UICard>();
-        private IObjectForInfoRenderer[] _renderedObjects;
+        private List<IObjectForUICard> _renderedObjects;
         private Vector2 _targetPosition;
         private RectTransform _rectTransform;
         private float _lerpSpeed = 10;
@@ -32,10 +32,16 @@ namespace Battleground.UI
 
         public void Init(BattleSceneUI battleSceneUI)
         {
+            battleSceneUI.Player.CardsChanged += a;
             _battleSceneUI = battleSceneUI;
             _rectTransform = GetComponent<RectTransform>();
             _screenSize = new Vector2(Screen.width, Screen.height);
             _targetPosition = _rectTransform.localPosition;
+        }
+
+        private void a()
+        {
+
         }
 
         private void OnEnable()
@@ -70,7 +76,7 @@ namespace Battleground.UI
         }
 
 
-        public void InstantiateCards(IObjectForInfoRenderer[] objects, PlayerState callbackState)
+        public void InstantiateCards(List<IObjectForUICard> objects)
         {
             if (objects == null)
                 return;
@@ -81,9 +87,10 @@ namespace Battleground.UI
             foreach (var renderedObject in _renderedObjects)
             {
                 var spellCard = Instantiate(_cardPrefab, Container);
-                spellCard.Init(this, callbackState, renderedObject);
+                spellCard.Init(this, renderedObject);
                 _cards.Add(spellCard);
             }
+            Debug.Log(objects.Count);
             UpdateCards();
         }
 
@@ -94,7 +101,6 @@ namespace Battleground.UI
             var visableCardsIndex = 0;
             for (int i = 0; i < _cards.Count; i++)
             {
-                var spell = _cards[i].Spell;
                 //if (spell != null && !_filter[spell.Type])
                 //{
                 //    _cards[i].SetPosition(new Vector2(0, -1000));

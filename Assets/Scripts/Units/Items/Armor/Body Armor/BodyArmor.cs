@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Units.Items
@@ -9,5 +7,7 @@ namespace Units.Items
     {
         [Header("Model parameters")]
         public GameObject Model;
+
+        public override Sprite TypeIcon => Resources.Load<Sprite>("Sprites/CardTypeIcons/Armor");
     }
 }

@@ -15,16 +15,13 @@ namespace Battleground.UI
         [SerializeField] private ProgressBar _staminaBar;
         //[SerializeField] private CellsProgressBar _starsRenderer;
         [SerializeField] private CardHolder _spellCardHolder;
-        private PlayerState _callbackState;   
-
 
         public IObjectForInfoRenderer RenderedObj { get; private set; }
 
 
-        public void Init(IObjectForInfoRenderer obj, PlayerState callbackState)
+        public void Init(IObjectForInfoRenderer obj)
         {
             RenderedObj = obj;
-            _callbackState = callbackState;
         }
 
         public override void Open()
@@ -46,7 +43,7 @@ namespace Battleground.UI
                 _staminaBar.SetActive(false);
 
             //_starsRenderer?.Render(Unit.StarCount);
-            _spellCardHolder.InstantiateCards(info.ObjectsForCardRenderers, _callbackState);
+            _spellCardHolder.InstantiateCards(info.ObjectsForCardRenderers);
         }
 
         public override void Close()

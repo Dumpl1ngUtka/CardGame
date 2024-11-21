@@ -1,4 +1,5 @@
 using Battleground.UI;
+using Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,7 +17,7 @@ namespace Battleground
         public override void Enter()
         {
             base.Enter();
-            StateMachine.UI.ShowInfo(StateMachine.Player,this);
+            StateMachine.UI.ShowInfo(StateMachine.Player);
         }
 
         public override void Update()
@@ -41,8 +42,11 @@ namespace Battleground
         public override void LeftMouseButtonDownOverUI(RaycastResult hit)
         {
             hit.gameObject.TryGetComponent<UICard>(out var card);
-            if (card != null)
-                StateMachine.ChangeState(new ReleasingUnitCard(StateMachine, card.Unit));
+            if (card == null)
+                return;
+
+            if (card.ObjectForUICard is Spell spell)
+                StateMachine.ChangeState(new ReleasingCard(StateMachine, spell));
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)
