@@ -13,15 +13,19 @@ MonoBehaviour:
   m_Name: Default Warrior Armor
   m_EditorClassIdentifier: 
   Name: Warrior Armor
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: bb07a4da138dd09448f07e01677e9e62, type: 3}
   Weight: 1
-  Spells: []
+  Price: 0
+  Abilites: []
   Attributes:
     Health: 0
     HealthPercent: 0
     AccuracyPercent: 0
-    MeleeAttackRagngeAdditionPercent: 0
+    MeleeAttackRangeAdditionPercent: 0
+    DistanceAttackRangeAdditionPercent: 0
+    DistanceAttackDistanceAdditionPercent: 0
     DodgeChancePercent: 0
     BlockChancePercent: 0
     MaxWeight: 0
+    MoveSpeed: 0
   Model: {fileID: 7018679658642023455, guid: 9e2a08c054f65ad46a913a15d96be37a, type: 3}

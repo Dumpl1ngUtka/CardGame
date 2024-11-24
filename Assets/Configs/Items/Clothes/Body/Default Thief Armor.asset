@@ -13,15 +13,19 @@ MonoBehaviour:
   m_Name: Default Thief Armor
   m_EditorClassIdentifier: 
   Name: Thief Armor
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: e7fefd60b9717c343a64cdf54f7253f5, type: 3}
   Weight: 1
-  Spells: []
+  Price: 0
+  Abilites: []
   Attributes:
     Health: 0
     HealthPercent: 0
     AccuracyPercent: 0
-    MeleeAttackRagngeAdditionPercent: 0
+    MeleeAttackRangeAdditionPercent: 0
+    DistanceAttackRangeAdditionPercent: 0
+    DistanceAttackDistanceAdditionPercent: 0
     DodgeChancePercent: 0
     BlockChancePercent: 0
     MaxWeight: 0
+    MoveSpeed: 0
   Model: {fileID: 4194271422275371583, guid: 9f4b2364856855f45855c8a595c8700a, type: 3}

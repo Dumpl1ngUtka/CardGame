@@ -85,11 +85,9 @@ namespace Battleground
 
         public void AddCards(List<IObjectForUICard> cards)
         {
-            Debug.Log("CARDS " + cards.Count);
             Cards = Cards.Concat(cards).ToList();
-            Debug.Log("CARDS 2 " + Cards.Count);
             CardsChanged?.Invoke();
-            _cardHolder.InstantiateCards(Cards);
+            _cardHolder.AddNewCards(cards);
         }
 
         public InfoForInfoRenderer GetInfo()

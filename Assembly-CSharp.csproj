@@ -140,6 +140,7 @@
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\States\ReleasingCard.cs" />
     <Compile Include="Assets\Scripts\Battleground\Damage\Damage.cs" />
     <Compile Include="Assets\Scripts\Spells\InstantiatePiece.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\Cards\ICardHolder.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Scripts\Units\UnitRace.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\PlayerStateMachine.cs" />

@@ -3,9 +3,10 @@ using UnityEngine;
 
 namespace Battleground.UI
 {
-    public class CardHolder : MonoBehaviour
+    public class CardHolder : MonoBehaviour, ICardHolder
     {
         [SerializeField] private UICard _cardPrefab;
+        [SerializeField] private UICard _selectedCardObject;
         private BattleSceneUI _battleSceneUI;
         private Vector2 _screenSize;
         private List<UICard> _cards = new List<UICard>();
@@ -21,6 +22,7 @@ namespace Battleground.UI
             { SpellTypes.Special, true },
             { SpellTypes.Move, true },
         };
+        private UICard _selectedCard;
         #region SpringMove
         private float _spring = 0.2f;
         private float _drag = 0.3f;
@@ -76,22 +78,41 @@ namespace Battleground.UI
         }
 
 
-        public void InstantiateCards(List<IObjectForUICard> objects)
+        public void InstantiateCards(List<IObjectForUICard> cards)
         {
-            if (objects == null)
+            if (cards == null)
                 return;
 
             _cards = new List<UICard>();
-            _renderedObjects = objects;
             ClearContainer();
-            foreach (var renderedObject in _renderedObjects)
+            foreach (var renderedObject in cards)
             {
                 var spellCard = Instantiate(_cardPrefab, Container);
                 spellCard.Init(this, renderedObject);
+                spellCard.SetPosition(new Vector2(0, 0));
                 _cards.Add(spellCard);
             }
-            Debug.Log(objects.Count);
             UpdateCards();
+        }
+
+        public void AddNewCards(List<IObjectForUICard> cards)
+        {
+            if (cards == null)
+                return;
+
+            foreach (var renderedObject in cards)
+            {
+                var spellCard = Instantiate(_cardPrefab, Container);
+                spellCard.Init(this, renderedObject);
+                spellCard.SetPosition(new Vector2(0, -1000));
+                _cards.Add(spellCard);
+            }
+            UpdateCards();
+        }
+
+        private void LateUpdate()
+        {
+            MoveSelectedCard();
         }
 
         private void UpdateCards()
@@ -117,42 +138,80 @@ namespace Battleground.UI
             }
             if (selectedCardIndex != -1)
             {
-                int index;
+                _selectedCardObject.gameObject.SetActive(true);
+                _selectedCardObject.Init(this, visableCards[selectedCardIndex].ObjectForUICard);
+                _selectedCard = visableCards[selectedCardIndex];
+
                 var width = Container.rect.width;
                 var cardCount = visableCards.Count;
-                var distanceBetweenCards = Mathf.Clamp(width / cardCount, 50, 250);
-                var offset = (width - ((cardCount - 1) * distanceBetweenCards + 300)) / 2 + 150;
-                for (index = 0; index < selectedCardIndex; index++)
+                var cardWidth = _cardPrefab.GetComponent<RectTransform>().rect.width;
+                var distanceBetweenCards = Mathf.Clamp(width / cardCount, 0, cardWidth);
+                var offset = width > cardWidth * cardCount ? (width - cardWidth * cardCount + cardWidth) / 2 : distanceBetweenCards / 2;
+                var selectedCardPos = distanceBetweenCards * selectedCardIndex - width / 2 + offset;
+                var leftCardsCount = selectedCardIndex;
+                var rightCardsCount = visableCards.Count - selectedCardIndex - 1;
+
+                visableCards[selectedCardIndex].SetPosition(new Vector2(selectedCardPos, 0));
+                visableCards[selectedCardIndex].SetRotation(0);
+                visableCards[selectedCardIndex].SetSize(1f);
+
+                if (leftCardsCount > 0)
                 {
-                    var xPos = distanceBetweenCards * index - width / 2 + offset;
-                    var influence = Mathf.Max(0,(4 - (selectedCardIndex - index)));
-                    var delta = Mathf.Min(100, Mathf.Lerp(0, distanceBetweenCards, (float)influence / (4 - 1)));
-                    visableCards[index].SetPosition(new Vector2(xPos - delta,0));
-                    visableCards[index].SetSize(0.8f);
+                    for (int i = 0; i < leftCardsCount; i++)
+                    {
+                        var xPos = Mathf.Lerp(Container.rect.xMin + offset, selectedCardPos - cardWidth * 0.5f, (float)i / (leftCardsCount));
+                        var inContainerPosition = (xPos - Container.rect.xMin) / (Container.rect.xMax - Container.rect.xMin);
+                        var rotation = Mathf.Lerp(25, -25, inContainerPosition);
+                        var yPos = Mathf.Lerp(0, -100, Mathf.Abs(rotation) / 25);
+                        visableCards[i].SetPosition(new Vector2(xPos, yPos));
+                        visableCards[i].SetRotation(rotation);
+                        visableCards[i].SetSize(0.8f);
+                    }
                 }
-                for (index += 1; index < visableCards.Count; index++)
+                if (rightCardsCount > 0)
                 {
-                    var xPos = distanceBetweenCards * index - width / 2 + offset;
-                    var influence = Mathf.Max(0, (4 - (index - selectedCardIndex)));
-                    var delta = Mathf.Min(100, Mathf.Lerp(0, distanceBetweenCards, (float)influence / (4 - 1)));
-                    visableCards[index].SetPosition(new Vector2(xPos + delta,0));
-                    visableCards[index].SetSize(0.8f);
+                    for (int i = 0; i < rightCardsCount; i++)
+                    {
+                        var xPos = Mathf.Lerp(selectedCardPos + cardWidth * 0.5f, Container.rect.xMax - offset, (float)(i + 1) / (rightCardsCount));
+                        var inContainerPosition = (xPos - Container.rect.xMin) / (Container.rect.xMax - Container.rect.xMin);
+                        var rotation = Mathf.Lerp(25, -25, inContainerPosition);
+                        var yPos = Mathf.Lerp(0, -100, Mathf.Abs(rotation) / 25);
+                        visableCards[i + selectedCardIndex + 1].SetPosition(new Vector2(xPos, yPos));
+                        visableCards[i + selectedCardIndex + 1].SetRotation(rotation);
+                        visableCards[i + selectedCardIndex + 1].SetSize(0.8f);
+                    }
                 }
             }
             else
             {
-                var index = 0;
+                _selectedCardObject.gameObject.SetActive(false);
+                _selectedCard = null;
+
                 var width = Container.rect.width;
                 var cardCount = visableCards.Count;
-                var delta = Mathf.Clamp(width / cardCount, 50, 250);
-                var offset = (width - ((cardCount - 1) * delta + 300)) / 2 + 150;
-                foreach (var card in visableCards)
+                var cardWidth = _cardPrefab.GetComponent<RectTransform>().rect.width;
+                var distanceBetweenCards = Mathf.Clamp(width / cardCount,0, cardWidth);
+                var offset = width > cardWidth * cardCount? (width - cardWidth * cardCount + cardWidth) / 2 : distanceBetweenCards/2;
+                for (int i = 0; i < visableCards.Count; i++)
                 {
-                    var xPos = delta * index++ - width / 2 + offset;
-                    var pos = new Vector2(xPos, 0);
-                    card.SetPosition(pos);
-                    card.SetSize(1f);
+                    var xPos = Mathf.Lerp(Container.rect.xMin + offset, Container.rect.xMax - offset, (float)i / (visableCards.Count - 1));
+                    var inContainerPosition = (xPos - Container.rect.xMin) / (Container.rect.xMax - Container.rect.xMin);
+                    var rotation = Mathf.Lerp(25, -25, inContainerPosition);
+                    var yPos = Mathf.Lerp(0, -100, Mathf.Abs(rotation)/ 25);
+                    visableCards[i].SetPosition(new Vector2(xPos, yPos));
+                    visableCards[i].SetRotation(rotation);
+                    visableCards[i].SetSize(1f);
                 }
+            }
+        }
+
+        private void MoveSelectedCard()
+        {
+            if (_selectedCard != null)
+            {
+                _selectedCardObject.RectTransform.localPosition = _selectedCard.RectTransform.localPosition;
+                _selectedCardObject.RectTransform.localScale = _selectedCard.RectTransform.localScale;
+                _selectedCardObject.RectTransform.localRotation = _selectedCard.RectTransform.localRotation;
             }
         }
 

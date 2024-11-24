@@ -41,12 +41,16 @@ namespace Battleground
 
         public override void LeftMouseButtonDownOverUI(RaycastResult hit)
         {
+            Debug.Log("aaa");
             hit.gameObject.TryGetComponent<UICard>(out var card);
             if (card == null)
                 return;
 
             if (card.ObjectForUICard is Spell spell)
+            {
+                Debug.Log("bbb");
                 StateMachine.ChangeState(new ReleasingCard(StateMachine, spell));
+            }
         }
 
         protected override void RightMouseButtonDown(RaycastHit hit)

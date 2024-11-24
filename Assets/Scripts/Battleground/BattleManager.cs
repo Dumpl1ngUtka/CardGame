@@ -16,10 +16,10 @@ namespace Battleground
         [SerializeField] private Player Player1;
         [SerializeField] private Player Player2;
         private Player[] _players;
-        private float _newCardTimer;
+        private float _newCardTimer = _giveCardDelay;
         private const int _playerCount = 1;
         private const float _giveCardDelay = 5f;
-        private const int _startCardCount = 5;
+        private const int _startCardCount = 3;
 
         private void Start()
         {

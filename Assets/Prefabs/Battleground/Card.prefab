@@ -848,6 +848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderer: {fileID: 6123542183960660246}
+  _isRealtimeUpdate: 1
 --- !u!61 &6905936844186674194
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -13,15 +13,19 @@ MonoBehaviour:
   m_Name: Default Wizard Armor
   m_EditorClassIdentifier: 
   Name: Wizard Armor
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 80b1ad9b2d291214bbe903c414ef7aff, type: 3}
   Weight: 1
-  Spells: []
+  Price: 0
+  Abilites: []
   Attributes:
     Health: 0
     HealthPercent: 0
     AccuracyPercent: 0
-    MeleeAttackRagngeAdditionPercent: 0
+    MeleeAttackRangeAdditionPercent: 0
+    DistanceAttackRangeAdditionPercent: 0
+    DistanceAttackDistanceAdditionPercent: 0
     DodgeChancePercent: 0
     BlockChancePercent: 0
     MaxWeight: 0
+    MoveSpeed: 0
   Model: {fileID: 3409205237475425809, guid: 975e0dafbc23bc04f8f4d3b366687dcc, type: 3}
