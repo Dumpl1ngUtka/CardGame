@@ -17,7 +17,7 @@ namespace Battleground.UI
         public void Init(Player player)
         {
             Player = player;
-            _cardHolder.Init(this);
+            _cardHolder.Init(player.StateMachine, this);
         }
 
         private void OnEnable()

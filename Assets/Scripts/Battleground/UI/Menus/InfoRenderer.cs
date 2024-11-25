@@ -43,7 +43,6 @@ namespace Battleground.UI
                 _staminaBar.SetActive(false);
 
             //_starsRenderer?.Render(Unit.StarCount);
-            _spellCardHolder.InstantiateCards(info.ObjectsForCardRenderers);
         }
 
         public override void Close()

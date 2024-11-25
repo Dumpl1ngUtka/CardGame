@@ -46,12 +46,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""ShowCards"",
+                    ""name"": ""ShowCardsDown"",
                     ""type"": ""Button"",
                     ""id"": ""682a3772-d71c-4706-a1d0-d3ec5bd37972"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShowCardsUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""56e8a2a9-5161-4a57-994d-23df1c4de69c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""SlowTap"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -180,11 +189,22 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""970a12dd-7e6b-49b0-aafd-885392cca4c6"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ShowCards"",
+                    ""action"": ""ShowCardsDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ffb9758-5d41-4419-8772-2c493e412cf7"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowCardsUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -373,7 +393,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Back = m_UI.FindAction("Back", throwIfNotFound: true);
         m_UI_Move = m_UI.FindAction("Move", throwIfNotFound: true);
-        m_UI_ShowCards = m_UI.FindAction("ShowCards", throwIfNotFound: true);
+        m_UI_ShowCardsDown = m_UI.FindAction("ShowCardsDown", throwIfNotFound: true);
+        m_UI_ShowCardsUp = m_UI.FindAction("ShowCardsUp", throwIfNotFound: true);
         // Battle
         m_Battle = asset.FindActionMap("Battle", throwIfNotFound: true);
         m_Battle_CameraMove = m_Battle.FindAction("CameraMove", throwIfNotFound: true);
@@ -443,14 +464,16 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Back;
     private readonly InputAction m_UI_Move;
-    private readonly InputAction m_UI_ShowCards;
+    private readonly InputAction m_UI_ShowCardsDown;
+    private readonly InputAction m_UI_ShowCardsUp;
     public struct UIActions
     {
         private @PlayerInput m_Wrapper;
         public UIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Back => m_Wrapper.m_UI_Back;
         public InputAction @Move => m_Wrapper.m_UI_Move;
-        public InputAction @ShowCards => m_Wrapper.m_UI_ShowCards;
+        public InputAction @ShowCardsDown => m_Wrapper.m_UI_ShowCardsDown;
+        public InputAction @ShowCardsUp => m_Wrapper.m_UI_ShowCardsUp;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -466,9 +489,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @ShowCards.started += instance.OnShowCards;
-            @ShowCards.performed += instance.OnShowCards;
-            @ShowCards.canceled += instance.OnShowCards;
+            @ShowCardsDown.started += instance.OnShowCardsDown;
+            @ShowCardsDown.performed += instance.OnShowCardsDown;
+            @ShowCardsDown.canceled += instance.OnShowCardsDown;
+            @ShowCardsUp.started += instance.OnShowCardsUp;
+            @ShowCardsUp.performed += instance.OnShowCardsUp;
+            @ShowCardsUp.canceled += instance.OnShowCardsUp;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -479,9 +505,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @ShowCards.started -= instance.OnShowCards;
-            @ShowCards.performed -= instance.OnShowCards;
-            @ShowCards.canceled -= instance.OnShowCards;
+            @ShowCardsDown.started -= instance.OnShowCardsDown;
+            @ShowCardsDown.performed -= instance.OnShowCardsDown;
+            @ShowCardsDown.canceled -= instance.OnShowCardsDown;
+            @ShowCardsUp.started -= instance.OnShowCardsUp;
+            @ShowCardsUp.performed -= instance.OnShowCardsUp;
+            @ShowCardsUp.canceled -= instance.OnShowCardsUp;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -573,7 +602,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnBack(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
-        void OnShowCards(InputAction.CallbackContext context);
+        void OnShowCardsDown(InputAction.CallbackContext context);
+        void OnShowCardsUp(InputAction.CallbackContext context);
     }
     public interface IBattleActions
     {

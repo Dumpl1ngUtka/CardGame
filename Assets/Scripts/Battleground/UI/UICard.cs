@@ -1,15 +1,16 @@
-using System;
 using Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 namespace Battleground.UI
 {
-    public class UICard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IDragHandler
+    public class UICard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
+        IPointerClickHandler, IDragHandler, IEndDragHandler, IBeginDragHandler
     {
         [SerializeField] private CardRenderer _renderer;
         [SerializeField] private bool _isRealtimeUpdate;
+        private Image _image;
         private CardHolder _cardHolder;
         private RectTransform _rectTransform;
         private Vector3 _targetSize = Vector3.one;
@@ -18,20 +19,21 @@ namespace Battleground.UI
         private float _sizeChangeSpeed = 15f;
         private float _lerpSpeed = 5;
         private float _rotatonSpeed = 10f;
-        #region SpringMove
-        private float _spring = 0.1f;
-        private float _drag = 0.3f;
-        private Vector2 _vel = Vector2.zero;
-        #endregion
+        private bool _isDrag = false;
+        private PlayerStateMachine _stateMachine;
+        private IObjectForUICard _object;
 
         public bool IsSelected { get; private set; } = false;
         public IObjectForUICard ObjectForUICard { get; private set; }
         public RectTransform RectTransform => _rectTransform;
 
-        public void Init(CardHolder cardHolder, IObjectForUICard obj)
+        public void Init(PlayerStateMachine stateMachine,CardHolder cardHolder, IObjectForUICard obj)
         {
+            _stateMachine = stateMachine;
+            _image = GetComponent<Image>();
             _rectTransform = GetComponent<RectTransform>();
             _cardHolder = cardHolder;
+            _object = obj;
             _renderer.Render(obj);
             ObjectForUICard = obj;
             SetSize(1);
@@ -39,7 +41,7 @@ namespace Battleground.UI
 
         private void Update()
         {
-            if (_isRealtimeUpdate)
+            if (_isRealtimeUpdate && !_isDrag)
             {
                 LerpSized(_targetSize);
                 LerpMove(_targetPosition);
@@ -81,20 +83,8 @@ namespace Battleground.UI
             RectTransform.localRotation = Quaternion.Lerp(RectTransform.localRotation, newRotation, Time.deltaTime * _rotatonSpeed);
         }
 
-        private void SpringMove(Vector2 targetPosition)
-        {
-            _vel += (targetPosition - RectTransform.anchoredPosition) * _spring;
-            _vel -= _vel * _drag;
-            RectTransform.anchoredPosition += _vel;
-        }
-
         #endregion
 
-        public void OnDrag(PointerEventData eventData)
-        {
-            _targetPosition = eventData.position;
-            _targetPosition.x -= 1920 / 2;
-        }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
@@ -104,8 +94,8 @@ namespace Battleground.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            //if (_callbackState != null)
-            //    _callbackState.LeftMouseButtonDownOverUI(eventData.pointerCurrentRaycast);
+            if (_object is Spell spell)
+                _stateMachine.ChangeState(new ReleasingCard(_stateMachine, spell));
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -113,6 +103,40 @@ namespace Battleground.UI
             IsSelected = false;
             _cardHolder.SelectCardEvent(false);
         }
+
+        #region Drag
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            _isDrag = true;
+            _image.raycastTarget = false;
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            var newPos = eventData.position;
+            newPos.x -= Screen.width / 2;
+            RectTransform.anchoredPosition = newPos;
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            _isDrag = false;
+            _image.raycastTarget = true;
+
+            if (eventData.pointerCurrentRaycast.gameObject == null)
+                return;
+
+            if (eventData.pointerCurrentRaycast.gameObject.TryGetComponent<UICard>(out var card))
+            {
+
+            };
+            //if (card is ICardHolder cardHolder)
+        }
+
+        #endregion
+
+
     }
 }
 

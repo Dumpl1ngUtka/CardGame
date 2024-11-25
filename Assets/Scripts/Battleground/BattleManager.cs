@@ -8,6 +8,7 @@ namespace Battleground
     public class BattleManager : MonoBehaviour
     {
         [Header("Unit")]
+        [SerializeField] private InstantiatePiece InstantiateDuckSpell;
         [SerializeField] private List<UnitClass> Classes;
         [SerializeField] private List<UnitRace> Races;
         [SerializeField] private List<Spell> Spells;
@@ -18,8 +19,8 @@ namespace Battleground
         private Player[] _players;
         private float _newCardTimer = _giveCardDelay;
         private const int _playerCount = 1;
-        private const float _giveCardDelay = 5f;
-        private const int _startCardCount = 3;
+        private const float _giveCardDelay = 50f;
+        private const int _startCardCount = 7;
 
         private void Start()
         {
@@ -75,8 +76,8 @@ namespace Battleground
                 {
                     var randomClass = Classes[Random.Range(0, Classes.Count)];
                     var randomRace = Races[Random.Range(0, Races.Count)];
-                    var spell = ScriptableObject.CreateInstance<InstantiatePiece>();
-                    spell.Init(player, new Unit(2, randomRace, randomClass));
+                    var spell = Instantiate(InstantiateDuckSpell);
+                    spell.Init(player, new Unit(1, randomRace, randomClass));
                     cards.Add(spell);
                 }
             }

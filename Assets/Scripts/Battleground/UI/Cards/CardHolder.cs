@@ -23,76 +23,43 @@ namespace Battleground.UI
             { SpellTypes.Move, true },
         };
         private UICard _selectedCard;
-        #region SpringMove
-        private float _spring = 0.2f;
-        private float _drag = 0.3f;
-        private Vector3 _vel = Vector3.zero;
-        #endregion
+        private bool _isCardsUp = false ;
+        private PlayerStateMachine _playerStateMachine;
 
         private PlayerInput _inputActions => _battleSceneUI.InputActions;
         public RectTransform Container;
 
-        public void Init(BattleSceneUI battleSceneUI)
+        public void Init(PlayerStateMachine playerStateMachine, BattleSceneUI battleSceneUI)
         {
-            battleSceneUI.Player.CardsChanged += a;
             _battleSceneUI = battleSceneUI;
             _rectTransform = GetComponent<RectTransform>();
             _screenSize = new Vector2(Screen.width, Screen.height);
             _targetPosition = _rectTransform.localPosition;
+            _playerStateMachine = playerStateMachine;
+            ChangeCardPosition();
+
+            _inputActions.UI.ShowCardsDown.performed += ctx => ChangeCardPosition();
+            _inputActions.UI.ShowCardsUp.performed += ctx => ChangeCardPosition();
         }
 
-        private void a()
+        private void OnDisable()
         {
-
-        }
-
-        private void OnEnable()
-        {
-        }
+            _inputActions.UI.ShowCardsDown.performed -= ctx => ChangeCardPosition();
+            _inputActions.UI.ShowCardsUp.performed -= ctx => ChangeCardPosition();
+        }   
 
         private void Update()
         {
-            //var verticalMouseScreenPosition = Input.mousePosition.y / _screenSize.y;
-            //if (verticalMouseScreenPosition < 0.2f && !_isCardsSelected)
-            //{
-            //    _targetPosition = new Vector3(0, 200 - _screenSize.y / 2);
-            //    _isCardsSelected = true;
-            //}
-
-            //if (verticalMouseScreenPosition > 0.3f && _isCardsSelected)
-            //{
-            //    _targetPosition = new Vector3(0, -100 -_screenSize.y / 2);
-            //    _isCardsSelected = false;
-            //}
-
-            if (_inputActions.UI.ShowCards.IsPressed())
-            {
-                _targetPosition = new Vector3(0, 200 - _screenSize.y / 2);
-            }
-            else
-            {
-                _targetPosition = new Vector3(0, -100 -_screenSize.y / 2);
-            }
-
             LerpMove(_targetPosition);
         }
 
-
-        public void InstantiateCards(List<IObjectForUICard> cards)
+        private void ChangeCardPosition()
         {
-            if (cards == null)
-                return;
-
-            _cards = new List<UICard>();
-            ClearContainer();
-            foreach (var renderedObject in cards)
-            {
-                var spellCard = Instantiate(_cardPrefab, Container);
-                spellCard.Init(this, renderedObject);
-                spellCard.SetPosition(new Vector2(0, 0));
-                _cards.Add(spellCard);
-            }
-            UpdateCards();
+            _isCardsUp = !_isCardsUp;
+            if (_isCardsUp)
+                _targetPosition = new Vector3(0, 200 - _screenSize.y / 2);
+            else
+                _targetPosition = new Vector3(0, -100 - _screenSize.y / 2);
         }
 
         public void AddNewCards(List<IObjectForUICard> cards)
@@ -103,7 +70,7 @@ namespace Battleground.UI
             foreach (var renderedObject in cards)
             {
                 var spellCard = Instantiate(_cardPrefab, Container);
-                spellCard.Init(this, renderedObject);
+                spellCard.Init(_playerStateMachine, this, renderedObject);
                 spellCard.SetPosition(new Vector2(0, -1000));
                 _cards.Add(spellCard);
             }
@@ -139,7 +106,7 @@ namespace Battleground.UI
             if (selectedCardIndex != -1)
             {
                 _selectedCardObject.gameObject.SetActive(true);
-                _selectedCardObject.Init(this, visableCards[selectedCardIndex].ObjectForUICard);
+                _selectedCardObject.Init(_playerStateMachine, this, visableCards[selectedCardIndex].ObjectForUICard);
                 _selectedCard = visableCards[selectedCardIndex];
 
                 var width = Container.rect.width;
@@ -219,17 +186,11 @@ namespace Battleground.UI
         {
             _targetPosition = new Vector3(0, -400 - _screenSize.y / 2);
         }
+
         private void LerpMove(Vector3 targetPosition)
         {
             _rectTransform.localPosition = 
                 Vector2.Lerp(_rectTransform.localPosition, targetPosition, Time.deltaTime * _lerpSpeed);
-        }
-
-        private void SpringMove(Vector3 targetPosition)
-        {
-            _vel += (targetPosition - _rectTransform.localPosition) * _spring;
-            _vel -= _vel * _drag;
-            _rectTransform.localPosition += _vel;
         }
 
         public void ClearContainer()

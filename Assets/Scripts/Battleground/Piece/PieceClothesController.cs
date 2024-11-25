@@ -19,8 +19,10 @@ namespace Battleground
 
         private void SetClothes()
         {
-            SetHeadCloth(_unitInventory.HeadArmor);
-            SetBodyCloth(_unitInventory.Armor);
+            if (_unitInventory.HeadArmor != null)
+                SetHeadCloth(_unitInventory.HeadArmor);
+            if (_unitInventory.Armor != null)
+                SetBodyCloth(_unitInventory.Armor);
         }
 
         public void SetHeadCloth(HeadArmor armor)

@@ -59,6 +59,7 @@ namespace Units
             {
                 var piece = Instantiate(_piecePrefab, hit.point, _piecePrefab.transform.rotation, _pieceConteiner);
                 piece.Init(_unit, Player);
+                IsSpellReleased = true;
             }
         }
     }
