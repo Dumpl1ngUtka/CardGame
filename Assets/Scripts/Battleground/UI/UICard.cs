@@ -89,19 +89,21 @@ namespace Battleground.UI
         public void OnPointerEnter(PointerEventData eventData)
         {
             IsSelected = true;
-            _cardHolder.SelectCardEvent(true);
+            _cardHolder.SelectCardEvent();
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (_object is Spell spell)
-                _stateMachine.ChangeState(new ReleasingCard(_stateMachine, spell));
+            if (_object as Spell)
+            {
+                _stateMachine.ChangeState(new ReleasingCard(_stateMachine, this));
+            }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             IsSelected = false;
-            _cardHolder.SelectCardEvent(false);
+            _cardHolder.SelectCardEvent();
         }
 
         #region Drag

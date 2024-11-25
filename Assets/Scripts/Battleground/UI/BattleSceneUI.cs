@@ -8,16 +8,13 @@ namespace Battleground.UI
         [SerializeField] private InfoRenderer _infoRenderer;
         [SerializeField] private PauseMenu _pauseMenu;
         [SerializeField] private List<UIMenu> _activeTabsList = new();
-        [SerializeField] private CardHolder _cardHolder;
         public bool IsTabsListEmpty => _activeTabsList.Count == 0;
         public PlayerInput InputActions { get; private set; }
-        public CardHolder CardHolder => _cardHolder;
         public Player Player { get; private set; }
 
         public void Init(Player player)
         {
             Player = player;
-            _cardHolder.Init(player.StateMachine, this);
         }
 
         private void OnEnable()

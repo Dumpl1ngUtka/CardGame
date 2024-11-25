@@ -14,7 +14,6 @@ namespace Battleground.UI
         [SerializeField] private ProgressBar _healthBar;
         [SerializeField] private ProgressBar _staminaBar;
         //[SerializeField] private CellsProgressBar _starsRenderer;
-        [SerializeField] private CardHolder _spellCardHolder;
 
         public IObjectForInfoRenderer RenderedObj { get; private set; }
 
@@ -47,8 +46,6 @@ namespace Battleground.UI
 
         public override void Close()
         {
-            _spellCardHolder.HideCards();
-
             _title.text = "";
             _underTitle.text = "";
             _contentLine1.text = "";
@@ -56,7 +53,6 @@ namespace Battleground.UI
             _contentLine3.text = "";
             _healthBar.SetActive(false);
             _staminaBar.SetActive(false);
-            _spellCardHolder.ClearContainer();
         }
     }
 }

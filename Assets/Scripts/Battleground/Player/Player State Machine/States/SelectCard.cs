@@ -11,13 +11,12 @@ namespace Battleground
         
         public SelectCard(PlayerStateMachine stateMachine) : base(stateMachine)
         {
-
+            StateMachine.Player.SetCardsVisable(true);
         }
 
         public override void Enter()
         {
             base.Enter();
-            StateMachine.UI.ShowInfo(StateMachine.Player);
         }
 
         public override void Update()
@@ -31,7 +30,7 @@ namespace Battleground
         public override void Exit()
         {
             base.Exit();
-            StateMachine.UI.CloseOpenTab();
+            StateMachine.Player.SetCardsVisable(false);
         }
 
         protected override void LeftMouseButtonDown(RaycastHit hit)
@@ -45,9 +44,9 @@ namespace Battleground
             if (card == null)
                 return;
 
-            if (card.ObjectForUICard is Spell spell)
+            if (card.ObjectForUICard as Spell)
             {
-                StateMachine.ChangeState(new ReleasingCard(StateMachine, spell));
+                StateMachine.ChangeState(new ReleasingCard(StateMachine, card));
             }
         }
 

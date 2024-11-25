@@ -12643,6 +12643,32 @@ MonoBehaviour:
   _cardPrefab: {fileID: -2752312762418445119, guid: ab2d78420a4fa4f47b605363e6d1b880,
     type: 3}
   _selectedCardObject: {fileID: 624838992520239137}
+  _lerpSpeed: 10
+  _maxRotationDegree: 15
+  _verticalPositionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 3.9484205
+      outSlope: 3.9484205
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.040047403
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -3.6732686
+      outSlope: -3.6732686
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.048940122
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   Container: {fileID: 1555924655}
 --- !u!1 &748336799
 GameObject:
@@ -16334,7 +16360,6 @@ MonoBehaviour:
   _infoRenderer: {fileID: 1094412787}
   _pauseMenu: {fileID: 2038343690}
   _activeTabsList: []
-  _cardHolder: {fileID: 747610476}
 --- !u!4 &897964173
 Transform:
   m_ObjectHideFlags: 0
@@ -19909,7 +19934,6 @@ MonoBehaviour:
   _contentLine3: {fileID: 1052538512}
   _healthBar: {fileID: 265207385}
   _staminaBar: {fileID: 978627455}
-  _spellCardHolder: {fileID: 747610476}
 --- !u!95 &1094412788
 Animator:
   serializedVersion: 5
@@ -23832,6 +23856,7 @@ MonoBehaviour:
   _piecePrefab: {fileID: 3901264051773717414, guid: 2fff112702f53ff4985114ddecad761e,
     type: 3}
   UI: {fileID: 897964172}
+  _cardHolder: {fileID: 747610476}
   _cameraMode: {fileID: 1694292909}
   _teamID: 0
   _races:
@@ -31149,6 +31174,7 @@ MonoBehaviour:
   _piecePrefab: {fileID: 3901264051773717414, guid: 2fff112702f53ff4985114ddecad761e,
     type: 3}
   UI: {fileID: 897964172}
+  _cardHolder: {fileID: 0}
   _cameraMode: {fileID: 1694292909}
   _teamID: 2
   _races:

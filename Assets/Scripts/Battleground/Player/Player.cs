@@ -8,11 +8,12 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class Player : MonoBehaviour, IObjectForInfoRenderer
+    public class Player : MonoBehaviour
     {
         [SerializeField] private Transform _pieceConteiner;
         [SerializeField] private Piece _piecePrefab;
         [SerializeField] private BattleSceneUI UI;
+        [SerializeField] private CardHolder _cardHolder;
         [SerializeField] private CameraModeChanger _cameraMode;
         [SerializeField] private int _teamID;
 
@@ -23,18 +24,15 @@ namespace Battleground
 
         [SerializeField] private bool _isTestPlayer = false;
 
-        private CardHolder _cardHolder => UI.CardHolder;
-
         public BattlegroundMap Map;
         public List<Unit> Units;
-        public List<IObjectForUICard> Cards = new List<IObjectForUICard>();
         public PlayerStateMachine StateMachine;
 
         public Transform PieceConteiner => _pieceConteiner;
         public int TeamID => _teamID;
         public bool HasPlayablePiece => PlayablePieceCount() > 0;
         public bool IsUnitsListEmpty => Units.Count == 0;
-        public Action CardsChanged;
+        public CardHolder CardHolder => _cardHolder;
 
         private void Awake()
         {
@@ -52,8 +50,9 @@ namespace Battleground
             }
             if (!_isTestPlayer)
             {
-                StateMachine = new PlayerStateMachine(this, UI, _cameraMode);
                 UI.Init(this);
+                StateMachine = new PlayerStateMachine(this, UI, _cameraMode);
+                _cardHolder.Init(StateMachine, UI);
             }
         }
 
@@ -83,20 +82,9 @@ namespace Battleground
             return count;
         }
 
-        public void AddCards(List<IObjectForUICard> cards)
-        {
-            Cards = Cards.Concat(cards).ToList();
-            CardsChanged?.Invoke();
-            _cardHolder.AddNewCards(cards);
-        }
-
-        public InfoForInfoRenderer GetInfo()
-        {
-            return new InfoForInfoRenderer
-            {
-                ObjectsForCardRenderers = Cards
-            };
-        }
+        public void AddCards(List<IObjectForUICard> cards) => _cardHolder.Add(cards);
+        public void RemoveCard(UICard card) => CardHolder.Remove(card);
+        public void SetCardsVisable(bool isVisable) => CardHolder.SetCardsVisable(isVisable);
     }
 }
 

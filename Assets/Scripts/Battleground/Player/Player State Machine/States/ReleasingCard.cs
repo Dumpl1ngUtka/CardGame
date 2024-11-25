@@ -1,3 +1,4 @@
+using Battleground.UI;
 using Units;
 using UnityEngine;
 
@@ -6,10 +7,16 @@ namespace Battleground
     public class ReleasingCard : PlayerState
     {
         private Spell _spell;
+        private UICard _card;
 
-        public ReleasingCard(PlayerStateMachine stateMachine, Spell spell) : base(stateMachine)
+        public ReleasingCard(PlayerStateMachine stateMachine, UICard card) : base(stateMachine)
         {
-            _spell = spell;
+            _card = card;
+            
+            if (_card.ObjectForUICard is Spell spell)
+                _spell = spell;
+            else
+                StateMachine.ChangeState(new SelectCard(StateMachine));
         }
 
         public override LayerMask LayerMask => ~0;
@@ -23,8 +30,14 @@ namespace Battleground
 
         public override void Update()
         {
-            if (Input.GetKey(KeyCode.Escape) || _spell.IsSpellReleased)
+            if (Input.GetKey(KeyCode.Escape))
                 StateMachine.ChangeState(new SelectCard(StateMachine));
+
+            if (_spell.IsSpellReleased)
+            {
+                StateMachine.Player.RemoveCard(_card);
+                StateMachine.ChangeState(new SelectCard(StateMachine));
+            }
 
             _spell.Update();
             base.Update();

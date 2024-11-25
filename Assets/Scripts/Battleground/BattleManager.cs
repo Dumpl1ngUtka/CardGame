@@ -90,12 +90,12 @@ namespace Battleground
                         var item = Items[Random.Range(0, Items.Count)];
                         cards.Add(item);
                     }
-                    else
-                    {
-                        var spell = Spells[Random.Range(0, Spells.Count)];
-                        spell.Init(player);
-                        cards.Add(spell);
-                    }
+                    //else
+                    //{
+                    //    var spell = Spells[Random.Range(0, Spells.Count)];
+                    //    spell.Init(player);
+                    //    cards.Add(spell);
+                    //}
                 }
             }
             return cards;
