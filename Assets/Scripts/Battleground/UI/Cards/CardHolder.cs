@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
+using Units;
 using UnityEngine;
 
 namespace Battleground.UI
 {
     public class CardHolder : MonoBehaviour, ICardHolder
     {
-        [SerializeField] private UICard _cardPrefab;
         [SerializeField] private UICard _selectedCardObject;
         [Header("Card Transform Value")]
         [SerializeField] private float _lerpSpeed = 10;
@@ -13,7 +14,6 @@ namespace Battleground.UI
         [SerializeField] private AnimationCurve _verticalPositionCurve;
         private BattleSceneUI _battleSceneUI;
         private Vector2 _screenSize;
-        private List<UICard> _cards = new List<UICard>();
         private Vector2 _containerTargetPosition;
         private RectTransform _rectTransform;
         private UICard _selectedCard;
@@ -73,24 +73,30 @@ namespace Battleground.UI
                 _containerTargetPosition = new Vector3(0, -100 - _screenSize.y / 2);
         }
 
-        public void Add(List<IObjectForUICard> cards)
+        public bool Add(List<UICard> cards)
         {
             if (cards == null)
-                return;
+                return false;
 
             foreach (var renderedObject in cards)
-            {
-                var spellCard = Instantiate(_cardPrefab, Container);
-                spellCard.Init(_playerStateMachine, this, renderedObject);
-                spellCard.SetPosition(new Vector2(0, -1000));
-                _cards.Add(spellCard);
-            }
+                Add(renderedObject);
+
             UpdateCardsPosition();
+            return true;
+        }
+
+        public bool Add(UICard card)
+        {
+            if (card == null)
+                return false;
+
+            card.SetPosition(new Vector2(0, -1000));
+            card.SetParent(Container, this);
+            return true;
         }
 
         public void Remove(UICard removedCard)
         {
-            _cards.Remove(removedCard);
             Destroy(removedCard.gameObject);
             UpdateCardsPosition();
         }
@@ -100,16 +106,23 @@ namespace Battleground.UI
             var selectedCardIndex = -1;
             var visableCards = new List<UICard>();
             var visableCardsIndex = 0;
-            for (int i = 0; i < _cards.Count; i++)
+            var cards = new List<UICard>();
+            foreach (Transform card in Container)
+            {
+                if (card.TryGetComponent(out UICard uiCard))
+                    cards.Add(uiCard);
+            }
+
+            for (int i = 0; i < cards.Count; i++)
             {
                 //if (spell != null && !_filter[spell.Type])
                 //{
                 //    _cards[i].SetPosition(new Vector2(0, -1000));
                 //    continue;
                 //}
-                visableCards.Add(_cards[i]);
+                visableCards.Add(cards[i]);
                 
-                if (_cards[i].IsSelected)
+                if (cards[i].IsSelected)
                 {
                     selectedCardIndex = visableCardsIndex;
                 }
@@ -119,7 +132,7 @@ namespace Battleground.UI
 
             var containerWidth = Container.rect.width;
             var cardCount = visableCards.Count;
-            var cardWidth = _cardPrefab.GetComponent<RectTransform>().rect.width;
+            var cardWidth = visableCards[0].RectTransform.rect.width;
             var distanceBetweenCards = Mathf.Clamp(containerWidth / cardCount, 0, cardWidth);
             var offset = containerWidth > cardWidth * cardCount ? (containerWidth - cardWidth * cardCount + cardWidth) / 2 : distanceBetweenCards / 2;
 

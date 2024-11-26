@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,25 +12,26 @@ namespace Battleground.UI
         [SerializeField] private CardRenderer _renderer;
         [SerializeField] private bool _isRealtimeUpdate;
         private Image _image;
-        private CardHolder _cardHolder;
+        private ICardHolder _cardHolder;
         private RectTransform _rectTransform;
-        private Vector3 _targetSize = Vector3.one;
-        private Vector3 _targetPosition;
-        private float _targetRotation;
         private float _sizeChangeSpeed = 15f;
         private float _lerpSpeed = 5;
         private float _rotatonSpeed = 10f;
         private bool _isDrag = false;
-        private PlayerStateMachine _stateMachine;
         private IObjectForUICard _object;
+        protected PlayerStateMachine StateMachine;
+        protected Vector3 TargetPosition;
+        protected float TargetSize = 1f;
+        protected float TargetRotation;
 
+        public ICardHolder CardHolder => _cardHolder;
         public bool IsSelected { get; private set; } = false;
         public IObjectForUICard ObjectForUICard { get; private set; }
         public RectTransform RectTransform => _rectTransform;
 
-        public void Init(PlayerStateMachine stateMachine,CardHolder cardHolder, IObjectForUICard obj)
+        public void Init(PlayerStateMachine stateMachine, ICardHolder cardHolder, IObjectForUICard obj)
         {
-            _stateMachine = stateMachine;
+            StateMachine = stateMachine;
             _image = GetComponent<Image>();
             _rectTransform = GetComponent<RectTransform>();
             _cardHolder = cardHolder;
@@ -41,40 +43,45 @@ namespace Battleground.UI
 
         private void Update()
         {
-            if (_isRealtimeUpdate && !_isDrag)
-            {
-                LerpSized(_targetSize);
-                LerpMove(_targetPosition);
-                LerpRotate(_targetRotation);
-            }
+            if (!_isRealtimeUpdate || _isDrag)
+                return;
+
+            LerpSized(TargetSize);
+            LerpMove(TargetPosition);
+            LerpRotate(TargetRotation);
         }
 
+        public void SetParent(RectTransform rectTransform, ICardHolder cardHolder)
+        {
+            RectTransform.SetParent(rectTransform);
+            _cardHolder = cardHolder;
+        }
 
         public void SetPosition(Vector3 position)
         {
-            _targetPosition = position;
+            TargetPosition = position;
         }
 
         public void SetRotation(float rotation)
         {
-            _targetRotation = rotation;
+            TargetRotation = rotation;
         }
 
         public void SetSize(float size)
         {
-            _targetSize = Vector3.one * size;
+            TargetSize = size;
         }
 
         #region Change Transform
 
         private void LerpMove(Vector3 targetPosition)
         {
-            RectTransform.anchoredPosition =
+            RectTransform.localPosition =
                 Vector2.Lerp(RectTransform.localPosition, targetPosition, Time.deltaTime * _lerpSpeed);
         }
-        private void LerpSized(Vector3 targetSize)
+        private void LerpSized(float targetSize)
         {
-            _rectTransform.localScale = Vector3.Lerp(_rectTransform.localScale, targetSize, Time.deltaTime * _sizeChangeSpeed);
+            _rectTransform.localScale = Vector3.Lerp(_rectTransform.localScale, Vector3.one * targetSize, Time.deltaTime * _sizeChangeSpeed);
         }
 
         private void LerpRotate(float targetRotation)
@@ -96,7 +103,7 @@ namespace Battleground.UI
         {
             if (_object as Spell)
             {
-                _stateMachine.ChangeState(new ReleasingCard(_stateMachine, this));
+                StateMachine.ChangeState(new ReleasingCard(StateMachine, this));
             }
         }
 
@@ -118,22 +125,31 @@ namespace Battleground.UI
         {
             var newPos = eventData.position;
             newPos.x -= Screen.width / 2;
-            RectTransform.anchoredPosition = newPos;
+            newPos.y -= RectTransform.rect.height / 2;
+            FollowTo(newPos);
         }
 
-        public void OnEndDrag(PointerEventData eventData)
+        private void FollowTo(Vector2 posByPixels)
+        {
+            RectTransform.anchoredPosition = posByPixels;
+        }
+
+        public virtual void OnEndDrag(PointerEventData eventData)
         {
             _isDrag = false;
             _image.raycastTarget = true;
 
             if (eventData.pointerCurrentRaycast.gameObject == null)
-                return;
-
-            if (eventData.pointerCurrentRaycast.gameObject.TryGetComponent<UICard>(out var card))
             {
+                if (CardHolder is DuckUICard card)
+                    card.CardHolder.Add(this);
+                return;
+            }
 
-            };
-            //if (card is ICardHolder cardHolder)
+            if (eventData.pointerCurrentRaycast.gameObject.TryGetComponent<DuckUICard>(out var duckCard))
+            {
+                duckCard.Add(this);
+            }
         }
 
         #endregion

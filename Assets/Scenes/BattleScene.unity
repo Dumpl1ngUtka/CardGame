@@ -6016,6 +6016,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc3441c62c8b87c4fa59768aa735288b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultCardPrefab: {fileID: -2752312762418445119, guid: ab2d78420a4fa4f47b605363e6d1b880,
+    type: 3}
+  _duckCardPrefab: {fileID: 5275085673887718365, guid: 4c987ecdab49c064289b603fc2b77254,
+    type: 3}
   InstantiateDuckSpell: {fileID: 11400000, guid: b949c024f3fa7c0449e5d60512496b2f,
     type: 2}
   Classes:
@@ -12640,8 +12644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf054796f83eea3498a14ee93082b484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardPrefab: {fileID: -2752312762418445119, guid: ab2d78420a4fa4f47b605363e6d1b880,
-    type: 3}
   _selectedCardObject: {fileID: 624838992520239137}
   _lerpSpeed: 10
   _maxRotationDegree: 15

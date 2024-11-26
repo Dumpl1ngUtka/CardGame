@@ -108,6 +108,7 @@
     <Compile Include="Assets\Scripts\Units\Items\Weapons\WeaponTypes.cs" />
     <Compile Include="Assets\Test.cs" />
     <Compile Include="Assets\Scripts\Battleground\Damage\IDamageable.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\Cards\DuckUICard.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\FollowToEnemy.cs" />
     <Compile Include="Assets\Scripts\Guild\UI\GuildUI.cs" />
@@ -133,7 +134,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\Scripts\Units\UnitClass.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\Scripts\Battleground\UI\UICard.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\Cards\UICard.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\ListUnitsFromMainScene.cs" />

@@ -1,3 +1,4 @@
+using Battleground.UI;
 using System.Collections.Generic;
 using Units;
 using Units.Items;
@@ -7,6 +8,9 @@ namespace Battleground
 {
     public class BattleManager : MonoBehaviour
     {
+        [Header("Cards")]
+        [SerializeField] private UICard _defaultCardPrefab;
+        [SerializeField] private DuckUICard _duckCardPrefab;
         [Header("Unit")]
         [SerializeField] private InstantiatePiece InstantiateDuckSpell;
         [SerializeField] private List<UnitClass> Classes;
@@ -26,6 +30,7 @@ namespace Battleground
         {
             _players = PlayersInit();
             GetCardsToPlayers(_startCardCount, true);
+            GetCardsToPlayers(3, false);
         }
 
         private void Update()
@@ -67,9 +72,9 @@ namespace Battleground
             }
         }
 
-        private List<IObjectForUICard> GetCardsToPlayer(Player player, int cardCount, bool isDuckCards)
+        private List<UICard> GetCardsToPlayer(Player player, int cardCount, bool isDuckCards)
         {
-            var cards = new List<IObjectForUICard>();
+            var cards = new List<UICard>();
             if (isDuckCards)
             {
                 for (int i = 0; i < cardCount; i++)
@@ -78,7 +83,10 @@ namespace Battleground
                     var randomRace = Races[Random.Range(0, Races.Count)];
                     var spell = Instantiate(InstantiateDuckSpell);
                     spell.Init(player, new Unit(1, randomRace, randomClass));
-                    cards.Add(spell);
+
+                    var duckCard = Instantiate(_duckCardPrefab);
+                    duckCard.Init(player.StateMachine, player.CardHolder, spell);
+                    cards.Add(duckCard);
                 }
             }
             else
@@ -88,7 +96,9 @@ namespace Battleground
                     if (true) //Random.Range(0, 2) == 0
                     {
                         var item = Items[Random.Range(0, Items.Count)];
-                        cards.Add(item);
+                        var card = Instantiate(_defaultCardPrefab);
+                        card.Init(player.StateMachine, player.CardHolder, item);
+                        cards.Add(card);
                     }
                     //else
                     //{

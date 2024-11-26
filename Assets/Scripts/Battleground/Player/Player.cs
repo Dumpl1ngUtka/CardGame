@@ -82,7 +82,7 @@ namespace Battleground
             return count;
         }
 
-        public void AddCards(List<IObjectForUICard> cards) => _cardHolder.Add(cards);
+        public void AddCards(List<UICard> cards) => _cardHolder.Add(cards);
         public void RemoveCard(UICard card) => CardHolder.Remove(card);
         public void SetCardsVisable(bool isVisable) => CardHolder.SetCardsVisable(isVisable);
     }
