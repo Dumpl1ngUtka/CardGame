@@ -49,7 +49,8 @@ namespace Battleground
             else
             {
                 _timer = 0f;
-                Piece.MoveTo(Target.Position - SelfWeight.Position);
+                var direction = Target.Position - SelfWeight.Position;
+                Piece.MoveTo(direction);
             }
         }
     }

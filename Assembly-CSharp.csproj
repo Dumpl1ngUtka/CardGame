@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\RunAway.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceCondition.cs" />
     <Compile Include="Assets\Scripts\Battleground\BattleManager.cs" />
+    <Compile Include="Assets\Scripts\Spells\KineticBoom.cs" />
     <Compile Include="Assets\Scripts\Guild\UI\GuildUnitCard.cs" />
     <Compile Include="Assets\Scripts\Battleground\BattlegroundMap.cs" />
     <Compile Include="Assets\Scripts\Spells\Base\SpellTypes.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Assets\Scripts\Battleground\UI\Cards\UICard.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\DuckCowardRun.cs" />
     <Compile Include="Assets\ListUnitsFromMainScene.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\States\ReleasingCard.cs" />
     <Compile Include="Assets\Scripts\Battleground\Damage\Damage.cs" />

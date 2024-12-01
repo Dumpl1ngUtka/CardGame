@@ -18,6 +18,7 @@ namespace Battleground
         public Player Player { get; private set; }
         public PieceStateMachine StateMachine { get; private set; }
         public PieceMover PieceMover { get; private set; }
+        public LayerMask MapLayers;
 
         #region CameraPivot
         public Vector3 PivotPosition => transform.position;
