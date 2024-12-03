@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Battleground
 {
-    public class PlayerStateMachine : StateMachine
+    public class PlayerStateMachine
     {
+        private PlayerState _currentState;
         public BattleSceneUI UI { get; private set; }
         public Player Player { get; private set; }
-
         public CameraModeChanger CameraMode { get; private set; }
 
         public PlayerStateMachine(Player player, BattleSceneUI uI, CameraModeChanger cameraMover)
@@ -21,7 +21,15 @@ namespace Battleground
 
         public void Update()
         {
-            CurrentState.Update();
+            _currentState.Update();
         }
+
+        public virtual void ChangeState(PlayerState state)
+        {
+            _currentState?.Exit();
+            _currentState = state;
+            state.Enter();
+        }
+
     }
 }

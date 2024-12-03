@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6746c4f1521d7646aa5bc8596704e27, type: 3}
-  m_Name: InstantiatePiece
+  m_Script: {fileID: 11500000, guid: 9a2113b733d7496449e084c346f879e6, type: 3}
+  m_Name: Kinetic Boom
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _name: 
-  _radius: 2
-  _markerType: 0
+  _icon: {fileID: 21300000, guid: 296116930a561c74a8da3e09ff47e1d4, type: 3}
+  _name: Kinetic BOOM
+  _radius: 15
+  _markerType: 1
   _layerMask:
     serializedVersion: 2
-    m_Bits: 64
-  _piecePrefab: {fileID: 3901264051773717414, guid: 2fff112702f53ff4985114ddecad761e,
-    type: 3}
+    m_Bits: 2369

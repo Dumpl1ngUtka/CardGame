@@ -21,12 +21,14 @@ namespace Battleground
         {
             base.Enter(previousState);
             _availableAbilities = StateMachine.DamageAbilites.Cast<PieceAbility>().ToList();
+            _target = previousState.Target;
             Piece.UI.ChangeGroundIndicator(Color.red);
         }
 
         private IAIWeightPoint GetTarget()
         {
-            return SituationAnalyzer.ClosestEnemy;
+            var target = SituationAnalyzer.ClosestEnemy;
+            return target;
         }
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)
@@ -49,8 +51,11 @@ namespace Battleground
             else
             {
                 _timer = 0f;
-                var direction = Target.Position - SelfWeight.Position;
-                Piece.MoveTo(direction);
+                if (Target != null)
+                {
+                    var direction = Target.Position - SelfWeight.Position;
+                    Piece.MoveTo(direction);
+                }
             }
         }
     }

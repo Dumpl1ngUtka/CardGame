@@ -19,7 +19,15 @@ namespace Battleground
                 StateMachine.ChangeState(new SelectCard(StateMachine));
         }
 
-        public override LayerMask LayerMask => ~0;
+        public override LayerMask LayerMask 
+        {
+            get
+            {
+                if (_spell != null)
+                    return _spell.LayerMask;
+                return ~0;
+            }
+        }
 
         public override void Enter()
         {
@@ -39,7 +47,7 @@ namespace Battleground
                 StateMachine.ChangeState(new SelectCard(StateMachine));
             }
 
-            _spell.Update();
+            _spell.Release(LastHit);
             base.Update();
         }
 

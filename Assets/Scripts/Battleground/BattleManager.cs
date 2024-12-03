@@ -86,6 +86,7 @@ namespace Battleground
 
                     var duckCard = Instantiate(_duckCardPrefab);
                     duckCard.Init(player.StateMachine, player.CardHolder, spell);
+                    duckCard.SetPosition(new Vector3(0, -1000));
                     cards.Add(duckCard);
                 }
             }
@@ -93,19 +94,12 @@ namespace Battleground
             {
                 for (int i = 0; i < cardCount; i++)
                 {
-                    if (true) //Random.Range(0, 2) == 0
-                    {
-                        var item = Items[Random.Range(0, Items.Count)];
-                        var card = Instantiate(_defaultCardPrefab);
-                        card.Init(player.StateMachine, player.CardHolder, item);
-                        cards.Add(card);
-                    }
-                    //else
-                    //{
-                    //    var spell = Spells[Random.Range(0, Spells.Count)];
-                    //    spell.Init(player);
-                    //    cards.Add(spell);
-                    //}
+                    IObjectForUICard item = false? Items[Random.Range(0, Items.Count)] : Spells[Random.Range(0, Spells.Count)];
+                    //IObjectForUICard item = Random.Range(0, 2) == 0? Items[Random.Range(0, Items.Count)] : Spells[Random.Range(0, Spells.Count)];
+                    var card = Instantiate(_defaultCardPrefab);
+                    card.Init(player.StateMachine, player.CardHolder, item);
+                    card.SetPosition(new Vector3(0, -1000));
+                    cards.Add(card);
                 }
             }
             return cards;

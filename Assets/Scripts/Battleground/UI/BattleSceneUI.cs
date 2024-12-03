@@ -1,13 +1,16 @@
 using System.Collections.Generic;
+using UI.Marker;
 using UnityEngine;
 
 namespace Battleground.UI
 {
     public class BattleSceneUI : MonoBehaviour  
     {
+        [SerializeField] private Marker _markerPrefab;
         [SerializeField] private InfoRenderer _infoRenderer;
         [SerializeField] private PauseMenu _pauseMenu;
         [SerializeField] private List<UIMenu> _activeTabsList = new();
+        
         public bool IsTabsListEmpty => _activeTabsList.Count == 0;
         public PlayerInput InputActions { get; private set; }
         public Player Player { get; private set; }
@@ -48,6 +51,21 @@ namespace Battleground.UI
         {
             _infoRenderer.Init(obj);
             _infoRenderer.Open();
+        }
+
+        public Marker InstantiateMarker(MarkerType type, float radius = 2f)
+        {
+            var marker = Instantiate(_markerPrefab);
+            marker.Init(type, radius);
+            return marker;
+        }
+
+        public Marker InstantiateMarker(MarkerType type, Color color, float radius = 2f)
+        {
+            var marker = Instantiate(_markerPrefab);
+            marker.Init(type, radius);
+            marker.SetColor(color);
+            return marker;
         }
 
         private void OnDisable()

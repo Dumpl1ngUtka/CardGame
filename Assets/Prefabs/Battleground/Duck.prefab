@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8995215426850145920}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RArmBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3098334128886151299}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tail_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9048178073841202633}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RToe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 186622933377495041}
   - component: {fileID: 8101264887838354498}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BeakUnder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 886954176478761283}
   - component: {fileID: 3414635598911418914}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BodyAndHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8941673101819636969}
   - component: {fileID: 8629662236924366624}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -398,7 +398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7044651300350991849}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LArmEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6399785319454576142}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RArmEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4712519484884119758}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BodyPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5070464212121269991}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9174168826592181562}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LToe_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -557,7 +557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2972373000952666394}
   - component: {fileID: 6350891452932218791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -654,7 +654,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3344747238223227418}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -917,7 +917,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1160541638034829632}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -956,7 +956,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6089055742178997170}
   - component: {fileID: 8901024326929720677}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1053,7 +1053,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5075844301792363875}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LArmEnd_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1084,7 +1084,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7793357427444239676}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1116,7 +1116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 190504912417333586}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1199,7 +1199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1224,7 +1224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7693731281799586673}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1288,7 +1288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7015151478171567129}
   - component: {fileID: 8220093816255072129}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1487,7 +1487,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3825758689779572722}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1519,7 +1519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2530427977165444655}
   - component: {fileID: 7374529223647395596}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Beak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1617,7 +1617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5970146613109750404}
   - component: {fileID: 5964545158742952609}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SimpleDuckWithArmature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1677,7 +1677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1626917577843070913}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HatPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1708,7 +1708,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8361651922222162058}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LToe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1740,7 +1740,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 160989144093298127}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RToe_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1771,7 +1771,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7788613831161341685}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LArmBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1803,7 +1803,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4122971474904418285}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1836,7 +1836,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3814389444490681080}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RArmEnd_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1867,7 +1867,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4525438112403463217}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}

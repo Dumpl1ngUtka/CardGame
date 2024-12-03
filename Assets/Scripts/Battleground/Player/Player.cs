@@ -12,7 +12,7 @@ namespace Battleground
     {
         [SerializeField] private Transform _pieceConteiner;
         [SerializeField] private Piece _piecePrefab;
-        [SerializeField] private BattleSceneUI UI;
+        [SerializeField] private BattleSceneUI _ui;
         [SerializeField] private CardHolder _cardHolder;
         [SerializeField] private CameraModeChanger _cameraMode;
         [SerializeField] private int _teamID;
@@ -33,6 +33,7 @@ namespace Battleground
         public bool HasPlayablePiece => PlayablePieceCount() > 0;
         public bool IsUnitsListEmpty => Units.Count == 0;
         public CardHolder CardHolder => _cardHolder;
+        public BattleSceneUI UI => _ui;
 
         private void Awake()
         {
@@ -50,9 +51,9 @@ namespace Battleground
             }
             if (!_isTestPlayer)
             {
-                UI.Init(this);
-                StateMachine = new PlayerStateMachine(this, UI, _cameraMode);
-                _cardHolder.Init(StateMachine, UI);
+                _ui.Init(this);
+                StateMachine = new PlayerStateMachine(this, _ui, _cameraMode);
+                _cardHolder.Init(StateMachine, _ui);
             }
         }
 

@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace Battleground
 {
-    public abstract class PlayerState : State
+    public abstract class PlayerState
     {
         #region LayersName
         protected const string PlayerUnitLayer = "Player Unit";
@@ -15,13 +15,16 @@ namespace Battleground
 
         protected PlayerStateMachine StateMachine;
         public abstract LayerMask LayerMask { get; }
+        public RaycastHit LastHit { get; private set; }
 
         public PlayerState(PlayerStateMachine stateMachine)
         {
             StateMachine = stateMachine;
         }
 
-        public override void Update()
+        public virtual void Enter() { }
+
+        public virtual void Update()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (EventSystem.current.IsPointerOverGameObject())
@@ -36,8 +39,12 @@ namespace Battleground
 
                 if (Input.GetMouseButtonDown(1))
                     RightMouseButtonDown(hit);
+
+                LastHit = hit;
             }
         }
+
+        public virtual void Exit() { }
 
         protected abstract void LeftMouseButtonDown(RaycastHit hit);
 

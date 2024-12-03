@@ -1,21 +1,58 @@
 using Battleground;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace UI.Marker
 {
-    public abstract class Marker : MonoBehaviour
+    public class Marker : MonoBehaviour
     {
-        protected abstract LayerMask Mask { get; }
+        [SerializeField] private GameObject _cylinder;
+        [SerializeField] private GameObject _sphere;
+        [SerializeField] private GameObject _box;
+        private MeshRenderer _mesh;
 
-        protected virtual void Update()
+
+        public void Init(MarkerType type, float radius)
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 100, Mask))
+            _cylinder.SetActive(false);
+            _sphere.SetActive(false);
+            _box.SetActive(false);
+            switch (type)
             {
-                Render(hit);
+                case MarkerType.Cylinder:
+                    _cylinder.SetActive(true);
+                    _mesh = _cylinder.GetComponent<MeshRenderer>();
+                    break;
+                case MarkerType.Sphere:
+                    _sphere.SetActive(true);
+                    _mesh = _sphere.GetComponent<MeshRenderer>();
+                    break;
+                case MarkerType.Box:
+                    _box.SetActive(true);
+                    _mesh = _box.GetComponent<MeshRenderer>();
+                    break;
             }
+
+            transform.localScale = Vector3.one * radius;
         }
 
-        protected abstract void Render(RaycastHit point);
+        public void SetColor(Color color)
+        {
+            var propertyBlock = new MaterialPropertyBlock();
+            propertyBlock.SetColor("_Color", color);
+            _mesh.SetPropertyBlock(propertyBlock);
+        }
+
+        public void SetPosition(Vector3 position)
+        {
+            transform.position = position;
+        }
+    }
+
+    public enum MarkerType
+    {
+        Cylinder,
+        Sphere,
+        Box,
     }
 }

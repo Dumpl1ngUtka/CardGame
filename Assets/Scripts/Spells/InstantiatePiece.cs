@@ -1,4 +1,5 @@
 using Battleground;
+using UI.Marker;
 using UnityEngine;
 
 namespace Units
@@ -26,6 +27,8 @@ namespace Units
         public override string ParamValue2 => _unit.Class.Name;
 
         #endregion
+
+
         public void Init(Player player, Unit unit)
         {
             base.Init(player);
@@ -33,23 +36,6 @@ namespace Units
             _unit = unit;
             _pieceConteiner = player.PieceConteiner;
             IsSpellReleased = false;
-        }
-
-        public override void StartRelease()
-        {
-            base.StartRelease();
-            //marker
-        }
-
-        public override void Update()
-        {
-            base.Update();
-        }
-
-        public override void EndRelease()
-        {
-            base.EndRelease();
-            //del marker
         }
 
         public override void LeftMouseClick(RaycastHit hit)

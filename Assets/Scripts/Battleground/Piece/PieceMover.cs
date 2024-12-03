@@ -97,13 +97,9 @@ namespace Battleground
         {
             if (IsOnGround())
             {
-                //if (_currentMaxSpeed - _rigidbody.velocity.magnitude > 1)
-                //    _rigidbody.AddForce(transform.forward * _acceleration, ForceMode.VelocityChange);
-                var moveVec = transform.forward * _speed;
-                moveVec.y = _rigidbody.velocity.y;
-                _rigidbody.velocity = moveVec;
+                if (_currentMaxSpeed - _rigidbody.velocity.magnitude > 0)
+                    _rigidbody.AddForce(transform.forward, ForceMode.VelocityChange);
             }
-            //_piece.Animator.Pla
         }
 
         private void Rotate()

@@ -90,7 +90,6 @@ namespace Battleground.UI
             if (card == null)
                 return false;
 
-            card.SetPosition(new Vector2(0, -1000));
             card.SetParent(Container, this);
             return true;
         }
