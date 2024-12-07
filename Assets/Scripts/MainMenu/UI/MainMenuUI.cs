@@ -4,19 +4,12 @@ namespace MainMenu.UI
 {
     public class MainMenuUI : MonoBehaviour
     {
+        [SerializeField] private MenuPage[] _pages;
 
-        private MenuTab _currentTab;
-
-        public void ChangeTab(MenuTab newTab)
+        public void ChangeOpenTab(MenuPage currentPage, MenuPage nextPage)
         {
-            _currentTab?.Exit();
-            _currentTab = newTab;
-            newTab.Enter();
-        }
-
-        private void SetActiveFalse()
-        {
-            gameObject.SetActive(false);
+            StartCoroutine(currentPage.Close());
+            StartCoroutine(nextPage.Open());
         }
     }
 }

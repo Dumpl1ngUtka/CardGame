@@ -29,6 +29,7 @@ namespace Battleground
         public override void StartRelease()
         {
             base.StartRelease();
+            _target = null;
             _targetMarker = Player.UI.InstantiateMarker(MarkerType.Cylinder, new Color(0.5f, 0, 0.5f), Radius);
             _targetMarker.gameObject.SetActive(false);
         }

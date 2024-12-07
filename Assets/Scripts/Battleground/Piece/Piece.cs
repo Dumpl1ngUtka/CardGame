@@ -30,16 +30,20 @@ namespace Battleground
             Unit = unit;
             Player = player;
             Agent = GetComponent<NavMeshAgent>();
+
+            Attributes = new(this);
+            Health = new(Attributes);
+            Health.Died += Died;
+
             UI = GetComponent<PieceUIRenderer>();
+            UI.Init(this);
+
             Animator = GetComponent<PieceAnimator>();
             Animator.Init();
 
             Clothes = GetComponent<PieceClothesController>();
             Clothes.Init(unit.Inventory);
 
-            Attributes = new(this);
-            Health = new(Attributes);
-            Health.Died += Died;
 
             PieceMover = GetComponent<PieceMover>();
             StateMachine = GetComponent<PieceStateMachine>();

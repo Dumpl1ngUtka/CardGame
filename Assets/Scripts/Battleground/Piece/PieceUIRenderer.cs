@@ -1,3 +1,4 @@
+using Battleground.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,21 +10,28 @@ namespace Battleground
     {
         [SerializeField] private Image _healthBar;
         [SerializeField] private TMP_Text _healthValue;
-        [SerializeField] private Image _powerBar;
         [SerializeField] private Image _groundIndicator;
         private PieceHealth _pieceHealth;
+        private Camera _camera;
 
         public void Init(Piece piece)
         {
-            //_pieceHealth = piece.Health;
-            //_pieceHealth.HealthChanged += ChangeHealth;
-            //ChangeHealth(1);
+            _pieceHealth = piece.Health;
+            _camera = Camera.main;
+            _pieceHealth.HealthChanged += ChangeHealth;
+            _healthBar.color = PlayerColor.GetColorByID(piece.Player.TeamID);
+            ChangeHealth(1);
+        }
+
+        private void Update()
+        {
+            _healthBar.transform.LookAt(_camera.transform);
         }
 
         private void ChangeHealth(float fillValue)
         {
-            //_healthBar.fillAmount = fillValue;
-            ////_healthValue.text = _healthBar.fillAmount.ToString();
+            _healthBar.fillAmount = fillValue;
+            //_healthValue.text = _healthBar.fillAmount.ToString();
         }
 
         public void ChangeGroundIndicator(Color color)
@@ -33,7 +41,7 @@ namespace Battleground
 
         private void OnDisable()
         {
-            //_pieceHealth.HealthChanged -= ChangeHealth;
+            _pieceHealth.HealthChanged -= ChangeHealth;
         }
     }
 

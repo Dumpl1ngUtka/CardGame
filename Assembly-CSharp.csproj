@@ -110,6 +110,7 @@
     <Compile Include="Assets\Scripts\Units\Items\Weapons\WeaponTypes.cs" />
     <Compile Include="Assets\Test.cs" />
     <Compile Include="Assets\Scripts\Battleground\Damage\IDamageable.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\UI\MenuPage.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Cards\DuckUICard.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\FollowToEnemy.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Assets\Scripts\Units\Items\Accessories\Accessories.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceAttributes.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\PlayerColor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
