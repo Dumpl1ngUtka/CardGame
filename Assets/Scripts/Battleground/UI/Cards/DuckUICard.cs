@@ -3,9 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Units.Items;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
-using static UnityEditor.Progress;
 
 namespace Battleground
 {
@@ -16,11 +13,11 @@ namespace Battleground
         [SerializeField] private RectTransform _weaponCardPivot;
         [SerializeField] private RectTransform _accessory1CardPivot;
         [SerializeField] private RectTransform _accessory2CardPivot;
-        private HeadArmor _headArmor = null;
-        private BodyArmor _bodyArmor = null;
-        private Weapon _weapon = null;
-        private Accessories _accessory1 = null;
-        private Accessories _accessory2 = null;
+        public HeadArmor HeadArmor { get; private set; } = null;
+        public BodyArmor BodyArmor { get; private set; } = null;
+        public Weapon Weapon { get; private set; } = null;
+        public Accessory Accessory1 { get; private set; } = null;
+        public Accessory Accessory2 { get; private set; } = null;
 
         public bool Add(UICard card)
         {
@@ -28,30 +25,30 @@ namespace Battleground
             var item = card.ObjectForUICard;
             if (item is HeadArmor headArmor)
             {
-                _headArmor = headArmor;
+                HeadArmor = headArmor;
                 card.SetParent(_hatCardPivot, this);
             }
             else if (item is BodyArmor bodyArmor)
             {
-                _bodyArmor = bodyArmor;
+                BodyArmor = bodyArmor;
                 card.SetParent(_armorCardPivot, this);
             }
             else if (item is Weapon weapon)
             {
-                _weapon = weapon;
+                Weapon = weapon;
                 card.SetParent(_weaponCardPivot, this);
             }
-            else if (item is Accessories accessory)
+            else if (item is Accessory accessory)
             {
-                if (_accessory1 == null)
+                if (Accessory1 == null)
                 {
                     card.SetParent(_accessory1CardPivot, this);
-                    _accessory1 = accessory;
+                    Accessory1 = accessory;
                 }
                 else
                 {
                     card.SetParent(_accessory2CardPivot, this);
-                    _accessory2 = accessory;
+                    Accessory2 = accessory;
                 }
             }
             else
@@ -77,7 +74,7 @@ namespace Battleground
 
         public void SelectCardEvent()
         {
-            Debug.Log("DD");
+            
         }
     }
 }

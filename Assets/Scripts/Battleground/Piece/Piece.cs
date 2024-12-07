@@ -28,11 +28,12 @@ namespace Battleground
         public void Init(Unit unit, Player player)
         {
             Unit = unit;
+
             Player = player;
             Agent = GetComponent<NavMeshAgent>();
 
             Attributes = new(this);
-            Health = new(Attributes);
+            Health = new(this);
             Health.Died += Died;
 
             UI = GetComponent<PieceUIRenderer>();
@@ -44,7 +45,6 @@ namespace Battleground
             Clothes = GetComponent<PieceClothesController>();
             Clothes.Init(unit.Inventory);
 
-
             PieceMover = GetComponent<PieceMover>();
             StateMachine = GetComponent<PieceStateMachine>();
             StateMachine.Init(this);
@@ -53,6 +53,7 @@ namespace Battleground
 
         private void Died()
         {
+            Destroy(gameObject);
         }
 
         public InfoForInfoRenderer GetInfo()

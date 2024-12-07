@@ -2,8 +2,6 @@ using AI;
 using Battleground;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using Units.Items;
 
 namespace Units
@@ -14,14 +12,13 @@ namespace Units
         public Weapon SecondWeapon { get; private set; }
         public HeadArmor HeadArmor { get; private set; }
         public BodyArmor Armor { get; private set; }
-        public Accessories[] Accessories { get; private set; } = new Accessories[3];
-        public Item[] InBagItems { get; private set; } = new Item[6];
+        public Accessory Accessory1 { get; private set; }
+        public Accessory Accessory2 { get; private set; }
         public Item[] EquippedItems
         {
             get
             {
-                Item[] items = new Item[] {MainWeapon, SecondWeapon, HeadArmor, Armor  }.Concat(Accessories).ToArray();
-                return items;
+                return new Item[] {MainWeapon, SecondWeapon, HeadArmor, Armor, Accessory1, Accessory2};
             }
         }
 
@@ -29,6 +26,9 @@ namespace Units
 
         public PieceAbility[] GetAbilites()
         {
+            if (EquippedItems.Length == 0)
+                return null;
+
             var abilites = new List<PieceAbility>();
 
             foreach (var item in EquippedItems)
@@ -42,6 +42,9 @@ namespace Units
             var additionalAttributes = new AdditionalPieceAttributes();
             foreach (var item in EquippedItems)
             {
+                if (item == null)
+                    continue;
+
                 additionalAttributes += item.Attributes;
             }
             return additionalAttributes;
@@ -53,26 +56,26 @@ namespace Units
             foreach (var item in EquippedItems)
                 weight += item != null ? item.Weight : 0;
 
-            foreach (var item in InBagItems)
-                weight += item != null ? item.Weight : 0;
-
             return weight;
         }
 
-        public void AddItem(Item item)
+        public void SetItem(Item item)
         {
-            InventoryChanged?.Invoke();
-        }
+            if (item == null)
+                return;
 
-        public void SetArmor(HeadArmor armor)
-        {
-            HeadArmor = armor;
-            InventoryChanged?.Invoke();
-        }
+            if (item is HeadArmor headArmor)
+                HeadArmor = headArmor;
+            else if (item is BodyArmor bodyArmor)
+                Armor = bodyArmor;
+            else if (item is Weapon weapon)
+                MainWeapon = weapon;
+            else if (item is Accessory accessory)
+                if (Accessory1 == null)
+                    Accessory1 = accessory;
+                else
+                    Accessory2 = accessory;
 
-        public void SetArmor(BodyArmor armor)
-        {
-            Armor = armor;
             InventoryChanged?.Invoke();
         }
     }

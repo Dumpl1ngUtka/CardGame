@@ -5,6 +5,7 @@ namespace Battleground
 {
     public class PieceHealth
     {
+        private Piece _piece;
         private PieceAttributes _pieceAttributes;
         private float _health;
 
@@ -24,9 +25,10 @@ namespace Battleground
         public float MaxHealth => _pieceAttributes.MaxHealth;
         public float HealthFill => CurrentHealth / MaxHealth;
 
-        public PieceHealth(PieceAttributes pieceAttributes)
+        public PieceHealth(Piece piece)
         {
-            _pieceAttributes = pieceAttributes;
+            _piece = piece;
+            _pieceAttributes = piece.Attributes;
             CurrentHealth = MaxHealth;
         }
 

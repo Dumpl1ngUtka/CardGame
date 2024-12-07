@@ -10,6 +10,7 @@ namespace Units
         [SerializeField] private Piece _piecePrefab;
         private Transform _pieceConteiner;
         private Unit _unit;
+        private DuckUICard _selfCard;
 
         #region CardUI
         public override Sprite Image => _unit.Race.Icon;
@@ -29,11 +30,12 @@ namespace Units
         #endregion
 
 
-        public void Init(Player player, Unit unit)
+        public void Init(Player player, Unit unit, DuckUICard selfCard)
         {
             base.Init(player);
             Player = player;
             _unit = unit;
+            _selfCard = selfCard;
             _pieceConteiner = player.PieceConteiner;
             IsSpellReleased = false;
         }
@@ -45,8 +47,18 @@ namespace Units
             {
                 var piece = Instantiate(_piecePrefab, hit.point, _piecePrefab.transform.rotation, _pieceConteiner);
                 piece.Init(_unit, Player);
+                SetItems();
                 IsSpellReleased = true;
             }
+        }
+
+        private void SetItems()
+        {
+            _unit.Inventory.SetItem(_selfCard.HeadArmor);
+            _unit.Inventory.SetItem(_selfCard.BodyArmor);
+            _unit.Inventory.SetItem(_selfCard.Weapon);
+            _unit.Inventory.SetItem(_selfCard.Accessory1);
+            _unit.Inventory.SetItem(_selfCard.Accessory2);
         }
     }
 }

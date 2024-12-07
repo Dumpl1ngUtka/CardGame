@@ -124,6 +124,7 @@
     <Compile Include="Assets\Scripts\RareColors.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Cards\IObjectForUICard.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\Scripts\Battleground\UI\PlayerColor.cs" />
     <Compile Include="Assets\Scripts\Battleground\StateMachines\State.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\EnemySpawner.cs" />
@@ -194,10 +195,9 @@
     <Compile Include="Assets\Scripts\Battleground\UI\BattleSceneUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\States\SelectCard.cs" />
-    <Compile Include="Assets\Scripts\Units\Items\Accessories\Accessories.cs" />
+    <Compile Include="Assets\Scripts\Units\Items\Accessories\Accessory.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceAttributes.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
-    <Compile Include="Assets\Scripts\Battleground\UI\PlayerColor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

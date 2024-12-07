@@ -42,7 +42,7 @@ namespace Battleground
         public override void Update()
         {
             base.Update();
-            Piece.LookTo(Target.Position - SelfWeight.Position);
+            Piece.MoveTo(Target.Position - SelfWeight.Position);
         }
 
         public override void Exit()

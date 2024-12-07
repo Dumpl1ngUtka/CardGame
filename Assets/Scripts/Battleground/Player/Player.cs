@@ -44,13 +44,13 @@ namespace Battleground
                 new Unit(2,  _races[2], _classes[2]),
                 new Unit(3,  _races[3], _classes[3]),
             };
-            for (int i = 0; i < Units.Count; i++)
-            {
-                Units[i].Inventory.SetArmor(_hats[i]);
-                Units[i].Inventory.SetArmor(_armors[i]);
-            }
             if (!_isTestPlayer)
             {
+                for (int i = 0; i < Units.Count; i++)
+                {
+                    Units[i].Inventory.SetItem(_hats[i]);
+                    Units[i].Inventory.SetItem(_armors[i]);
+                }
                 _ui.Init(this);
                 StateMachine = new PlayerStateMachine(this, _ui, _cameraMode);
                 _cardHolder.Init(StateMachine, _ui);

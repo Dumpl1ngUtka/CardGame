@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Units.Items
 {
-    [CreateAssetMenu(menuName = ("Config/Accessories"))]
-    public class Accessories : Item
+    [CreateAssetMenu(menuName = ("Config/Accessory"))]
+    public class Accessory : Item
     {
         public override Sprite TypeIcon => Resources.Load<Sprite>("Sprites/CardTypeIcons/Accessories");
     }

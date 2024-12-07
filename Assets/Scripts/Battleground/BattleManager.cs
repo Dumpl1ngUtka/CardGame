@@ -79,12 +79,13 @@ namespace Battleground
             {
                 for (int i = 0; i < cardCount; i++)
                 {
+                    var duckCard = Instantiate(_duckCardPrefab);
+
                     var randomClass = Classes[Random.Range(0, Classes.Count)];
                     var randomRace = Races[Random.Range(0, Races.Count)];
                     var spell = Instantiate(InstantiateDuckSpell);
-                    spell.Init(player, new Unit(1, randomRace, randomClass));
+                    spell.Init(player, new Unit(1, randomRace, randomClass), duckCard);
 
-                    var duckCard = Instantiate(_duckCardPrefab);
                     duckCard.Init(player.StateMachine, player.CardHolder, spell);
                     duckCard.SetPosition(new Vector3(0, -1000));
                     cards.Add(duckCard);
@@ -94,7 +95,7 @@ namespace Battleground
             {
                 for (int i = 0; i < cardCount; i++)
                 {
-                    IObjectForUICard item = false? Items[Random.Range(0, Items.Count)] : Spells[Random.Range(0, Spells.Count)];
+                    IObjectForUICard item = true? Items[Random.Range(0, Items.Count)] : Spells[Random.Range(0, Spells.Count)];
                     //IObjectForUICard item = Random.Range(0, 2) == 0? Items[Random.Range(0, Items.Count)] : Spells[Random.Range(0, Spells.Count)];
                     var card = Instantiate(_defaultCardPrefab);
                     card.Init(player.StateMachine, player.CardHolder, item);
