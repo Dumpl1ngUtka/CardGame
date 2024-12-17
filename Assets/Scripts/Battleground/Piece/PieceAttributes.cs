@@ -105,6 +105,11 @@ namespace Battleground
         {
             _additionalPieceAttributes = _unitInventory.GetAdditionalAttributes();
         }
+
+        public void AddEffect()
+        {
+
+        }
     }
 }
 
