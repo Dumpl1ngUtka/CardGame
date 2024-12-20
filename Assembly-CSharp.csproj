@@ -82,7 +82,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceMover.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
-    <Compile Include="Assets\boom.cs" />
     <Compile Include="Assets\PlayerInput.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStateMachine.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
@@ -129,7 +128,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Units\UnitResists.cs" />
-    <Compile Include="Assets\Scripts\AI\AIStateMachine.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Cards\CardHolder.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
@@ -142,7 +140,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\DuckCowardRun.cs" />
-    <Compile Include="Assets\ListUnitsFromMainScene.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\States\ReleasingCard.cs" />
     <Compile Include="Assets\Scripts\Battleground\Damage\Damage.cs" />
     <Compile Include="Assets\Scripts\Spells\InstantiatePiece.cs" />
@@ -173,7 +170,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceClothesController.cs" />
     <Compile Include="Assets\Scripts\Units\Attributes.cs" />
-    <Compile Include="Assets\AnimationTest.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceAnimator.cs" />
     <Compile Include="Assets\Scripts\UI\CellsProgressBar.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraModeChanger.cs" />
@@ -190,7 +186,6 @@
     <Compile Include="Assets\Scripts\Spells\Base\Spell.cs" />
     <Compile Include="Assets\Scripts\Units\Items\Item.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\States\BuyItemsState.cs" />
-    <Compile Include="Assets\DelegateTest1.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Timeline\TimelineColorIndicator.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\BattleSceneUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
@@ -214,7 +209,6 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
-    <None Include="Assets\Shaders\1.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />

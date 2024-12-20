@@ -15,6 +15,8 @@ namespace Battleground
         [SerializeField] private AnimationClip _walkClip;
         [SerializeField] private AnimationClip _rotateClip;
         [SerializeField] private AnimationCurve _blendCurve;
+        [Header("Value")]
+        [SerializeField] private float _locomotionSpeedMult = 1;
         private PlayableGraph _playableGraph;
         private AnimationMixerPlayable _locomotionMixer;
         private AnimationMixerPlayable _topLevelMixer;
@@ -69,12 +71,13 @@ namespace Battleground
 
         private void UpdateLocomotion(float speedFraction, float rotationFraction)
         {
-            _locomotionMixer.GetInput(1).SetSpeed(speedFraction);
-            _locomotionMixer.GetInput(2).SetSpeed(rotationFraction);
+            _locomotionMixer.GetInput(1).SetSpeed(speedFraction * _locomotionSpeedMult);
+            _locomotionMixer.GetInput(2).SetSpeed(rotationFraction * _locomotionSpeedMult);
 
             _locomotionMixer.SetInputWeight(0, (1 - speedFraction) * (1 - rotationFraction));
             _locomotionMixer.SetInputWeight(1, speedFraction);
             _locomotionMixer.SetInputWeight(2, rotationFraction * (1 - speedFraction));
+            Debug.Log(speedFraction + " + " + rotationFraction);
         }
 
         public void PlayOneShotAnimation(AnimationClip animationClip, float animationTime)

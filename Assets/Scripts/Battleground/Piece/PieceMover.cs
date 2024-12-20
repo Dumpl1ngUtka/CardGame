@@ -37,7 +37,7 @@ namespace Battleground
         private Vector3 RotationDirection;
         #endregion
 
-        public float SpeedFraction => _speed / _maxSpeed;
+        public float SpeedFraction => _speed / _maxSpeed ;
         public float RotationFraction => _rotationFraction;
 
         private void Awake()
@@ -108,7 +108,7 @@ namespace Battleground
             {
                 var delta = Vector3.SignedAngle(transform.forward, Direction, Vector3.up);
                 delta = Mathf.Clamp(delta, -_maxRotationSpeed, _maxRotationSpeed);
-                _rotationFraction = Mathf.Abs(delta / _maxRotationSpeed);
+                _rotationFraction = Mathf.Abs(delta) / _maxRotationSpeed;
                 var newPivotRotation = transform.rotation.eulerAngles + new Vector3(0, delta, 0) * Time.deltaTime;
                 transform.rotation = Quaternion.Euler(newPivotRotation);
             }
