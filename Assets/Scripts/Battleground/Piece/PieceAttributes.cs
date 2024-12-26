@@ -8,15 +8,18 @@ namespace Battleground
     {
         private Attributes _unitAttributes;
         private UnitInventory _unitInventory;
-        private AdditionalPieceAttributes _additionalPieceAttributes;
+        private PieceEffectsHolder _effectHolder;
+        private AdditionalPieceAttributes _sumAttibutes;
+        private AdditionalPieceAttributes _inventoryAttibutes;
+        private AdditionalPieceAttributes _effectsAttibutes;
 
         public float MaxHealth
         {
             get
             {
                 float value = 50 + _unitAttributes.Health * 10;
-                value += _additionalPieceAttributes.Health;
-                value += value * _additionalPieceAttributes.HealthPercent / 100;
+                value += _sumAttibutes.Health;
+                value += value * _sumAttibutes.HealthPercent / 100;
                 return value;
             }
         }
@@ -24,7 +27,7 @@ namespace Battleground
         {
             get
             {
-                return _additionalPieceAttributes.AccuracyPercent;
+                return _sumAttibutes.AccuracyPercent;
             }
         }
         public float DodgeChancePercent
@@ -32,7 +35,7 @@ namespace Battleground
             get
             {
                 float value = _unitAttributes.Dexterity * 2f;
-                value += _additionalPieceAttributes.DodgeChancePercent;
+                value += _sumAttibutes.DodgeChancePercent;
                 return value;
             }
         }
@@ -41,7 +44,7 @@ namespace Battleground
             get
             {
                 float value = 0;
-                value += _additionalPieceAttributes.BlockChancePercent;
+                value += _sumAttibutes.BlockChancePercent;
                 return value;
             }
         }
@@ -50,7 +53,7 @@ namespace Battleground
             get
             {
                 float value = 30 + _unitAttributes.Capacity * 5f;
-                value += _additionalPieceAttributes.MaxWeight;
+                value += _sumAttibutes.MaxWeight;
                 return value;
             }
         }
@@ -65,14 +68,14 @@ namespace Battleground
         {
             get
             {
-                return 100 + _additionalPieceAttributes.MeleeAttackRangeAdditionPercent;
+                return 100 + _sumAttibutes.MeleeAttackRangeAdditionPercent;
             }
         }
         public float MoveSpeed
         {
             get
             {
-                return 5 + _additionalPieceAttributes.MoveSpeed;
+                return 2 + ((float)_unitAttributes.Dexterity / 3 ) + _sumAttibutes.MoveSpeed;
             }
         }
 
@@ -82,14 +85,14 @@ namespace Battleground
         {
             get
             {
-                return 100 + _additionalPieceAttributes.DistanceAttackRangeAdditionPercent;
+                return 100 + _sumAttibutes.DistanceAttackRangeAdditionPercent;
             }
         }        
         public float DistanceAttackDistancePercent
         {
             get
             {
-                return 100 + _additionalPieceAttributes.DistanceAttackDistanceAdditionPercent;
+                return 100 + _sumAttibutes.DistanceAttackDistanceAdditionPercent;
             }
         }
         #endregion
@@ -99,16 +102,21 @@ namespace Battleground
             _unitAttributes = piece.Unit.Attributes;
             _unitInventory = piece.Unit.Inventory;
             _unitInventory.InventoryChanged += InventoryChanged;
+
+            _effectHolder = piece.EffectsHolder;
+            _effectHolder.EffectsChanged += EffectsChanged;
         }
 
-        public void InventoryChanged()
+        private void InventoryChanged()
         {
-            _additionalPieceAttributes = _unitInventory.GetAdditionalAttributes();
+            _inventoryAttibutes = _unitInventory.GetAdditionalAttributes();
+            _sumAttibutes = _inventoryAttibutes + _effectsAttibutes;
         }
 
-        public void AddEffect()
+        private void EffectsChanged()
         {
-
+            _effectsAttibutes = _effectHolder.GetAdditionalAttributes();
+            _sumAttibutes = _inventoryAttibutes + _effectsAttibutes;
         }
     }
 }

@@ -95,7 +95,7 @@ namespace Battleground
             {
                 for (int i = 0; i < cardCount; i++)
                 {
-                    IObjectForUICard item = true? Items[Random.Range(0, Items.Count)] : Spells[Random.Range(0, Spells.Count)];
+                    IObjectForUICard item = false? Items[Random.Range(0, Items.Count)] : Spells[Random.Range(0, Spells.Count)];
                     //IObjectForUICard item = Random.Range(0, 2) == 0? Items[Random.Range(0, Items.Count)] : Spells[Random.Range(0, Spells.Count)];
                     var card = Instantiate(_defaultCardPrefab);
                     card.Init(player.StateMachine, player.CardHolder, item);

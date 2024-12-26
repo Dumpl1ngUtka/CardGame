@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    [CreateAssetMenu(menuName = "Spells/Teleportation")]
+    [CreateAssetMenu(menuName = "Config/Spells/Teleportation")]
 
     public class Teleportation : Spell
     {
@@ -41,6 +41,13 @@ namespace Battleground
             {
                 _targetMarker.SetPosition(_target.transform.position);
             }
+        }
+
+        public override void EndRelease()
+        {
+            base.EndRelease();
+            if (_targetMarker != null)
+                Destroy(_targetMarker.gameObject);
         }
 
         public override void LeftMouseClick(RaycastHit hit)

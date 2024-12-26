@@ -12,7 +12,6 @@ namespace Units
         public Sprite Icon;
         public bool IsCanUseWeapon = true;
         public bool IsCanUseArmor = true;
-        public List<PassiveEffect> PassiveEffects;
         public List<UnitClass> AvailableClasses;
         public UnitResists Resists;
         public Attributes MinLevels;

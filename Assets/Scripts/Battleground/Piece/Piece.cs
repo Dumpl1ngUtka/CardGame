@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Battleground
 {
-    public class Piece : MonoBehaviour, IObjectForInfoRenderer, IDamageable, ICameraPivot
+    public class Piece : MonoBehaviour, IObjectForInfoRenderer, IDamageable, ICameraPivot, IEffectHolder
     {
         public PieceAnimator Animator { get; private set; }
         public NavMeshAgent Agent { get; private set; }
@@ -14,6 +14,7 @@ namespace Battleground
         public PieceAttributes Attributes { get; private set; }
         public PieceUIRenderer UI { get; private set; }
         public PieceHealth Health { get; private set; }
+        public PieceEffectsHolder EffectsHolder { get; private set; }
         public Unit Unit { get; private set; }
         public Player Player { get; private set; }
         public PieceStateMachine StateMachine { get; private set; }
@@ -31,6 +32,9 @@ namespace Battleground
 
             Player = player;
             Agent = GetComponent<NavMeshAgent>();
+
+            EffectsHolder = new();
+            EffectsHolder.Init(this);
 
             Attributes = new(this);
             Health = new(this);
@@ -58,8 +62,10 @@ namespace Battleground
 
         public InfoForInfoRenderer GetInfo()
         {
-            var info = new InfoForInfoRenderer();
-            info.HealthBarFill = Health.HealthFill;
+            var info = new InfoForInfoRenderer
+            {
+                HealthBarFill = Health.HealthFill
+            };
             return info;
         }
 

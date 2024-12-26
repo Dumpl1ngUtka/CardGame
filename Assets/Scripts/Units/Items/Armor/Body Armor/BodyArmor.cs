@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Units.Items
 {
-    [CreateAssetMenu(menuName = ("Config/Body Armor"))]
+    [CreateAssetMenu(menuName = ("Config/Item/Body Armor"))]
     public class BodyArmor : Armor
     {
         [Header("Model parameters")]

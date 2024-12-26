@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Units.Items
 {
-    [CreateAssetMenu(menuName = ("Config/Weapon"))]
+    [CreateAssetMenu(menuName = ("Config/Item/Weapon"))]
     public class Weapon : Item
     {
         [Min(0)] public int Damage = 1;

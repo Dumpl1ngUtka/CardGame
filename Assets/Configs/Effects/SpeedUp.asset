@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060ada1e7cfbac845a8142c4bd13cd31, type: 3}
+  m_Name: SpeedUp
+  m_EditorClassIdentifier: 
+  _name: Speed up
+  _isInfinite: 0
+  _duration: 15
+  _pieceAttributes:
+    Health: 0
+    HealthPercent: 0
+    AccuracyPercent: 0
+    MeleeAttackRangeAdditionPercent: 0
+    DistanceAttackRangeAdditionPercent: 0
+    DistanceAttackDistanceAdditionPercent: 0
+    DodgeChancePercent: 0
+    BlockChancePercent: 0
+    MaxWeight: 0
+    MoveSpeed: 15
+  _effectsCombinations: []

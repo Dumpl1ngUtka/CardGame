@@ -129,12 +129,14 @@
     <Compile Include="Assets\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Units\UnitResists.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Cards\CardHolder.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\Effects\PieceEffect.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\PlayerState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\Scripts\Units\UnitClass.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\Effects\PieceEffectsHolder.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Cards\UICard.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
@@ -161,7 +163,6 @@
     <Compile Include="Assets\Scripts\Guild\UI\GuildUnitCardRenderer.cs" />
     <Compile Include="Assets\Scripts\Guild\Genetators\PokerCardsGenerator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
-    <Compile Include="Assets\Scripts\PassiveEffect.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\States\SelectUnitsStats.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player.cs" />
@@ -193,6 +194,8 @@
     <Compile Include="Assets\Scripts\Units\Items\Accessories\Accessory.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceAttributes.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+    <Compile Include="Assets\Scripts\Spells\AddEffectSpell.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\Effects\IEffectHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

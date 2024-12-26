@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Units
 {
-    [CreateAssetMenu(menuName = "Spells/InstantiatePiese")]
+    [CreateAssetMenu(menuName = "Config/Spells/InstantiatePiese")]
     public class InstantiatePiece : Spell
     {
         [SerializeField] private Piece _piecePrefab;

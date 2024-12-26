@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Battleground
 {
-    [CreateAssetMenu(menuName = "Spells/KineticBoom")]
+    [CreateAssetMenu(menuName = "Config/Spells/KineticBoom")]
     public class KineticBoom : Spell
     {
         public override Sprite TypeIcon => Resources.Load<Sprite>("Sprites/CardTypeIcons/Spell");
