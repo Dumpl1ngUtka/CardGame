@@ -87,12 +87,8 @@ namespace Battleground
                     }
                 }
             }
-            Debug.DrawLine(Piece.transform.position + Vector3.up, resultTarget);
-            return resultTarget;
             if ((maxDot < 0.65f) && (resultTarget != Vector3.zero))
             {
-                Debug.Log("ASDAda");
-
                 float maxDotResult = float.NegativeInfinity;
                 Vector3 bestDirection = CalculateBestDirection();
                 foreach (Vector3 point in points)
@@ -108,6 +104,7 @@ namespace Battleground
                     }
                 }
             }
+            return resultTarget;
         }
 
         public override float GetMetric(SituationAnalyzer situationAnalyzer)

@@ -91,7 +91,7 @@
     <Compile Include="Assets\Scripts\IDragable.cs" />
     <Compile Include="Assets\Scripts\MainMenu\UI\MenuTab.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
-    <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceAbilites\Fireball.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceAbilites\FireballAbility.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\Scripts\AI\SituationAnalyzer.cs" />
@@ -138,10 +138,12 @@
     <Compile Include="Assets\Scripts\Units\UnitClass.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\Effects\PieceEffectsHolder.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+    <Compile Include="Assets\Scripts\Spells\AddEffectSpell.cs" />
     <Compile Include="Assets\Scripts\Battleground\UI\Cards\UICard.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceStateMachine\PieceStates\DuckCowardRun.cs" />
+    <Compile Include="Assets\Scripts\Battleground\Piece\Effects\IEffectHolder.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player State Machine\States\ReleasingCard.cs" />
     <Compile Include="Assets\Scripts\Battleground\Damage\Damage.cs" />
     <Compile Include="Assets\Scripts\Spells\InstantiatePiece.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="Assets\Scripts\MainMenu\StateMachine\States\SelectUnitsStats.cs" />
     <Compile Include="Assets\Scripts\Battleground\Player\Player.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+    <Compile Include="Assets\Scripts\Battleground\AbilityAndSpellItems\Missile.cs" />
     <Compile Include="Assets\Scripts\Battleground\Enemy\Enemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceClothesController.cs" />
@@ -194,8 +197,6 @@
     <Compile Include="Assets\Scripts\Units\Items\Accessories\Accessory.cs" />
     <Compile Include="Assets\Scripts\Battleground\Piece\PieceAttributes.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
-    <Compile Include="Assets\Scripts\Spells\AddEffectSpell.cs" />
-    <Compile Include="Assets\Scripts\Battleground\Piece\Effects\IEffectHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

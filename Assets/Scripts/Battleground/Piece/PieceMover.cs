@@ -22,19 +22,29 @@ namespace Battleground
         public Rigidbody Rigidbody => _rigidbody;
 
         #region Direction
-        private Vector3 _direction;
-        private float _directionTimer;
+        private Vector3 _moveDirection;
+        private float _moveDirectionTimer;
         private Vector3 Direction
         {
-            get { return _direction; }
+            get { return _moveDirection; }
             set 
             {
-                _directionTimer = 0.5f;
-                _direction = value; 
+                _moveDirectionTimer = 0.5f;
+                _moveDirection = value; 
             }
         }
 
-        private Vector3 RotationDirection;
+        private Vector3 _rotationDirection;
+        private float _rotationDirectionTimer;
+        private Vector3 RotationDirection
+        {
+            get { return _rotationDirection; }
+            set
+            {
+                _rotationDirectionTimer = 0.5f;
+                _rotationDirection = value;
+            }
+        }
         #endregion
 
         public float SpeedFraction => _speed / _maxSpeed ;
@@ -49,6 +59,7 @@ namespace Battleground
         public void SetMoveDirection(Vector3 directoion)
         {
             Direction = directoion;
+            RotationDirection = directoion;
         }
 
         public void SetRotationDirection(Vector3 directoion)
@@ -69,10 +80,17 @@ namespace Battleground
 
         private void Update()
         {
-            if (_directionTimer > 0f)
-                _directionTimer -= Time.deltaTime;
+            if (_moveDirectionTimer > 0f)
+                _moveDirectionTimer -= Time.deltaTime;
             else
                 Direction = Vector3.zero;
+
+
+            if (_rotationDirectionTimer > 0f)
+                _rotationDirectionTimer -= Time.deltaTime;
+            else
+                RotationDirection = Vector3.zero;
+            
 
             if (_isNeedToRotate)
                 Rotate();
@@ -106,7 +124,7 @@ namespace Battleground
         {
             if (IsOnGround())
             {
-                var delta = Vector3.SignedAngle(transform.forward, Direction, Vector3.up);
+                var delta = Vector3.SignedAngle(transform.forward, RotationDirection, Vector3.up);
                 delta = Mathf.Clamp(delta, -_maxRotationSpeed, _maxRotationSpeed);
                 _rotationFraction = Mathf.Abs(delta) / _maxRotationSpeed;
                 var newPivotRotation = transform.rotation.eulerAngles + new Vector3(0, delta, 0) * Time.deltaTime;

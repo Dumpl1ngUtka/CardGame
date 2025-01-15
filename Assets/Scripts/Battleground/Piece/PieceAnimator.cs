@@ -77,7 +77,6 @@ namespace Battleground
             _locomotionMixer.SetInputWeight(0, (1 - speedFraction) * (1 - rotationFraction));
             _locomotionMixer.SetInputWeight(1, speedFraction);
             _locomotionMixer.SetInputWeight(2, rotationFraction * (1 - speedFraction));
-            Debug.Log(speedFraction + " + " + rotationFraction);
         }
 
         public void PlayOneShotAnimation(AnimationClip animationClip, float animationTime)

@@ -5,10 +5,12 @@ using UnityEngine;
 namespace Battleground
 {
     [CreateAssetMenu(menuName = "Ability/Fireball")]
-    public class Fireball : PieceAbility, IDamageAbility
+    public class FireballAbility : PieceAbility, IDamageAbility
     {
         [SerializeField] private float _attackDistance = 15f;
         [SerializeField] private float _damage = 7f;
+        [SerializeField] private Missile _prefab;
+
         public float Damage => _damage;
         public float DPM => Damage * (60 / (Cooldown + ReleaseTime));
         public override IAIWeightPoint Target => PriviousState.Target;
@@ -44,6 +46,8 @@ namespace Battleground
         public override void Exit()
         {
             base.Exit();
+            var missile = Instantiate(_prefab, Piece.transform.position + Vector3.up * 3, Quaternion.identity);
+            missile.AddForceToTarget(Target, 50f);
         }
     }
 }

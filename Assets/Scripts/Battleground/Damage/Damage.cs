@@ -3,21 +3,18 @@ namespace Battleground
     public class Damage
     {
         public float Value { get; private set; }
-        public IDamageable Target { get; private set; }
         public IDamageable Spellcaster { get; private set; }
         public bool IsCanBeBack => Spellcaster != null;
 
-        public Damage(float value, IDamageable target, IDamageable spellcaster)
+        public Damage(float value, IDamageable spellcaster)
         {
             Value = value;
-            Target = target;
             Spellcaster = spellcaster;
         }
 
-        public Damage(float value, IDamageable target)
+        public Damage(float value)
         {
             Value = value;
-            Target = target;
         }
     }
 }

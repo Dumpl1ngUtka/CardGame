@@ -80,6 +80,7 @@ namespace Battleground
         }
 
         public void MoveTo(Vector3 direction) => PieceMover.SetMoveDirection(direction);
+
         public void LookTo(Vector3 direction) => PieceMover.SetRotationDirection(direction);
     }
  }

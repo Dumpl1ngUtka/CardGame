@@ -10,6 +10,8 @@ namespace Battleground
         [Header("Sword Attack")]
         [SerializeField] private float _attackDistance = 3f;
         [SerializeField] private float _damage = 5f;
+        [SerializeField] private Vector3 _hitBoxPosition;
+        [SerializeField] private float _hitBoxSize;
         public float Damage => _damage;
         public float DPM => Damage * (60/(Cooldown + ReleaseTime));
         public override IAIWeightPoint Target => PriviousState.Target;
@@ -42,12 +44,22 @@ namespace Battleground
         public override void Update()
         {
             base.Update();
-            Piece.MoveTo(Target.Position - SelfWeight.Position);
+            Piece.LookTo(Target.Position - SelfWeight.Position);
         }
 
         public override void Exit()
         {
             base.Exit();
+            var damage = new Damage(_damage);
+            var colliders = Physics.OverlapSphere(Piece.transform.position + _hitBoxPosition, _hitBoxSize);
+            foreach (var collider in colliders)
+            {
+                if (collider.TryGetComponent(out IDamageable damageableObj))
+                {
+                    Debug.Log(damageableObj);
+                    damageableObj.ApplyDamage(damage);
+                }
+            }
         }
     }
 }
