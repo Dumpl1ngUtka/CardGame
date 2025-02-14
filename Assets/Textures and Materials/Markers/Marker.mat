@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ForcefieldShaderGraph
+  m_Name: Marker
   m_Shader: {fileID: -6465566751694194690, guid: 73155011f10771d4b8e6cebf3ef8f367,
     type: 3}
   m_ValidKeywords: []
@@ -54,7 +54,7 @@ Material:
     - _impactRippleAmplitude: 3
     - _impactRippleMaxRadius: 0.1
     - _impactRippleSpeed: 1.8
-    - _intersectionMultiplier: 3
+    - _intersectionMultiplier: 1
     - _intersectionOffset: 0.3
     - _rimGlowNoiseDensity: 4.99
     - _rimGlowNoiseSpeed: 1.95
@@ -67,7 +67,7 @@ Material:
     - _fillTiling: {r: 10, g: 10, b: 0, a: 0}
     - _impactPoint: {r: 0, g: 0, b: 0, a: 0}
     - _impactRippleDirection: {r: 0, g: 0, b: 1, a: 0}
-    - _rimColor: {r: 4.759381, g: 0.076021865, b: 0, a: 0}
+    - _rimColor: {r: 6.3541465, g: 6.3541465, b: 6.3541465, a: 0}
     - _rimPower: {r: 1.5, g: 5, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7586602292427004285

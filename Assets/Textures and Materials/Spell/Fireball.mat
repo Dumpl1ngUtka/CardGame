@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1457906330006955224
+--- !u!114 &-6729560973835572695
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BrickLine_LP_DefaultMaterial_BaseMap
-  m_Shader: {fileID: -6465566751694194690, guid: a4aec2d89ff109847a39df6cf26a33e5,
+  m_Name: Fireball
+  m_Shader: {fileID: -6465566751694194690, guid: b6a58f1a122e6e440b1216180aae8898,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -35,11 +35,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 092983fb40731dc498a928da87e495a3, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 5be3844b8be354349bdd8b4a6b7187e5, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -58,20 +58,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _EmmisTex:
+    - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f6d83635a56dc3544b8e5e557ca134d4, type: 3}
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: 657ec88e1880d6f459fc6be6a862a4df, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 427fa60e076c59f4a96964a1d85a29da, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: b69ab949b012035489b77ffe54799250, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -100,14 +96,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - HardEdgeAlpha: 0.452
-    - HardEdgeFalloff: 0
-    - HardEdgeSize: 0.728
-    - SoftEdgeAlpha: 0.359
-    - SoftEdgeFalloff: 0
-    - SoftEdgeSize: 30
     - _AlphaClip: 0
     - _Blend: 0
+    - _BlendOp: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -117,18 +108,22 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _Float: 0
+    - _FresnelPower: 4.89
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _LightScalar: 1
+    - _IntersectionDepth: 13.5
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _Offset: -1.39
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RampLevels: 2
     - _ReceiveShadows: 1
-    - _Smoothness: 0.739
+    - _SampleGI: 0
+    - _ScrollSpeed: 1
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -136,13 +131,12 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - HardEdgeColor: {r: 0, g: 0, b: 0, a: 0}
-    - SoftEdgeColor: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 1, g: 0, b: 0, a: 1}
+    - _Emission: {r: 2.007547, g: 0.045633767, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HighColor: {r: 2, g: 2, b: 2, a: 0}
-    - _LowColor: {r: 0.8408964, g: 0.8408964, b: 0.8408964, a: 0}
+    - _MainColor: {r: 1, g: 0, b: 0, a: 0}
+    - _ScrollSpeed: {r: 0.6, g: 0.6, b: 0, a: 0}
+    - _SecondColor: {r: 1, g: 0.76204216, b: 0.3679244, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
