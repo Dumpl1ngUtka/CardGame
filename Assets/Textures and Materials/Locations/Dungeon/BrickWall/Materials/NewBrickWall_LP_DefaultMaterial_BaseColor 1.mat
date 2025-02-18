@@ -123,13 +123,13 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _LightScalar: 5.62
+    - _LightScalar: 0.75
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RampLevels: 3
+    - _RampLevels: 4
     - _ReceiveShadows: 1
     - _Smoothness: 0.739
     - _SmoothnessTextureChannel: 0

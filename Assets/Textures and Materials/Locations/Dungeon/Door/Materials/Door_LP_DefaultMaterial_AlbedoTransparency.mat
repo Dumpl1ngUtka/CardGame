@@ -112,7 +112,7 @@ Material:
     - HardEdgeSize: 0
     - SoftEdgeAlpha: 0
     - SoftEdgeFalloff: 0
-    - SoftEdgeSize: 28
+    - SoftEdgeSize: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -130,7 +130,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _LightScalar: 0
+    - _LightScalar: 1.5
     - _Max: 1
     - _Metallic: 0
     - _Min: 0.22
