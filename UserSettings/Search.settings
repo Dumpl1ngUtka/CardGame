@@ -11,6 +11,9 @@ scopes = {
 	"last_search.2138236A" = "torch"
 	"OpenInspectorPreview.2138236A" = "0"
 	"currentGroup.2138236A" = "asset"
+	"last_search.FD7A1EDD" = "ref=\"Assets/Shaders\""
+	"OpenInspectorPreview.FD7A1EDD" = "0"
+	"currentGroup.FD7A1EDD" = "all"
 }
 providers = {
 	adb = {

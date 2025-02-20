@@ -40,8 +40,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorThreshold: 10
-    - _NormalThreshold: 1
+    - _NormalThreshold: 0.6
     - _OVERLAY: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _VAL: 9.14
     m_Colors:
     - _OutlineColor: {r: 0.32156864, g: 0.2627451, b: 0.2509804, a: 1}
