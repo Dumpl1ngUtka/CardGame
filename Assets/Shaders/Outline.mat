@@ -40,7 +40,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorThreshold: 10
-    - _NormalThreshold: 0.6
+    - _NormalThreshold: 1.61
     - _OVERLAY: 1
     - _QueueControl: 0
     - _QueueOffset: 0

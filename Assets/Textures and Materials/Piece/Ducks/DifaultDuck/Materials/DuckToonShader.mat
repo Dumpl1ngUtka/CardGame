@@ -48,10 +48,10 @@ Material:
     m_Ints: []
     m_Floats:
     - LIGHTMAP: 1
-    - _LightProbeContribution: 3.5
-    - _OutlineDepthSensitivity: 0
+    - _LightProbeContribution: 5
+    - _OutlineDepthSensitivity: 1
     - _OutlineNormalsSensitivity: 0
-    - _OutlineThickness: 1
+    - _OutlineThickness: 2
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 1

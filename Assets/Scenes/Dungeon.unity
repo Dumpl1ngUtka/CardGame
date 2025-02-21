@@ -12297,7 +12297,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -12786,26 +12786,6 @@ PrefabInstance:
     - target: {fileID: 3901264051773717433, guid: 2fff112702f53ff4985114ddecad761e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7088952771029502532, guid: 2fff112702f53ff4985114ddecad761e,
-        type: 3}
-      propertyPath: m_Maskable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7088952771029502532, guid: 2fff112702f53ff4985114ddecad761e,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 2100000, guid: 24759c35710e09b4ea17c366219c0721, type: 2}
-    - target: {fileID: 7088952771029502532, guid: 2fff112702f53ff4985114ddecad761e,
-        type: 3}
-      propertyPath: m_FillAmount
-      value: 0.328
-      objectReference: {fileID: 0}
-    - target: {fileID: 7088952771029502532, guid: 2fff112702f53ff4985114ddecad761e,
-        type: 3}
-      propertyPath: m_PreserveAspect
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
