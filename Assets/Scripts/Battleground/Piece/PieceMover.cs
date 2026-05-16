@@ -115,7 +115,7 @@ namespace Battleground
         {
             if (IsOnGround())
             {
-                if (_currentMaxSpeed - _rigidbody.velocity.magnitude > 0)
+                if (_currentMaxSpeed - _rigidbody.linearVelocity.magnitude > 0)
                     _rigidbody.AddForce(transform.forward, ForceMode.VelocityChange);
             }
         }

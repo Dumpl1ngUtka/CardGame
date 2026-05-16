@@ -48,7 +48,7 @@ namespace Battleground
                 InputVerticalMove();
             RotateCamera();
             SetPivotPosition();
-            _rigidbody.velocity = _velocity * 100;
+            _rigidbody.linearVelocity = _velocity * 100;
         }
 
         private void RotateCamera()
