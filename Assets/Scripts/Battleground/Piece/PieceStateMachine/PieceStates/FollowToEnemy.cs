@@ -51,7 +51,7 @@ namespace Battleground
             else
             {
                 _timer = 0f;
-                if (Target != null)
+                if (Target != null && Target.IsValid)
                 {
                     var direction = Target.Position - SelfWeight.Position;
                     Piece.MoveTo(direction);

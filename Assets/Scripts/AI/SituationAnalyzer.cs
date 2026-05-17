@@ -45,6 +45,10 @@ namespace AI
             _enemyPoints.Clear();
             _alliesPoints.Clear();
             _groupedEnemyPoints.Clear();
+            _closestEnemy = null;
+            _strongestEnemy = null;
+            _weakestEnemy = null;
+
             var minDistance = _checkSphereRadius;
             var maxDanger = 0f;
             var minDanger = float.MaxValue;
@@ -52,7 +56,7 @@ namespace AI
             {
                 if (collider.TryGetComponent<IAIWeightPoint>(out var weightPoint))
                 {
-                    if (weightPoint == _selfWeight)
+                    if (!weightPoint.IsValid || weightPoint == _selfWeight)
                         continue;
 
                     if (weightPoint.TeamID == _selfWeight.TeamID)
@@ -96,7 +100,7 @@ namespace AI
             {
                 if (collider.TryGetComponent<IAIWeightPoint>(out var weightPoint))
                 {
-                    if (weightPoint != _selfWeight && weightPoint.TeamID == _selfWeight.TeamID) 
+                    if (weightPoint.IsValid && weightPoint != _selfWeight && weightPoint.TeamID == _selfWeight.TeamID) 
                         allies.Add(weightPoint);
                 }
             }
@@ -108,7 +112,8 @@ namespace AI
             var groupedPoints = new List<IAIWeightPoint>();
 
             foreach (var point in points)
-                groupedPoints.Add(GetInfluenceOfGroupOnPoint(point, points));
+                if (point.IsValid)
+                    groupedPoints.Add(GetInfluenceOfGroupOnPoint(point, points));
 
             return groupedPoints;
         }
@@ -118,7 +123,7 @@ namespace AI
             var groupedPoint = new AIWeightPoint(point);
             foreach (var otherPoint in group)
             {
-                if (otherPoint == point)
+                if (!otherPoint.IsValid || otherPoint == point)
                     continue;
 
                 var distance = Vector3.Distance(point.Position, otherPoint.Position);
@@ -147,6 +152,8 @@ namespace AI
         private float _missingHealth;
 
         private float _currentHealth;
+
+        public bool IsValid => true;
 
         public Transform Transform => _transform;
 

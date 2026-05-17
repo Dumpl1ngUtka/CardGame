@@ -21,12 +21,12 @@ namespace Battleground
         {
             if (!IsReadyToUse)
                 return 0f;
-            if (situationAnalyzer.ClosestEnemy == null)
+            if (situationAnalyzer.ClosestEnemy == null || !situationAnalyzer.ClosestEnemy.IsValid)
                 return 0f;
             var distanceToTarget = Vector3.Distance(situationAnalyzer.ClosestEnemy.Position, situationAnalyzer.SelfWeight.Position);
             if (distanceToTarget < _attackDistance)
             {
-                return Mathf.Lerp(0.5f, 1.5f, distanceToTarget/ _attackDistance);
+                return 100f;
             }
             return 0f;
         }
@@ -40,13 +40,17 @@ namespace Battleground
         public override void Update()
         {
             base.Update();
-            Piece.LookTo(Target.Position - SelfWeight.Position);
+            if (Target != null && Target.IsValid)
+            {
+                Piece.LookTo(Target.Position - SelfWeight.Position);
+            }
         }
 
         public override void Exit()
         {
             base.Exit();
             var missile = Instantiate(_prefab, Piece.transform.position + Vector3.up * 3, Quaternion.identity);
+            missile.Init(_damage);
             missile.AddForceToTarget(Target, 50f);
         }
     }

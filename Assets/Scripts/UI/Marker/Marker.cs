@@ -1,5 +1,3 @@
-using Battleground;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace UI.Marker

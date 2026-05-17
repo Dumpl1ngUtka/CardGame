@@ -9,6 +9,9 @@ namespace Battleground
         [SerializeField] private float _dangerWeight;
         [SerializeField] private float _damagePerMinute;
         [SerializeField] private float _chargedSkillsDamage;
+
+        public bool IsValid => this != null;
+
         public Transform Transform => transform;
 
         public Vector3 Position => transform.position;

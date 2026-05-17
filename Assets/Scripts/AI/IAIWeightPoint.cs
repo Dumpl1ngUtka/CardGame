@@ -6,6 +6,8 @@ namespace AI
 {
     public interface IAIWeightPoint
     {
+        public bool IsValid { get; }
+
         #region Base
         public Transform Transform { get; }
         public Vector3 Position { get; }

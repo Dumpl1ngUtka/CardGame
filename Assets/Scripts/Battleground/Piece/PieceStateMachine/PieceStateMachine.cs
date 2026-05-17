@@ -15,14 +15,15 @@ namespace Battleground
         public SituationAnalyzer SituationAnalyzer {get; private set;}
 
         #region WeightPoint
-
+        public bool IsValid => this != null && Piece != null && Piece.Health != null && !Piece.Health.IsDied;
         public Transform Transform => Piece.transform;
-        public Vector3 Position => Piece.transform.position;
+        public Vector3 Position => IsValid ? Piece.transform.position : Vector3.zero;
         public int TeamID => Piece.Player.TeamID;
         public float DangerWeight
         {
             get 
             {
+                if (!IsValid) return 0;
                 var value = DamagePerMinute;
                 value *= Mathf.Sqrt(CurrentHealth / Piece.Health.MaxHealth);
                 value *= (ChargedSkillsDamage / DamagePerMinute) / 2 + 0.5f;
@@ -33,8 +34,8 @@ namespace Battleground
         }
         public float ChargedSkillsDamage => DamageAbilites.Where(x => x.Ability.IsReadyToUse).Sum(x => x.Damage);
         public float DamagePerMinute => DamageAbilites.Sum(x => x.DPM);
-        public float MissingHealth => Piece.Health.MaxHealth - Piece.Health.CurrentHealth;
-        public float CurrentHealth => Piece.Health.CurrentHealth;
+        public float MissingHealth => IsValid ? Piece.Health.MaxHealth - Piece.Health.CurrentHealth : 0;
+        public float CurrentHealth => IsValid ? Piece.Health.CurrentHealth : 0;
         #endregion
 
         #region Abilites
@@ -71,8 +72,8 @@ namespace Battleground
 
         public void Update()
         {
-            _currentState.Update();
             SituationAnalyzer.Update();
+            _currentState.Update();
         }
 
         public void ChangeState(PieceState state)

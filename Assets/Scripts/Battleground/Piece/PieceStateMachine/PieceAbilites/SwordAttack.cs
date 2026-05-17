@@ -24,13 +24,13 @@ namespace Battleground
             {
                 return 0f;
             }
-            if (situationAnalyzer.ClosestEnemy == null)
+            if (situationAnalyzer.ClosestEnemy == null || !situationAnalyzer.ClosestEnemy.IsValid)
             {
                 return 0f;
             }
             if (Vector3.Distance(situationAnalyzer.ClosestEnemy.Position, situationAnalyzer.SelfWeight.Position) < _attackDistance)
             {
-                return 3f;
+                return 100f;
             }
             return 0f;
         }
@@ -44,14 +44,17 @@ namespace Battleground
         public override void Update()
         {
             base.Update();
-            Piece.LookTo(Target.Position - SelfWeight.Position);
+            if (Target != null && Target.IsValid)
+            {
+                Piece.LookTo(Target.Position - SelfWeight.Position);
+            }
         }
 
         public override void Exit()
         {
             base.Exit();
             var damage = new Damage(_damage);
-            var colliders = Physics.OverlapSphere(Piece.transform.position + _hitBoxPosition, _hitBoxSize);
+            var colliders = Physics.OverlapSphere(Piece.transform.TransformPoint(_hitBoxPosition), _hitBoxSize);
             foreach (var collider in colliders)
             {
                 if (collider.TryGetComponent(out IDamageable damageableObj))
